@@ -1,0 +1,50 @@
+---
+# tasks file for instantiate-trex-role
+- name: Load a variable file based on the OS type, or a default if not found. Using free-form to specify the file.
+  include_vars: "{{ lookup('first_found', dependencies) }}"
+  vars:
+    dependencies:
+      files:
+        - "{{ ansible_facts['os_family'] }}.yml"
+        - default.yml
+      paths:
+        - 'vars'
+
+- name: Install the packages for this role
+  ansible.builtin.package:
+    name:
+      - "{{ git }}"
+      - "{{ wget }}"
+      - "{{ pciutils }}"
+    state: present
+
+# wget --no-cache https://trex-tgn.cisco.com/trex/release/latest  --no-check-certificate
+# - name: Download trex
+#   get_url:
+#     url: https://trex-tgn.cisco.com/trex/release/latest
+#     dest: /opt/trex
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /opt/trex
+    state: directory
+    mode: '0644'
+
+- name: Unarchive a file that needs to be downloaded (added in 2.0)
+  ansible.builtin.unarchive:
+    src: https://trex-tgn.cisco.com/trex/release/v2.90.tar.gz
+    # creates: /opt/trex
+    dest: /opt/trex
+    remote_src: yes
+    validate_certs: no
+
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: /opt/trex/v2.90/cfg/simple_cfg.yaml
+    dest: /etc/trex_cfg.yaml
+    remote_src: yes
+    mode: '0644'
+
+- name: Molecule Hello World!
+  debug:
+    msg: Hello, World!
