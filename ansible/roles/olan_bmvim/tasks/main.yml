@@ -1,0 +1,37 @@
+---
+# tasks file for olan_bmvim
+- name: Load a variable file based on the OS type, or a default if not found. Using free-form to specify the file.
+  include_vars: "{{ lookup('first_found', dependencies) }}"
+  vars:
+    dependencies:
+      files:
+        - common.yml
+      paths:
+        - 'vars'
+
+- name: Load a variable file based on the OS type, or a default if not found. Using free-form to specify the file.
+  include_vars: "{{ lookup('first_found', dependencies) }}"
+  vars:
+    dependencies:
+      files:
+        - "{{ ansible_facts['os_family'] }}.yml"
+        - default.yml
+      paths:
+        - 'vars'
+
+- name: Install the packages for this role
+  ansible.builtin.package:
+    name:
+      - "{{ git }}"
+      - "{{ wget }}"
+      - "{{ linux_tools_common }}"
+      - "{{ linux_tools_generic }}"
+      - "{{ linux_generic }}"
+      - "{{ linux_ver_tools }}"
+    state: present
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /usr/lib
+    state: directory
+    mode: '0644'

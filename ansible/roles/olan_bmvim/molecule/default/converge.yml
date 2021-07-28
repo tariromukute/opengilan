@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include olan_bmvim"
+      include_role:
+        name: "olan_bmvim"
