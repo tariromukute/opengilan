@@ -30,17 +30,15 @@
     state: directory
     mode: '0644'
 
-- name: Unarchive a file that needs to be downloaded (added in 2.0)
-  ansible.builtin.unarchive:
-    src: https://trex-tgn.cisco.com/trex/release/v2.90.tar.gz
-    # creates: /opt/trex
-    dest: /opt/trex
-    remote_src: yes
-    validate_certs: no
+- name: Get cisco trex from copy repo
+  ansible.builtin.git:
+    repo: 'https://github.com/tariromukute/olan_cisco_trex.git'
+    dest: /opt/olan_trex
+  become: yes
 
 - name: Copy file with owner and permissions
   ansible.builtin.copy:
-    src: /opt/trex/v2.90/cfg/simple_cfg.yaml
+    src: /opt/olan_trex/trex/cfg/simple_cfg.yaml
     dest: /etc/trex_cfg.yaml
     remote_src: yes
     mode: '0644'
