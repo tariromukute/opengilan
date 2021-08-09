@@ -1,0 +1,2 @@
+# - name: Update yum packages
+#   ansible.builtin.command: yum update -y

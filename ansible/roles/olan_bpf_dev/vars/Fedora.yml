@@ -1,0 +1,12 @@
+bpf_compile_packages:
+  - clang 
+  - llvm 
+  - elfutils-libelf-devel
+  - libpcap-devel
+  - perf
+  - kernel-headers
+libbpf_compile_packages:
+  - zlib
+  - elfutils-libelf-devel
+bpftool: bpftool
+sudo: wheel

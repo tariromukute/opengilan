@@ -1,0 +1,27 @@
+
+- name: Load a variable file based on the OS type, or a default if not found. Using free-form to specify the file.
+  include_vars: "{{ lookup('first_found', dependencies) }}"
+  vars:
+    dependencies:
+      files:
+        - common.yml
+      paths:
+        - 'vars'
+
+- name: Load a variable file based on the OS type, or a default if not found. Using free-form to specify the file.
+  include_vars: "{{ lookup('first_found', dependencies) }}"
+  vars:
+    dependencies:
+      files:
+        - "{{ ansible_facts['distribution'] }}.yml"
+        - default.yml
+      paths:
+        - 'vars'
+        
+- name: Create a user for installations and configurations with an 2048-bit SSH  ~{{ user }}/.ssh/id_rsa
+  ansible.builtin.user:
+    name: "{{ user }}"
+    groups: "{{ sudo }}"
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa

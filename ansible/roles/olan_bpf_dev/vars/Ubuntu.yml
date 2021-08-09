@@ -1,0 +1,13 @@
+bpf_compile_packages:
+  - clang
+  - llvm
+  - libelf-dev
+  - libpcap-dev
+  - gcc-multilib
+  - build-essential
+  - linux-headers-{{ansible_kernel}}
+libbpf_compile_packages:
+  - zlib
+  - libelf-dev
+bpftool: bpftool
+sudo: sudo
