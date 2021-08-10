@@ -1,2 +1,6 @@
 # - name: Update yum packages
 #   ansible.builtin.command: yum update -y
+
+- name: Update packages
+  ansible.builtin.command: apt update -y
+  become: yes

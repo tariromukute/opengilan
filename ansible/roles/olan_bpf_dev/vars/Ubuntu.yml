@@ -7,7 +7,7 @@ bpf_compile_packages:
   - build-essential
   - linux-headers-{{ansible_kernel}}
 libbpf_compile_packages:
-  - zlib
+  - zlib1g-dev
   - libelf-dev
 bpftool: bpftool
 sudo: sudo

@@ -17,15 +17,17 @@
       paths:
         - 'vars'
 
-- name: Install the packages for this role
-  ansible.builtin.package:
-    name:
-      - "{{ bpftool }}"
-    state: present
+# - name: Install the packages for this role
+#   ansible.builtin.package:
+#     name:
+#       - "{{ bpftool }}"
+#     state: present
+#   become: yes
 
 - name: Install bpftrace
   ansible.builtin.package:
     name:
       - "{{ bpftrace }}"
     state: present
+  become: yes
 

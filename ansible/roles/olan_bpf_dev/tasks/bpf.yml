@@ -21,3 +21,4 @@
   ansible.builtin.package:
     name: "{{ bpf_compile_packages }}"
     state: present
+  become: yes

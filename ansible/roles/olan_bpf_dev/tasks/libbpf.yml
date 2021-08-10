@@ -21,15 +21,18 @@
   ansible.builtin.package:
     name: "{{ libbpf_compile_packages }}"
     state: present
+  become: yes
 
 - name: Get libbpf source code from git
   ansible.builtin.git:
     repo: 'https://github.com/libbpf/libbpf.git'
     dest: /home/{{ user }}/libbpf
+  become: yes
 
 - name: Build the libbpf target
   community.general.make:
     chdir: /home/{{ user }}/libbpf/src
+  become: yes
 
 - name: Install libbpf headers
   community.general.make:

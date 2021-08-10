@@ -2,3 +2,4 @@
   ansible.builtin.git:
     repo: 'https://github.com/tariromukute/tpstat.git'
     dest: /home/{{ user }}/tpstat
+  become: yes
