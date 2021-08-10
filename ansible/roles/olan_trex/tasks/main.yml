@@ -24,11 +24,11 @@
 #     url: https://trex-tgn.cisco.com/trex/release/latest
 #     dest: /opt/trex
 
-- name: Create a directory if it does not exist
-  ansible.builtin.file:
-    path: /opt/trex
-    state: directory
-    mode: '0644'
+# - name: Create a directory if it does not exist
+#   ansible.builtin.file:
+#     path: /opt/trex
+#     state: directory
+#     mode: '0644'
 
 - name: Get cisco trex from copy repo
   ansible.builtin.git:
