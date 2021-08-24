@@ -1,0 +1,9 @@
+- hosts: localhost
+  tasks:
+    - name: Test that my module works
+      vnfd_tosca:
+        vnfd: files/vnfd_import_multi_line.yml
+        target: aws
+      register: result
+
+    - debug: var=result
