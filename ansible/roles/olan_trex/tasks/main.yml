@@ -1,4 +1,13 @@
 ---
+- name: Load a variable file based on the OS type, or a default if not found. Using free-form to specify the file.
+  include_vars: "{{ lookup('first_found', dependencies) }}"
+  vars:
+    dependencies:
+      files:
+        - common.yml
+      paths:
+        - 'vars'
+
 # tasks file for instantiate role
 - name: Load a variable file based on the OS type, or a default if not found. Using free-form to specify the file.
   include_vars: "{{ lookup('first_found', dependencies) }}"
@@ -16,6 +25,7 @@
       - "{{ git }}"
       - "{{ wget }}"
       - "{{ pciutils }}"
+      - "{{ nettools }}"
     state: present
 
 # wget --no-cache https://trex-tgn.cisco.com/trex/release/latest  --no-check-certificate
@@ -42,6 +52,7 @@
     dest: /etc/trex_cfg.yaml
     remote_src: yes
     mode: '0644'
+  become: yes
 
 - name: Molecule Hello World!
   debug:

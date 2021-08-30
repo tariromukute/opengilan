@@ -2,8 +2,8 @@
 - name: Run pre tasks
   include: pre.yml
 
-- name: create user
-  include: user.yml
+# - name: create user
+#   include: user.yml
 
 - name: install bpf compile packages
   include: bpf.yml

@@ -48,3 +48,22 @@
       PKG_CONFIG_PATH: /build/root/lib64/pkgconfig
       DESTDIR: /build/root
   become: yes
+
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: /home/{{ user }}/libbpf/src/libbpf.so
+    dest:  /usr/lib/ 
+    remote_src: yes
+  become: yes
+
+- name: Load module
+  ansible.builtin.command: ldconfig -v -n /usr/lib
+  args:
+    chdir: /home/{{ user }}/libbpf/src
+  become: yes
+
+- name: Load module
+  ansible.builtin.command: ldconfig
+  args:
+    chdir: /home/{{ user }}/libbpf/src
+  become: yes

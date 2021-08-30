@@ -14,3 +14,20 @@
     - server
   tasks:
   - action: ping
+
+- hosts:
+  - client
+  - server
+  roles:
+    - olan_user
+
+- hosts:
+  - client
+  roles:
+    - olan_trex
+
+- hosts:
+  - server
+  - client
+  roles:
+    - olan_bpf_dev
