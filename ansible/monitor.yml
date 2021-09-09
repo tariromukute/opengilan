@@ -1,0 +1,31 @@
+
+- hosts:
+  - client
+  tasks:
+  - name: Include task list in play
+    include: plays/sender-scripts.yml
+
+- hosts:
+  - server
+  tasks:
+  - name: Include task list in play
+    include: plays/receiver-scripts.yml
+
+- hosts:
+  - server
+  - client
+  vars:
+    cpu: 169
+    bbandwidth: 1000
+    bduration: 60
+    time: 10
+    
+  tasks:
+  - name: Include task list in play
+    include: plays/send-receive.yml
+    vars:
+      bandwidth: "{{ bbandwidth + item|int *200 }}m"
+      duration: "{{ bduration }}"
+      attempt: "{{ item }}"
+      aduration: "{{ bduration + 20 }}"
+    with_sequence: start=1 end=50

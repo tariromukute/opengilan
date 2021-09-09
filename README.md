@@ -44,3 +44,9 @@ Host bastion
 # test connection through bastion host
 ssh -o ProxyCommand="ssh -W %h:%p -q bastion" -i ~/.ssh/chpc user@10.x.x.x
 ```
+
+## Run playbook
+
+```bash
+ansible-playbook -i inventory.ini collect.yml -K
+```

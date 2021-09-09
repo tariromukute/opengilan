@@ -1,0 +1,21 @@
+
+- name: Creating a file with content
+  copy:
+    dest: "/home/user/trace.sh"
+    content: |
+      bpftrace tpstat/bpftrace/net/biostack.bt
+    mode: +x
+
+- name: Creating a file with content
+  copy:
+    dest: "/home/user/monitor.sh"
+    content: |
+      taskset -c $1 openssl speed -seconds $2 aes-256-cbc
+    mode: +x
+
+- name: Create script to start iperf
+  copy:
+    dest: "/home/user/traffic.sh"
+    content: |
+      iperf -s -u
+    mode: +x

@@ -1,0 +1,20 @@
+- name: Creating a file with content
+  copy:
+    dest: "/home/user/trace.sh"
+    content: |
+      echo 'Hello'
+    mode: +x
+
+- name: Creating a file with content
+  copy:
+    dest: "/home/user/monitor.sh"
+    content: |
+      taskset -c $1 openssl speed -seconds $2 aes-256-cbc
+    mode: +x
+
+- name: Create script to start iperf
+  copy:
+    dest: "/home/user/traffic.sh"
+    content: |
+      iperf -c 10.0.0.2 -u -b $1 -t $2
+    mode: +x
