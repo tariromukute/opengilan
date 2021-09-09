@@ -85,7 +85,7 @@
 - name: "Save results from tracing on local machine"
   ansible.builtin.fetch:
     src: ~/bpftrace-{{ inventory_hostname }}
-    dest: results/bpftrace/{{ inventory_hostname }}-{{ bandwidth }}-{{ attempt }}.out
+    dest: .results/bpftrace/{{ inventory_hostname }}-{{ bandwidth }}-{{ attempt }}.out
     flat: yes
 
 - name: Get results from monitoring (openssl)
@@ -103,7 +103,7 @@
 - name: "Save results from tracing on local machine"
   ansible.builtin.fetch:
     src: ~/openssl-{{ inventory_hostname }}
-    dest: results/openssl/{{ inventory_hostname }}-{{ bandwidth }}-{{ attempt }}.out
+    dest: .results/openssl/{{ inventory_hostname }}-{{ bandwidth }}-{{ attempt }}.out
     flat: yes
 
 - name: Get results from traffic (iperf)
@@ -121,6 +121,6 @@
 - name: "Save results from traffic (iperf) on local machine"
   ansible.builtin.fetch:
     src: ~/iperf-{{ inventory_hostname }}
-    dest: results/iperf/{{ inventory_hostname }}-{{ bandwidth }}-{{ attempt }}.out
+    dest: .results/iperf/{{ inventory_hostname }}-{{ bandwidth }}-{{ attempt }}.out
     flat: yes
 # ====================================================================

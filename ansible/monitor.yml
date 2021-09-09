@@ -28,4 +28,4 @@
       duration: "{{ bduration }}"
       attempt: "{{ item }}"
       aduration: "{{ bduration + 20 }}"
-    with_sequence: start=1 end=50
+    with_sequence: start=1 end=5
