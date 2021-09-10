@@ -1,0 +1,537 @@
+Attaching 12 probes...
+Tracing latency of network stack funtions. Hit Ctrl-C to end.
+
+
+
+@q4[openssl]: count 4773, average 971, total 4634924
+@q4[ksoftirqd/169]: count 13388, average 1330, total 17809218
+@q4[kworker/169:1]: count 19, average 2102, total 39945
+
+@q5[ksoftirqd/169]: count 106383, average 433, total 46107032
+@q5[openssl]: count 37296, average 434, total 16213831
+@q5[kworker/169:1]: count 141, average 524, total 73901
+
+@uc: count 5594, average 20949, total 117190637
+
+
+
+
+@q4[ksoftirqd/169]: count 20942, average 1278, total 26768283
+
+@q5[ksoftirqd/169]: count 166538, average 431, total 71813479
+
+@uc: count 6119, average 3633, total 22234362
+
+
+
+
+@q4[ksoftirqd/169]: count 20551, average 1273, total 26171323
+
+@q5[ksoftirqd/169]: count 163398, average 430, total 70332533
+
+@uc: count 3106, average 7353, total 22841120
+
+
+
+
+@q4[ksoftirqd/169]: count 20536, average 1272, total 26122223
+
+@q5[ksoftirqd/169]: count 163327, average 431, total 70462852
+
+@uc: count 6800, average 4782, total 32521921
+
+
+
+
+@q4[ksoftirqd/169]: count 21048, average 1261, total 26555199
+
+@q5[ksoftirqd/169]: count 167399, average 429, total 71946904
+
+@uc: count 6327, average 3653, total 23113310
+
+
+
+
+@q4[ksoftirqd/169]: count 20726, average 1276, total 26465054
+
+@q5[ksoftirqd/169]: count 164894, average 430, total 70992163
+
+@uc: count 4608, average 5399, total 24880501
+
+
+
+
+@q4[ksoftirqd/169]: count 20683, average 1277, total 26420142
+
+@q5[ksoftirqd/169]: count 164490, average 431, total 70956108
+
+@uc: count 7241, average 2136, total 15468715
+
+
+
+
+@q4[ksoftirqd/169]: count 20981, average 1277, total 26804616
+
+@q5[ksoftirqd/169]: count 166927, average 430, total 71920452
+
+@uc: count 5186, average 5011, total 25989702
+
+
+
+
+@q4[ksoftirqd/169]: count 41528, average 629, total 26144754
+
+@q5[ksoftirqd/169]: count 163408, average 430, total 70287610
+
+@uc: count 8022, average 3166, total 25400185
+
+
+
+
+@q4[ksoftirqd/169]: count 20960, average 1272, total 26677441
+
+@q5[ksoftirqd/169]: count 166692, average 430, total 71744808
+
+@uc: count 6863, average 2733, total 18761333
+
+
+
+
+@q4[ksoftirqd/169]: count 20739, average 1278, total 26505760
+
+@q5[ksoftirqd/169]: count 165007, average 430, total 71099417
+
+@uc: count 5305, average 5773, total 30627366
+
+
+
+
+@q4[ksoftirqd/169]: count 20347, average 1275, total 25956948
+
+@q5[ksoftirqd/169]: count 161875, average 431, total 69849144
+
+@uc: count 7063, average 4511, total 31865518
+
+
+
+
+@q4[ksoftirqd/169]: count 20730, average 1281, total 26564513
+
+@q5[ksoftirqd/169]: count 164862, average 431, total 71104593
+
+@uc: count 5784, average 3483, total 20148357
+
+
+
+
+@q4[ksoftirqd/169]: count 20670, average 1275, total 26362009
+
+@q5[ksoftirqd/169]: count 164457, average 431, total 70929141
+
+@uc: count 6147, average 2768, total 17016100
+
+
+
+
+@q4[ksoftirqd/169]: count 20802, average 1278, total 26588586
+
+@q5[ksoftirqd/169]: count 165434, average 431, total 71346563
+
+@uc: count 5651, average 2697, total 15242731
+
+
+
+
+@q4[ksoftirqd/169]: count 20493, average 1275, total 26144917
+
+@q5[ksoftirqd/169]: count 162994, average 431, total 70351570
+
+@uc: count 7025, average 2305, total 16198893
+
+
+
+
+@q4[ksoftirqd/169]: count 20511, average 1282, total 26315170
+
+@q5[ksoftirqd/169]: count 163152, average 431, total 70330420
+
+@uc: count 4961, average 3458, total 17156747
+
+
+
+
+@q4[ksoftirqd/169]: count 20650, average 1276, total 26366734
+
+@q5[ksoftirqd/169]: count 327386, average 217, total 71273398
+
+@uc: count 5108, average 2882, total 14725743
+
+
+
+
+@q4[ksoftirqd/169]: count 20536, average 1268, total 26042541
+
+@q5[ksoftirqd/169]: count 163399, average 430, total 70415629
+
+@uc: count 5326, average 3017, total 16069931
+
+
+
+
+@q4[ksoftirqd/169]: count 20783, average 1269, total 26387669
+
+@q5[ksoftirqd/169]: count 165283, average 431, total 71309314
+
+@uc: count 5583, average 2508, total 14006427
+
+
+
+
+@q4[ksoftirqd/169]: count 20512, average 1272, total 26101887
+
+@q5[ksoftirqd/169]: count 163137, average 430, total 70163290
+
+@uc: count 7168, average 2687, total 19264172
+
+
+
+
+@q4[ksoftirqd/169]: count 20480, average 1282, total 26270275
+
+@q5[ksoftirqd/169]: count 162881, average 432, total 70430844
+
+@uc: count 5952, average 4440, total 26429159
+
+
+
+
+@q4[ksoftirqd/169]: count 21227, average 1273, total 27024094
+
+@q5[ksoftirqd/169]: count 168888, average 430, total 72670774
+
+@uc: count 3894, average 14559, total 56692896
+
+
+
+
+@q4[ksoftirqd/169]: count 20765, average 1280, total 26597614
+
+@q5[ksoftirqd/169]: count 165139, average 431, total 71277842
+
+@uc: count 6714, average 2480, total 16654787
+
+
+
+
+@q4[ksoftirqd/169]: count 20888, average 1268, total 26491997
+
+@q5[ksoftirqd/169]: count 166127, average 430, total 71525914
+
+@uc: count 4646, average 3819, total 17747369
+
+
+
+
+@q4[ksoftirqd/169]: count 20560, average 1273, total 26173602
+
+@q5[ksoftirqd/169]: count 163518, average 430, total 70461372
+
+@uc: count 5753, average 2501, total 14393063
+
+
+
+
+@q4[ksoftirqd/169]: count 20376, average 1277, total 26025874
+
+@q5[ksoftirqd/169]: count 162055, average 431, total 69981694
+
+@uc: count 6958, average 2436, total 16951722
+
+
+
+
+@q4[ksoftirqd/169]: count 21120, average 1275, total 26934384
+
+@q5[ksoftirqd/169]: count 167972, average 430, total 72264391
+
+@uc: count 4887, average 2995, total 14638345
+
+
+
+
+@q4[ksoftirqd/169]: count 20960, average 1275, total 26735469
+
+@q5[ksoftirqd/169]: count 166699, average 430, total 71735915
+
+@uc: count 4045, average 4334, total 17534585
+
+
+
+
+@q4[ksoftirqd/169]: count 20565, average 1277, total 26273708
+
+@q5[ksoftirqd/169]: count 163567, average 430, total 70461800
+
+@uc: count 5006, average 3086, total 15449044
+
+
+
+
+@q4[ksoftirqd/169]: count 20770, average 1273, total 26446767
+
+@q5[ksoftirqd/169]: count 165145, average 430, total 71156314
+
+@uc: count 5585, average 2612, total 14591439
+
+
+
+
+@q4[ksoftirqd/169]: count 20816, average 1277, total 26590922
+
+@q5[ksoftirqd/169]: count 165554, average 430, total 71333085
+
+@uc: count 5494, average 2614, total 14363791
+
+
+
+
+@q4[ksoftirqd/169]: count 21104, average 1275, total 26923103
+
+@q5[ksoftirqd/169]: count 167844, average 430, total 72302942
+
+@uc: count 4597, average 4068, total 18701117
+
+
+
+
+@q4[ksoftirqd/169]: count 20495, average 1271, total 26065576
+
+@q5[ksoftirqd/169]: count 163018, average 432, total 70468214
+
+@uc: count 7366, average 5903, total 43486558
+
+
+
+
+@q4[ksoftirqd/169]: count 20839, average 1282, total 26716876
+
+@q5[ksoftirqd/169]: count 165689, average 431, total 71497684
+
+@uc: count 4960, average 3177, total 15759870
+
+
+
+
+@q4[ksoftirqd/169]: count 20304, average 1282, total 26042861
+
+@q5[ksoftirqd/169]: count 161482, average 432, total 69814866
+
+@uc: count 6377, average 2277, total 14521846
+
+
+
+
+@q4[ksoftirqd/169]: count 20960, average 1275, total 26739696
+
+@q5[ksoftirqd/169]: count 166699, average 430, total 71821893
+
+@uc: count 4804, average 3726, total 17902658
+
+
+
+
+@q4[ksoftirqd/169]: count 20755, average 1284, total 26650816
+
+@q5[ksoftirqd/169]: count 165085, average 432, total 71345026
+
+@uc: count 5303, average 2892, total 15338086
+
+
+
+
+@q4[ksoftirqd/169]: count 20568, average 1272, total 26167232
+
+@q5[ksoftirqd/169]: count 163544, average 430, total 70432538
+
+@uc: count 6074, average 2683, total 16300666
+
+
+
+
+@q4[ksoftirqd/169]: count 20795, average 1280, total 26626706
+
+@q5[ksoftirqd/169]: count 165396, average 430, total 71218593
+
+@uc: count 3512, average 6722, total 23610982
+
+
+
+
+@q4[ksoftirqd/169]: count 21366, average 1244, total 26596392
+
+@q5[ksoftirqd/169]: count 169986, average 431, total 73308144
+
+@uc: count 6083, average 3849, total 23418417
+
+
+
+
+@q4[ksoftirqd/169]: count 21497, average 1246, total 26806565
+
+@q5[ksoftirqd/169]: count 170959, average 430, total 73548673
+
+@uc: count 5224, average 2720, total 14210226
+
+
+
+
+@q4[ksoftirqd/169]: count 21512, average 1254, total 26987805
+
+@q5[ksoftirqd/169]: count 171089, average 431, total 73756847
+
+@uc: count 5662, average 2575, total 14582450
+
+
+
+
+@q4[ksoftirqd/169]: count 21688, average 1242, total 26943545
+
+@q5[ksoftirqd/169]: count 172490, average 431, total 74407754
+
+@uc: count 7524, average 3140, total 23629102
+
+
+
+
+@q4[ksoftirqd/169]: count 21971, average 1243, total 27324043
+
+@q5[ksoftirqd/169]: count 174820, average 429, total 75128564
+
+@uc: count 5518, average 5861, total 32341604
+
+
+
+
+@q4[ksoftirqd/169]: count 21851, average 1245, total 27215693
+
+@q5[ksoftirqd/169]: count 173781, average 430, total 74821111
+
+@uc: count 5089, average 7034, total 35797506
+
+
+
+
+@q4[ksoftirqd/169]: count 21816, average 1242, total 27108705
+
+@q5[ksoftirqd/169]: count 173579, average 430, total 74684646
+
+@uc: count 5714, average 2724, total 15570086
+
+
+
+
+@q4[ksoftirqd/169]: count 21557, average 1233, total 26593961
+
+@q5[ksoftirqd/169]: count 171506, average 429, total 73701857
+
+@uc: count 7690, average 2190, total 16848785
+
+
+
+
+@q4[ksoftirqd/169]: count 21537, average 1232, total 26540938
+
+@q5[ksoftirqd/169]: count 171342, average 430, total 73747815
+
+@uc: count 5962, average 5581, total 33276801
+
+
+
+
+@q4[ksoftirqd/169]: count 21896, average 1256, total 27518563
+
+@q5[ksoftirqd/169]: count 174220, average 430, total 74966402
+
+@uc: count 4581, average 3219, total 14747099
+
+
+
+
+@q4[ksoftirqd/169]: count 21231, average 1246, total 26453919
+
+@q5[ksoftirqd/169]: count 168839, average 431, total 72858903
+
+@uc: count 8191, average 2071, total 16966531
+
+
+
+
+@q4[ksoftirqd/169]: count 21848, average 1246, total 27243315
+
+@q5[ksoftirqd/169]: count 173762, average 430, total 74777278
+
+@uc: count 5454, average 2639, total 14395249
+
+
+
+
+@q4[ksoftirqd/169]: count 21956, average 1241, total 27262642
+
+@q5[ksoftirqd/169]: count 174693, average 430, total 75170320
+
+@uc: count 5301, average 3788, total 20084370
+
+
+
+
+@q4[ksoftirqd/169]: count 21667, average 1238, total 26837520
+
+@q5[ksoftirqd/169]: count 172314, average 430, total 74162483
+
+@uc: count 7396, average 2225, total 16458390
+
+
+
+
+@q4[ksoftirqd/169]: count 21424, average 1251, total 26812753
+
+@q5[ksoftirqd/169]: count 170390, average 430, total 73338615
+
+@uc: count 5366, average 2600, total 13956062
+
+
+
+
+@q4[ksoftirqd/169]: count 21903, average 1251, total 27413565
+
+@q5[ksoftirqd/169]: count 174263, average 429, total 74885444
+
+@uc: count 5762, average 2642, total 15224198
+
+
+
+
+@q4[ksoftirqd/169]: count 21328, average 1251, total 26700095
+
+@q5[ksoftirqd/169]: count 169683, average 430, total 73086245
+
+@uc: count 6348, average 4392, total 27885988
+
+@q1[swapper/169]: count 192, average 2964, total 569104
+@q1[ksoftirqd/169]: count 21, average 4424, total 92914
+@q1[kworker/169:1]: count 3, average 6071, total 18213
+
+@q2[swapper/169]: count 273, average 661, total 180693
+@q2[ksoftirqd/169]: count 37, average 1698, total 62858
+@q2[kworker/169:1]: count 4, average 1888, total 7555
+
+
+@q4[swapper/169]: count 4407, average 1045, total 4608697
+@q4[ksoftirqd/169]: count 23738, average 1248, total 29627529
+@q4[kworker/169:1]: count 9, average 1725, total 15528
+
+@q5[swapper/169]: count 34425, average 464, total 15999347
+@q5[ksoftirqd/169]: count 188693, average 468, total 88361436
+@q5[kworker/169:1]: count 68, average 571, total 38843
+
+@uc: count 14111, average 4088, total 57697326
