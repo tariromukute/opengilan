@@ -3,7 +3,7 @@
   copy:
     dest: "/home/user/trace.sh"
     content: |
-      bpftrace tpstat/bpftrace/net/biostack.bt
+      bpftrace tpstat/bpftrace/net/biodrop.bt
     mode: +x
 
 - name: Creating a file with content

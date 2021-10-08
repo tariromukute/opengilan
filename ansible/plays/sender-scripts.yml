@@ -16,5 +16,5 @@
   copy:
     dest: "/home/user/traffic.sh"
     content: |
-      iperf -c 10.0.0.2 -u -b $1 -t $2
+      iperf -c 10.0.0.2 -u -b $1 -t $2 -P 8
     mode: +x

@@ -1,0 +1,29 @@
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  6] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 42962
+[  8] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 40287
+[  5] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 50535
+[  4] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 51095
+[  3] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 44836
+[  7] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 38117
+[ 10] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 48354
+[ 16] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 54660
+[ ID] Interval       Transfer     Bandwidth        Jitter   Lost/Total Datagrams
+[  6]  0.0-59.9 sec  4.79 GBytes   686 Mbits/sec   0.007 ms 7728091/11224491 (69%)
+[  6] 0.0000-59.9347 sec  10 datagrams received out-of-order
+[  8]  0.0-59.9 sec  4.88 GBytes   700 Mbits/sec   0.005 ms 7657957/11224491 (68%)
+[  5]  0.0-59.9 sec  4.79 GBytes   687 Mbits/sec   0.006 ms 7722059/11224491 (69%)
+[  5] 0.0000-59.9348 sec  5 datagrams received out-of-order
+[  4]  0.0-59.9 sec  4.79 GBytes   686 Mbits/sec   0.005 ms 7729071/11224491 (69%)
+[  3]  0.0-59.9 sec  4.86 GBytes   696 Mbits/sec   0.008 ms 7677021/11224491 (68%)
+[  3] 0.0000-59.9347 sec  20 datagrams received out-of-order
+[  7]  0.0-59.9 sec  4.73 GBytes   678 Mbits/sec   0.007 ms 7766998/11224491 (69%)
+[  7] 0.0000-59.9348 sec  42 datagrams received out-of-order
+[ 10]  0.0-59.9 sec  4.88 GBytes   699 Mbits/sec   0.005 ms 7659596/11224491 (68%)
+[ 10] 0.0000-59.9348 sec  24 datagrams received out-of-order
+[ 16]  0.0-59.9 sec  4.93 GBytes   706 Mbits/sec   0.006 ms 7626483/11224491 (68%)
+[SUM]  0.0-59.9 sec  38.6 GBytes  5.54 Gbits/sec   0.008 ms 61567276/89795928 (69%)
+[SUM] 0.0000-59.9349 sec  101 datagrams received out-of-order

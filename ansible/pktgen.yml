@@ -1,0 +1,31 @@
+
+- hosts:
+  - client
+  tasks:
+  - name: Include task list in play
+    include: plays/pktgen-sender-scripts.yml
+
+- hosts:
+  - server
+  tasks:
+  - name: Include task list in play
+    include: plays/pktgen-receiver-scripts.yml
+
+- hosts:
+  - server
+  - client
+  vars:
+    cpu: 169
+    bbandwidth: 1000
+    bduration: 3000
+    time: 60
+    
+  tasks:
+  - name: Include task list in play
+    include: plays/pktgen-send-receive.yml
+    vars:
+      bandwidth: "100x"
+      duration: "{{ bduration }}"
+      attempt: "1"
+      aduration: "{{ bduration + 20 }}"
+    # with_sequence: start=1 end=50

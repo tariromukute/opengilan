@@ -1,0 +1,30 @@
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  4] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 48892
+[  9] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 37425
+[ 13] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 54290
+[ 16] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 51710
+[ 12] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 51245
+[  6] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 34803
+[  8] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 33818
+[  3] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 44501
+[ ID] Interval       Transfer     Bandwidth        Jitter   Lost/Total Datagrams
+[  4]  0.0-60.2 sec  2.41 GBytes   345 Mbits/sec  13.401 ms 20048304/21810740 (92%)
+[  4] 0.0000-60.1581 sec  75 datagrams received out-of-order
+[  9]  0.0-60.2 sec  2.06 GBytes   294 Mbits/sec  13.411 ms 17070524/18574425 (92%)
+[  9] 0.0000-60.1581 sec  1771 datagrams received out-of-order
+[ 13]  0.0-60.2 sec  1.72 GBytes   246 Mbits/sec  13.409 ms 14328255/15588234 (92%)
+[ 13] 0.0000-60.1581 sec  42 datagrams received out-of-order
+[ 16]  0.0-60.2 sec  1.34 GBytes   191 Mbits/sec  13.406 ms 11147999/12125420 (92%)
+[ 12]  0.0-60.2 sec  2.68 GBytes   383 Mbits/sec  13.395 ms 22293087/24253982 (92%)
+[  6]  0.0-60.2 sec  2.45 GBytes   350 Mbits/sec  13.390 ms 20347065/22137446 (92%)
+[  6] 0.0000-60.1581 sec  71 datagrams received out-of-order
+[  8]  0.0-60.2 sec  2.42 GBytes   345 Mbits/sec  13.399 ms 20076426/21841303 (92%)
+[  8] 0.0000-60.1581 sec  5 datagrams received out-of-order
+[  3]  0.0-60.2 sec  1.61 GBytes   230 Mbits/sec  13.417 ms 13384414/14560450 (92%)
+[  3] 0.0000-60.1581 sec  1785 datagrams received out-of-order
+[SUM]  0.0-60.2 sec  16.7 GBytes  2.38 Gbits/sec  13.417 ms 138696074/150892000 (92%)
+[SUM] 0.0000-60.1581 sec  3749 datagrams received out-of-order
