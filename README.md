@@ -50,3 +50,10 @@ ssh -o ProxyCommand="ssh -W %h:%p -q bastion" -i ~/.ssh/chpc user@10.x.x.x
 ```bash
 ansible-playbook -i inventory.ini monitor.yml -K
 ```
+
+## Notes
+iperf -P can help influence the bandwidth results
+
+## Useful Resources
+
+- https://www.researchgate.net/publication/349761932_Measuring_with_JPerf_and_PsPing_Throughput_and_Estimated_Packet_Delivery_Delay_vs_TCP_Window_Size_Parallel_Streams

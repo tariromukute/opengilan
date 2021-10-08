@@ -18,3 +18,4 @@
     content: |
       iperf -c 10.0.0.2 -u -b $1 -t $2
     mode: +x
+    iperf -c 10.0.0.2 -u -b 10000m -t 60
