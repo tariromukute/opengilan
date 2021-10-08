@@ -1,0 +1,30 @@
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  4] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 50355
+[ 14] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 42348
+[ 10] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 54248
+[ 16] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 44885
+[  5] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 52528
+[ 12] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 34765
+[  3] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 46393
+[  6] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 53275
+[ ID] Interval       Transfer     Bandwidth        Jitter   Lost/Total Datagrams
+[  4]  0.0-60.0 sec  2.19 GBytes   314 Mbits/sec  13.404 ms 19447779/21048389 (92%)
+[  4] 0.0000-59.9908 sec  81 datagrams received out-of-order
+[ 14]  0.0-60.0 sec  2.52 GBytes   361 Mbits/sec  13.407 ms 22383116/24224539 (92%)
+[ 10]  0.0-60.0 sec  2.18 GBytes   313 Mbits/sec  13.411 ms 19390331/20985608 (92%)
+[ 10] 0.0000-59.9906 sec  80 datagrams received out-of-order
+[ 16]  0.0-60.0 sec  1.18 GBytes   169 Mbits/sec  13.441 ms 10466419/11326031 (92%)
+[  5]  0.0-60.0 sec  1.55 GBytes   223 Mbits/sec  13.416 ms 13793892/14929412 (92%)
+[  5] 0.0000-59.9907 sec  2637 datagrams received out-of-order
+[ 12]  0.0-60.0 sec  2.45 GBytes   351 Mbits/sec  13.400 ms 21771737/23562110 (92%)
+[ 12] 0.0000-59.9908 sec  2 datagrams received out-of-order
+[  3]  0.0-60.0 sec  2.24 GBytes   320 Mbits/sec  13.410 ms 19852457/21486734 (92%)
+[  3] 0.0000-59.9906 sec  25 datagrams received out-of-order
+[  6]  0.0-60.0 sec  1.95 GBytes   280 Mbits/sec  13.636 ms 17427678/18853957 (92%)
+[  6] 0.0000-59.9908 sec  81 datagrams received out-of-order
+[SUM]  0.0-60.0 sec  16.3 GBytes  2.33 Gbits/sec  13.636 ms 144533409/156416780 (92%)
+[SUM] 0.0000-59.9908 sec  2906 datagrams received out-of-order

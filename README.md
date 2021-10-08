@@ -57,3 +57,49 @@ iperf -P can help influence the bandwidth results
 ## Useful Resources
 
 - https://www.researchgate.net/publication/349761932_Measuring_with_JPerf_and_PsPing_Throughput_and_Estimated_Packet_Delivery_Delay_vs_TCP_Window_Size_Parallel_Streams
+
+mst wasn't working, to install it see [link](https://community.mellanox.com/s/article/getting-started-with-mellanox-firmware-tools--mft--for-linux)
+
+install dpdk - [link](https://doc.dpdk.org/guides/linux_gsg/build_dpdk.html)
+
+for mellanox - [link](https://doc.dpdk.org/guides/nics/mlx5.html)
+
+install pktgen - [link](https://pktgen-dpdk.readthedocs.io/en/latest/getting_started.html)
+
+edit cfg/xdp-40.cfg in pktgen
+
+run pktgen - ./tools/run.py xdp-40 (might need to set it up first ./tools/run.py -s xdp-40)
+
+check free huge pages - grep -i huge /proc/meminfo
+
+sudo -E ./app/pktgen -l 0-3 -n 3 --proc-type auto -w 0000:41:00.0 -- -P -m "[1:3].0"
+
+meson --reconfigure -Denable_lua=true Builddir
+
+ninja -C Builddir
+
+custom lua scripts tutorial - https://mishal.dev/running-dpdk-with-pktgen
+
+blog - https://medium.com/codex/nvidia-mellanox-bluefield-2-smartnic-hands-on-tutorial-rig-for-dive-part-vii-b-contd-afaffce7af4f
+
+sudo tc qdisc add dev ens3 root netem loss 100%
+
+sudo tc qdisc show dev ens3
+
+sudo tc qdisc del dev ens3 root netem loss 100%
+
+sudo tc qdisc show dev ens3
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_networking/getting-started-with-nftables_configuring-and-managing-networking
+
+Why we will need deep inspectors for network function - https://ungleich.ch/u/blog/nftables-magic-redirect-all-ports-to-one-port/
+
+UDP server - https://gist.github.com/karupanerura/00c8ff6a48d98dd6bec2
+
+https://cs.baylor.edu/~donahoo/practical/CSockets/practical/
+
+https://github.com/chronoxor/CppServer#example-udp-echo-server
+  - sudo pip3 install --prefix /usr/local gil
+
+With a udp echo server from the above packets are always dropped from xxx
+  - add permenent arp record to resolve that: sudo arp -s 10.0.01 b8:ce:f6:57:8e:d0

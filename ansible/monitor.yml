@@ -24,8 +24,8 @@
   - name: Include task list in play
     include: plays/send-receive.yml
     vars:
-      bandwidth: "{{ bbandwidth + item|int *200 }}m"
+      bandwidth: "{{ bbandwidth + item|int *400 }}m"
       duration: "{{ bduration }}"
       attempt: "{{ item }}"
       aduration: "{{ bduration + 20 }}"
-    with_sequence: start=1 end=50
+    with_sequence: start=1 end=25

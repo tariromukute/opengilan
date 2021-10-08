@@ -1,0 +1,56 @@
+------------------------------------------------------------
+Client connecting to 10.0.0.2, UDP port 5001
+Sending 1470 byte datagrams, IPG target: 1.37 us (kalman adjust)
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[ 11] local 10.0.0.1 port 49391 connected with 10.0.0.2 port 5001
+[  3] local 10.0.0.1 port 58209 connected with 10.0.0.2 port 5001
+[  5] local 10.0.0.1 port 57637 connected with 10.0.0.2 port 5001
+[  6] local 10.0.0.1 port 39295 connected with 10.0.0.2 port 5001
+[  7] local 10.0.0.1 port 41823 connected with 10.0.0.2 port 5001
+[  8] local 10.0.0.1 port 34543 connected with 10.0.0.2 port 5001
+[  9] local 10.0.0.1 port 34124 connected with 10.0.0.2 port 5001
+[ 10] local 10.0.0.1 port 35071 connected with 10.0.0.2 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[ 11]  0.0-60.0 sec  27.2 GBytes  3.89 Gbits/sec
+[ 11] Sent 19868121 datagrams
+[  3]  0.0-60.0 sec  17.6 GBytes  2.52 Gbits/sec
+[  3] Sent 12849937 datagrams
+[  5]  0.0-60.0 sec  17.8 GBytes  2.55 Gbits/sec
+[  5] Sent 12996921 datagrams
+[  6]  0.0-60.0 sec  27.2 GBytes  3.89 Gbits/sec
+[  6] Sent 19850160 datagrams
+[  7]  0.0-60.0 sec  27.2 GBytes  3.90 Gbits/sec
+[  7] Sent 19902399 datagrams
+[  8]  0.0-60.0 sec  18.3 GBytes  2.62 Gbits/sec
+[  8] Sent 13342690 datagrams
+[  9]  0.0-60.0 sec  26.6 GBytes  3.82 Gbits/sec
+[  9] Sent 19465005 datagrams
+[ 10]  0.0-60.0 sec  18.7 GBytes  2.68 Gbits/sec
+[ 10] Sent 13695047 datagrams
+[SUM]  0.0-60.0 sec   181 GBytes  25.9 Gbits/sec
+[SUM] Sent 131970280 datagrams
+[ 10] Server Report:
+[ 10]  0.0-59.9 sec  4.67 GBytes   669 Mbits/sec   0.005 ms 10284959/13695047 (75%)
+[ 10] 0.0000-59.9100 sec  40 datagrams received out-of-order
+[  6] Server Report:
+[  6]  0.0-59.9 sec  4.81 GBytes   690 Mbits/sec   0.003 ms 16333416/19850160 (82%)
+[  6] 0.0000-59.9100 sec  28 datagrams received out-of-order
+[ 11] Server Report:
+[ 11]  0.0-59.9 sec  4.77 GBytes   684 Mbits/sec   0.004 ms 16385965/19868121 (82%)
+[ 11] 0.0000-59.9099 sec  10 datagrams received out-of-order
+[  5] Server Report:
+[  5]  0.0-59.9 sec  4.69 GBytes   672 Mbits/sec   0.004 ms 9572038/12996921 (74%)
+[  5] 0.0000-59.9099 sec  8642 datagrams received out-of-order
+[  7] Server Report:
+[  7]  0.0-59.9 sec  4.81 GBytes   690 Mbits/sec   0.005 ms 16388288/19902399 (82%)
+[  7] 0.0000-59.9099 sec  24 datagrams received out-of-order
+[  8] Server Report:
+[  8]  0.0-59.9 sec  4.64 GBytes   666 Mbits/sec   0.008 ms 9949914/13342690 (75%)
+[  8] 0.0000-59.9099 sec  40 datagrams received out-of-order
+[  9] Server Report:
+[  9]  0.0-59.9 sec  4.77 GBytes   684 Mbits/sec   0.003 ms 15980081/19465005 (82%)
+[  9] 0.0000-59.9099 sec  28 datagrams received out-of-order
+[  3] Server Report:
+[  3]  0.0-59.9 sec  4.69 GBytes   673 Mbits/sec   0.004 ms 9422701/12849937 (73%)
+[  3] 0.0000-59.9100 sec  11 datagrams received out-of-order

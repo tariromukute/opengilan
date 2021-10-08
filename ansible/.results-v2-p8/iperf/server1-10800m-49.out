@@ -1,0 +1,30 @@
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  6] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 39946
+[  8] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 55198
+[  3] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 39063
+[  4] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 54790
+[ 15] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 37172
+[  9] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 59206
+[ 12] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 58403
+[ 14] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 37381
+[ ID] Interval       Transfer     Bandwidth        Jitter   Lost/Total Datagrams
+[  6]  0.0-59.9 sec  1.78 GBytes   255 Mbits/sec   0.037 ms 16526443/17823723 (93%)
+[  6] 0.0000-59.9347 sec  79 datagrams received out-of-order
+[  8]  0.0-59.9 sec  2.17 GBytes   312 Mbits/sec   0.040 ms 18816636/20404688 (92%)
+[  8] 0.0000-59.9347 sec  11 datagrams received out-of-order
+[  3]  0.0-59.9 sec  1.96 GBytes   281 Mbits/sec   0.034 ms 17882426/19315220 (93%)
+[  3] 0.0000-59.9347 sec  70 datagrams received out-of-order
+[  4]  0.0-59.9 sec  1.94 GBytes   277 Mbits/sec   0.839 ms 18712634/20126689 (93%)
+[  4] 0.0000-59.9347 sec  70 datagrams received out-of-order
+[ 15]  0.0-59.9 sec  2.14 GBytes   307 Mbits/sec   0.051 ms 18525827/20089702 (92%)
+[  9]  0.0-59.9 sec  2.41 GBytes   345 Mbits/sec   0.062 ms 21769150/23528978 (93%)
+[  9] 0.0000-59.9345 sec  4 datagrams received out-of-order
+[ 12]  0.0-59.9 sec  2.12 GBytes   303 Mbits/sec   0.024 ms 19877508/21422485 (93%)
+[ 12] 0.0000-59.9347 sec  9 datagrams received out-of-order
+[ 14]  0.0-59.9 sec  2.16 GBytes   309 Mbits/sec   0.063 ms 18631548/20207975 (92%)
+[SUM]  0.0-59.9 sec  16.7 GBytes  2.39 Gbits/sec   0.839 ms 150742172/162919460 (93%)
+[SUM] 0.0000-59.9347 sec  243 datagrams received out-of-order

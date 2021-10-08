@@ -1,0 +1,32 @@
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  3] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 54596
+[  4] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 53074
+[  9] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 37399
+[  6] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 56631
+[ 14] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 53356
+[  8] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 53841
+[ 16] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 54361
+[ 12] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 39565
+[ ID] Interval       Transfer     Bandwidth        Jitter   Lost/Total Datagrams
+[  3]  0.0-59.9 sec  5.79 GBytes   831 Mbits/sec   0.005 ms 9032815/13265307 (68%)
+[  3] 0.0000-59.9068 sec  33 datagrams received out-of-order
+[  4]  0.0-59.9 sec  2.83 GBytes   406 Mbits/sec   0.005 ms 11199112/13265307 (84%)
+[  4] 0.0000-59.9072 sec  50 datagrams received out-of-order
+[  9]  0.0-59.9 sec  6.04 GBytes   865 Mbits/sec   0.006 ms 8856937/13265307 (67%)
+[  9] 0.0000-59.9071 sec  27 datagrams received out-of-order
+[  6]  0.0-59.9 sec  5.75 GBytes   824 Mbits/sec   0.006 ms 9067649/13265307 (68%)
+[  6] 0.0000-59.9070 sec  11 datagrams received out-of-order
+[ 14]  0.0-59.9 sec  6.10 GBytes   875 Mbits/sec   0.008 ms 8807090/13265307 (66%)
+[ 14] 0.0000-59.9071 sec  11 datagrams received out-of-order
+[  8]  0.0-59.9 sec  6.01 GBytes   862 Mbits/sec   0.005 ms 8875752/13265307 (67%)
+[  8] 0.0000-59.9071 sec  15 datagrams received out-of-order
+[ 16]  0.0-59.9 sec  5.97 GBytes   856 Mbits/sec   0.005 ms 8906285/13265307 (67%)
+[ 16] 0.0000-59.9068 sec  11 datagrams received out-of-order
+[ 12]  0.0-59.9 sec  6.04 GBytes   866 Mbits/sec   0.005 ms 8854848/13265307 (67%)
+[ 12] 0.0000-59.9071 sec  43 datagrams received out-of-order
+[SUM]  0.0-59.9 sec  44.5 GBytes  6.38 Gbits/sec   0.008 ms 73600488/106122456 (69%)
+[SUM] 0.0000-59.9072 sec  201 datagrams received out-of-order

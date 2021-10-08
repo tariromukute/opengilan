@@ -1,10 +1,10 @@
 
-# - name: Run a script for user space program (openssl)
-#   ansible.builtin.command: sh /home/user/monitor.sh {{ cpu }} {{ time }}
-#   register: monitor_command
-#   # become: yes
-#   async: "{{ aduration }}"
-#   poll: 0
+- name: Run a script for user space program (openssl)
+  ansible.builtin.command: sh /home/user/monitor.sh {{ cpu }} {{ time }}
+  register: monitor_command
+  # become: yes
+  async: "{{ aduration }}"
+  poll: 0
 
 # The output from bpftrace was not always showing. Couldn't figure out the exact reason.
 # There is a similar inquiry on https://access.redhat.com/solutions/4764921 but couldn't access it
@@ -41,13 +41,13 @@
   delay: 10
   ignore_errors: yes
 
-# - name: Check on an async task for monitoring
-#   async_status:
-#     jid: "{{ monitor_command.ansible_job_id }}"
-#   register: job_result
-#   until: job_result.finished
-#   retries: 100
-#   delay: 10
+- name: Check on an async task for monitoring
+  async_status:
+    jid: "{{ monitor_command.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 100
+  delay: 10
 
 - name: Check on an async task for tracing
   async_status:
@@ -88,23 +88,23 @@
     dest: .results/bpftrace/{{ inventory_hostname }}-{{ bandwidth }}-{{ attempt }}.out
     flat: yes
 
-# - name: Get results from monitoring (openssl)
-#   ansible.builtin.shell: cat {{ monitor_command.results_file }}
-#   register: monitor_command_results
-#   become: yes
+- name: Get results from monitoring (openssl)
+  ansible.builtin.shell: cat {{ monitor_command.results_file }}
+  register: monitor_command_results
+  become: yes
 
-# # write to remote and them copy to local after
-# - name: "Filter the monitoring results we are interested in and save results them on remote machine"
-#   ansible.builtin.copy:
-#     content: "{{( monitor_command_results.stdout | from_json).stderr}}"
-#     dest: ~/openssl-{{ inventory_hostname }}
+# write to remote and them copy to local after
+- name: "Filter the monitoring results we are interested in and save results them on remote machine"
+  ansible.builtin.copy:
+    content: "{{( monitor_command_results.stdout | from_json).stderr}}"
+    dest: ~/openssl-{{ inventory_hostname }}
 
-# # copy from remote copy to local machine
-# - name: "Save results from tracing on local machine"
-#   ansible.builtin.fetch:
-#     src: ~/openssl-{{ inventory_hostname }}
-#     dest: .results/openssl/{{ inventory_hostname }}-{{ bandwidth }}-{{ attempt }}.out
-#     flat: yes
+# copy from remote copy to local machine
+- name: "Save results from tracing on local machine"
+  ansible.builtin.fetch:
+    src: ~/openssl-{{ inventory_hostname }}
+    dest: .results/openssl/{{ inventory_hostname }}-{{ bandwidth }}-{{ attempt }}.out
+    flat: yes
 
 - name: Get results from traffic (iperf)
   ansible.builtin.shell: cat {{ traffic_command.results_file }}

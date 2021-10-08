@@ -1,0 +1,30 @@
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  3] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 56012
+[  4] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 60078
+[ 11] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 55602
+[  6] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 59215
+[ 14] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 41169
+[ 10] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 34517
+[ 16] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 48751
+[  8] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 52953
+[ ID] Interval       Transfer     Bandwidth        Jitter   Lost/Total Datagrams
+[  4]  0.0-59.9 sec  4.98 GBytes   714 Mbits/sec   0.002 ms 17976399/21614767 (83%)
+[  4] 0.0000-59.9044 sec  63 datagrams received out-of-order
+[  3]  0.0-60.2 sec  4.96 GBytes   709 Mbits/sec  15.646 ms 16995363/20620072 (82%)
+[  3] 0.0000-60.1543 sec  67 datagrams received out-of-order
+[ 11]  0.0-60.2 sec  4.94 GBytes   706 Mbits/sec  15.630 ms 17980413/21590373 (83%)
+[ 11] 0.0000-60.1543 sec  36 datagrams received out-of-order
+[  6]  0.0-60.2 sec  5.00 GBytes   715 Mbits/sec  15.632 ms 17630248/21286076 (83%)
+[  6] 0.0000-60.1547 sec  81 datagrams received out-of-order
+[ 14]  0.0-60.2 sec  5.01 GBytes   716 Mbits/sec  15.638 ms 17216577/20877270 (82%)
+[ 10]  0.0-60.2 sec  5.01 GBytes   715 Mbits/sec  15.647 ms 17755914/21414869 (83%)
+[ 10] 0.0000-60.1543 sec  4 datagrams received out-of-order
+[ 16]  0.0-60.2 sec  5.00 GBytes   714 Mbits/sec  15.652 ms 17035967/20687288 (82%)
+[  8]  0.0-60.2 sec  4.93 GBytes   704 Mbits/sec  15.579 ms 17776268/21378853 (83%)
+[  8] 0.0000-60.1543 sec  80 datagrams received out-of-order
+[SUM]  0.0-60.2 sec  39.8 GBytes  5.69 Gbits/sec  15.652 ms 140367149/169469568 (83%)
+[SUM] 0.0000-60.1547 sec  331 datagrams received out-of-order

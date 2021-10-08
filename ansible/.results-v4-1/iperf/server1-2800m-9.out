@@ -1,0 +1,30 @@
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  3] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 35437
+[  4] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 60309
+[  6] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 46468
+[  7] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 60592
+[ 10] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 56446
+[ 12] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 36492
+[ 16] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 35212
+[ 14] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 37018
+[ ID] Interval       Transfer     Bandwidth        Jitter   Lost/Total Datagrams
+[  4]  0.0-59.9 sec  5.93 GBytes   851 Mbits/sec   0.004 ms 9950845/14285716 (70%)
+[  4] 0.0000-59.9186 sec  36 datagrams received out-of-order
+[  6]  0.0-59.9 sec  6.02 GBytes   863 Mbits/sec   0.007 ms 9888802/14285715 (69%)
+[  7]  0.0-59.9 sec  5.92 GBytes   849 Mbits/sec   0.005 ms 9958898/14285715 (70%)
+[  7] 0.0000-59.9185 sec  42 datagrams received out-of-order
+[ 10]  0.0-59.9 sec  2.83 GBytes   406 Mbits/sec   0.004 ms 12215003/14285716 (86%)
+[ 10] 0.0000-59.9186 sec  38 datagrams received out-of-order
+[ 12]  0.0-59.9 sec  5.89 GBytes   844 Mbits/sec   0.005 ms 9986410/14285715 (70%)
+[ 12] 0.0000-59.9185 sec  50 datagrams received out-of-order
+[ 14]  0.0-59.9 sec  6.18 GBytes   885 Mbits/sec   0.004 ms 9774249/14285715 (68%)
+[ 14] 0.0000-59.9186 sec  39 datagrams received out-of-order
+[  3]  0.0-60.2 sec  5.81 GBytes   830 Mbits/sec  15.644 ms 10041674/14285716 (70%)
+[  3] 0.0000-60.1687 sec  24 datagrams received out-of-order
+[ 16]  0.0-60.2 sec  5.97 GBytes   852 Mbits/sec  15.629 ms 9928598/14285716 (70%)
+[SUM]  0.0-60.2 sec  44.6 GBytes  6.36 Gbits/sec  15.644 ms 81744479/114285724 (72%)
+[SUM] 0.0000-60.1687 sec  229 datagrams received out-of-order

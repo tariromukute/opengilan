@@ -1,0 +1,30 @@
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  3] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 38936
+[  4] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 57529
+[  8] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 47410
+[ 10] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 35466
+[  6] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 49311
+[ 16] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 47720
+[ 12] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 52109
+[ 13] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 57026
+[ ID] Interval       Transfer     Bandwidth        Jitter   Lost/Total Datagrams
+[  3]  0.0-60.2 sec  2.25 GBytes   321 Mbits/sec  13.859 ms 21965336/23609388 (93%)
+[  3] 0.0000-60.2457 sec  8 datagrams received out-of-order
+[  4]  0.0-60.2 sec  2.25 GBytes   320 Mbits/sec  13.856 ms 21912381/23553915 (93%)
+[  4] 0.0000-60.2457 sec  42 datagrams received out-of-order
+[  8]  0.0-60.2 sec  1.96 GBytes   279 Mbits/sec  13.860 ms 19096599/20527299 (93%)
+[  8] 0.0000-60.2457 sec  2 datagrams received out-of-order
+[ 10]  0.0-60.2 sec  1.95 GBytes   278 Mbits/sec  13.853 ms 18994441/20417736 (93%)
+[ 10] 0.0000-60.2457 sec  16 datagrams received out-of-order
+[  6]  0.0-60.2 sec  2.17 GBytes   309 Mbits/sec  13.858 ms 21140638/22725047 (93%)
+[  6] 0.0000-60.2457 sec  3 datagrams received out-of-order
+[ 16]  0.0-60.2 sec  2.17 GBytes   309 Mbits/sec  13.848 ms 21115754/22699330 (93%)
+[ 12]  0.0-60.2 sec  1.90 GBytes   270 Mbits/sec  14.080 ms 18499758/19885508 (93%)
+[ 12] 0.0000-60.2493 sec  8 datagrams received out-of-order
+[ 13]  0.0-60.2 sec  1.92 GBytes   274 Mbits/sec  13.863 ms 18744380/20148390 (93%)
+[SUM]  0.0-60.2 sec  16.6 GBytes  2.36 Gbits/sec  14.080 ms 161469287/173566613 (93%)
+[SUM] 0.0000-60.2493 sec  79 datagrams received out-of-order

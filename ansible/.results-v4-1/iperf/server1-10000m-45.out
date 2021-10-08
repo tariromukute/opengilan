@@ -1,0 +1,30 @@
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  3] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 52319
+[  7] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 44990
+[  8] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 47976
+[  6] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 49663
+[ 14] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 45191
+[  4] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 48670
+[ 12] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 36599
+[ 15] local 10.0.0.2 port 5001 connected with 10.0.0.1 port 60066
+[ ID] Interval       Transfer     Bandwidth        Jitter   Lost/Total Datagrams
+[  3]  0.0-59.9 sec  5.72 GBytes   820 Mbits/sec   0.003 ms 16147218/20322146 (79%)
+[  3] 0.0000-59.9031 sec  5 datagrams received out-of-order
+[  7]  0.0-59.9 sec  3.09 GBytes   443 Mbits/sec   0.003 ms 18542083/20797410 (89%)
+[  7] 0.0000-59.9033 sec  53 datagrams received out-of-order
+[  8]  0.0-59.9 sec  5.45 GBytes   781 Mbits/sec   0.003 ms 7203307/11184073 (64%)
+[  8] 0.0000-59.9030 sec  7117 datagrams received out-of-order
+[  6]  0.0-59.9 sec  5.78 GBytes   829 Mbits/sec   0.003 ms 7376316/11596854 (64%)
+[  6] 0.0000-59.9030 sec  9177 datagrams received out-of-order
+[ 14]  0.0-59.9 sec  3.02 GBytes   434 Mbits/sec   0.005 ms 18171425/20380247 (89%)
+[ 12]  0.0-59.9 sec  5.50 GBytes   788 Mbits/sec   0.003 ms 11477428/15492232 (74%)
+[ 12] 0.0000-59.9034 sec  8174 datagrams received out-of-order
+[  4]  0.0-59.9 sec  5.87 GBytes   842 Mbits/sec   0.007 ms 6539426/10828522 (60%)
+[  4] 0.0000-59.9188 sec  8396 datagrams received out-of-order
+[SUM]  0.0-59.9 sec  34.4 GBytes  4.93 Gbits/sec   0.007 ms 85457203/110601484 (77%)
+[SUM] 0.0000-59.9188 sec  32922 datagrams received out-of-order
+[ 15]  0.0-60.2 sec  5.73 GBytes   819 Mbits/sec  15.645 ms 15977433/20165605 (79%)
