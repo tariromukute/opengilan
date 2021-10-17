@@ -54,12 +54,21 @@ ansible-playbook -i inventory.ini monitor.yml -K
 ## Notes
 
 mst wasn't working, to install it see [link](https://community.mellanox.com/s/article/getting-started-with-mellanox-firmware-tools--mft--for-linux)
+- wget https://content.mellanox.com/ofed/MLNX_OFED-5.4-1.0.3.0/MLNX_OFED_LINUX-5.4-1.0.3.0-ubuntu20.04-x86_64.tgz
 
 install dpdk - [link](https://doc.dpdk.org/guides/linux_gsg/build_dpdk.html)
 
 for mellanox - [link](https://doc.dpdk.org/guides/nics/mlx5.html)
+- wget tar mlx5 ofed
+- extract from it and run install
 
 install pktgen - [link](https://pktgen-dpdk.readthedocs.io/en/latest/getting_started.html)
+- sudo apt install -y python3-pyelftools python-pyelftools lua5.3 liblua5.3-dev 
+- sudo apt install make
+- sudp apt install cmake
+- * the pkg-config can be put in different folder
+- sudo apt install libpcap-dev libnuma-dev pkg-config build-essential librdmacm-dev libnuma-dev libmnl-dev meson
+- sudo apt install libibverbs-dev libmlx5-1 ibverbs-providers
 
 edit cfg/xdp-40.cfg in pktgen
 
@@ -95,6 +104,10 @@ https://cs.baylor.edu/~donahoo/practical/CSockets/practical/
 
 https://github.com/chronoxor/CppServer#example-udp-echo-server
   - sudo pip3 install --prefix /usr/local gil
+  - sudo apt-get install libssl-dev
 
 With a udp echo server from the above packets are always dropped from xxx
   - add permenent arp record to resolve that: sudo arp -s 10.0.01 b8:ce:f6:57:8e:d0
+
+https://dev.to/aws-builders/100g-networking-in-aws-a-network-performance-deep-dive-3bg0
+- In the world of NICs, these ‘workers’ are queues
