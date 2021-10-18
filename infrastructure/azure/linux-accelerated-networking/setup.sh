@@ -2,7 +2,7 @@
 
 export DPDK_VER=20.02
 export PKTGEN_VER=20.02.0
-export PCI_IF="6d80:00:02.0"
+export PCI_IF="985b:00:02.0"
 
 
 if [ `whoami` != 'root' ]; then
@@ -69,8 +69,8 @@ apt-get -y install libnuma-dev
 apt-get -y install pciutils
 apt-get -y install libpcap-dev
 apt-get -y install liblua5.3-dev
-apt -y install libelf-dev
-apt -y libibverbs-dev libmlx5-1 ibverbs-providers
+apt-get -y install libelf-dev
+# apt-get -y install libibverbs-dev libmlx5-1 ibverbs-providers
 apt-get -y install linux-headers-`uname -r` || apt -y install  linux-headers-generic
 
 echo "Setting env..."
@@ -107,6 +107,11 @@ echo "Installing DPDK..."
 cd pktgen-$PKTGEN_VER
 make
 
+echo "Load ibuverbs"
+modprobe -a ib_uverbs
+modprobe -a mlx4_ib
+modprobe -a mlx5_ib
+
 echo "binding dpdk interface $PCI_IF"
 modprobe uio
 insmod /opt/dpdk-$DPDK_VER/x86_64-native-linuxapp-gcc/kmod/igb_uio.ko
@@ -119,7 +124,9 @@ $dpdkdevbind -s
 
 echo "To run pktgen:"
 echo  '/opt/pktgen-$PKTGEN_VER/app/x86_64-native-linuxapp-gcc/pktgen  -- -T -P -m "2.[0]"'
-echo  '/opt/pktgen-$PKTGEN_VER/app/x86_64-native-linuxapp-gcc/pktgen  -- -T -P -m  "2/4:6/8.[0]"'
+echo 'For Azure VM and any NET use'
+echo '/opt/pktgen-$PKTGEN_VER/app/x86_64-native-linuxapp-gcc/pktgen --vdev="net_vdev_netvsc0,iface=eth1" -- -T -P -m "2.[0]"'
+echo '/opt/pktgen-$PKTGEN_VER/app/x86_64-native-linuxapp-gcc/pktgen  -- -T -P -m  "2/4:6/8.[0]"'
 
 echo "
 example commands:

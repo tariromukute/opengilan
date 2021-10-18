@@ -60,6 +60,7 @@ iperf -P can help influence the bandwidth results
 
 mst wasn't working, to install it see [link](https://community.mellanox.com/s/article/getting-started-with-mellanox-firmware-tools--mft--for-linux)
 - wget https://content.mellanox.com/ofed/MLNX_OFED-5.4-1.0.3.0/MLNX_OFED_LINUX-5.4-1.0.3.0-ubuntu20.04-x86_64.tgz
+- wget https://content.mellanox.com/ofed/MLNX_OFED-4.9-4.0.8.0/MLNX_OFED_LINUX-4.9-4.0.8.0-ubuntu18.04-x86_64.tgz
 
 install dpdk - [link](https://doc.dpdk.org/guides/linux_gsg/build_dpdk.html)
 
