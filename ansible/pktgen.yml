@@ -1,23 +1,23 @@
 
 - hosts:
-  - client
+  - azclient
   tasks:
   - name: Include task list in play
     include: plays/pktgen-sender-scripts.yml
 
 - hosts:
-  - server
+  - azserver
   tasks:
   - name: Include task list in play
     include: plays/pktgen-receiver-scripts.yml
 
 - hosts:
-  - server
-  - client
+  - azserver
+  - azclient
   vars:
     cpu: 169
     bbandwidth: 1000
-    bduration: 3000
+    bduration: 60
     time: 60
     
   tasks:

@@ -109,11 +109,24 @@ UDP server - https://gist.github.com/karupanerura/00c8ff6a48d98dd6bec2
 https://cs.baylor.edu/~donahoo/practical/CSockets/practical/
 
 https://github.com/chronoxor/CppServer#example-udp-echo-server
+  - sudo apt install binutils-dev uuid-dev libssl-dev
+  - sudo apt install python3-pip
   - sudo pip3 install --prefix /usr/local gil
-  - sudo apt-get install libssl-dev
+  - sudo apt install cmake
 
 With a udp echo server from the above packets are always dropped from xxx
-  - add permenent arp record to resolve that: sudo arp -s 10.0.01 b8:ce:f6:57:8e:d0
+  - add permenent arp record to resolve that: sudo arp -s 10.0.0.7 00:22:48:65:6e:cf
 
 https://dev.to/aws-builders/100g-networking-in-aws-a-network-performance-deep-dive-3bg0
 - In the world of NICs, these ‘workers’ are queues
+
+sudo ethtool -L
+sudo ethtool -U eth1 flow-type udp4 dst-port 3333 action 2
+
+## Pktgen integration
+
+- Managed to set up pktgen on azure. There were issues when trying to use the latest versions of DPDK and Pktgen.
+- Managed to get it working with DPDK_VER=20.02 and PKTGEN_VER=20.02.0
+- Ran lua scripts successfully but had the following issues:
+  - The stats reported for tx where almost always the same, even when rate is changing. Not sure if this an issue with the Lua script or the pktgen
+  - When I start return traffic from the DUT, pktgen stops printing stats (it freezes). I have to stop the DUT from returning traffic and wait for a while for the pktgen console to be responsive. This because an issue in this use case where I want to automate reading and reporting of stats.

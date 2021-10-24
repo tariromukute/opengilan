@@ -48,8 +48,8 @@
   },
   "variables": {
     "imagePublisher": "Canonical",
-    "imageOffer": "UbuntuServer",
-    "ubuntuOSVersion": "18.04-LTS",
+    "imageOffer": "0001-com-ubuntu-server-focal",
+    "ubuntuOSVersion": "20_04-lts",
     "nicName": "myVMNic",
     "addressPrefix": "10.0.0.0/16",
     "subnetName": "Subnet",

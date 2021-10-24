@@ -1,21 +1,21 @@
 
 - name: Creating a file with content
   copy:
-    dest: "/home/user/pktgentrace.sh"
+    dest: "/home/open/pktgentrace.sh"
     content: |
       bpftrace tpstat/bpftrace/net/biodrop.bt
     mode: +x
 
 - name: Creating a file with content
   copy:
-    dest: "/home/user/pktgenmonitor.sh"
+    dest: "/home/open/pktgenmonitor.sh"
     content: |
       taskset -c $1 openssl speed -seconds $2 aes-256-cbc
     mode: +x
 
 - name: Create script to start udp server
   copy:
-    dest: "/home/user/pktgen-dpdk/pktgentraffic.sh"
+    dest: "/home/open/pktgentraffic.sh"
     content: |
-      taskset -c 169 /home/user//CppServer/bin/cppserver-example-udp_echo_server 5678
+      /home/open/CppServer/bin/cppserver-performance-udp_echo_server
     mode: +x

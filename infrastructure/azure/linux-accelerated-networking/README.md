@@ -73,3 +73,6 @@ For mlx5 build
 ## Useful Resources
 
 - [Setting up Virtual Machines for DPDK](https://blog.emumba.com/setting-up-virtual-machines-for-dpdk-da1b49a9bf5f)
+- [Flow Bifurcation How-to Guide](https://doc.dpdk.org/guides-19.02/howto/flow_bifurcation.html)
+- [MLX5 poll mode driver](https://dpdk.readthedocs.io/en/v17.02/nics/mlx5.html)
+- [DPDK VDEV_NETVSC driver](https://doc.dpdk.org/guides/nics/vdev_netvsc.html)

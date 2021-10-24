@@ -2,7 +2,7 @@
 
 export DPDK_VER=20.02
 export PKTGEN_VER=20.02.0
-export PCI_IF="985b:00:02.0"
+export PCI_IF="b812:00:02.0"
 
 
 if [ `whoami` != 'root' ]; then
@@ -17,8 +17,10 @@ echo "huge        /mnt/huge   hugetlbfs defaults      0   0" >> /etc/fstab
 fi
 
 if [ ! -d /mnt/huge ]; then
+echo 1024 | sudo tee /sys/devices/system/node/node*/hugepages/hugepages-2048kB/nr_hugepages
 mkdir /mnt/huge
 chmod 777 /mnt/huge/
+mount -t hugetlbfs nodev /mnt/huge
 fi
 
 
@@ -70,7 +72,7 @@ apt-get -y install pciutils
 apt-get -y install libpcap-dev
 apt-get -y install liblua5.3-dev
 apt-get -y install libelf-dev
-# apt-get -y install libibverbs-dev libmlx5-1 ibverbs-providers
+apt-get -y install libibverbs-dev libmlx5-1 ibverbs-providers
 apt-get -y install linux-headers-`uname -r` || apt -y install  linux-headers-generic
 
 echo "Setting env..."
@@ -126,6 +128,8 @@ echo "To run pktgen:"
 echo  '/opt/pktgen-$PKTGEN_VER/app/x86_64-native-linuxapp-gcc/pktgen  -- -T -P -m "2.[0]"'
 echo 'For Azure VM and any NET use'
 echo '/opt/pktgen-$PKTGEN_VER/app/x86_64-native-linuxapp-gcc/pktgen --vdev="net_vdev_netvsc0,iface=eth1" -- -T -P -m "2.[0]"'
+echo 'For Lua script run in the root'
+echo 'sudo -E ./app/x86_64-native-linuxapp-gcc/pktgen --vdev="net_vdev_netvsc0,iface=eth1" -- -T -P -m "2.[0]" -f /home/open/pktgen.lua'
 echo '/opt/pktgen-$PKTGEN_VER/app/x86_64-native-linuxapp-gcc/pktgen  -- -T -P -m  "2/4:6/8.[0]"'
 
 echo "
