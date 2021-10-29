@@ -123,6 +123,8 @@ https://dev.to/aws-builders/100g-networking-in-aws-a-network-performance-deep-di
 sudo ethtool -L
 sudo ethtool -U eth1 flow-type udp4 dst-port 3333 action 2
 
+https://blog.cloudflare.com/how-to-drop-10-million-packets/
+
 ## Pktgen integration
 
 - Managed to set up pktgen on azure. There were issues when trying to use the latest versions of DPDK and Pktgen.

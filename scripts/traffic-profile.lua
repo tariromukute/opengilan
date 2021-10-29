@@ -16,8 +16,8 @@ local pcnt_rate = { 10, 20, 40, 60, 60, 60, 60, 60, 60, 80, 80, 80, 80, 80, 70, 
 sendport	= 0;
 recvport	= 0;
 pkt_size	= 64;
-local mac_dst = "00:22:48:65:67:26";
-local dstip = "10.0.0.5";
+local mac_dst = "00:22:48:65:a4:fe";
+local dstip = "10.0.0.4";
 local srcip = "10.0.0.7";
 local netmask = "/24";
 

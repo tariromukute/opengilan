@@ -2,7 +2,7 @@
 
 export DPDK_VER=20.02
 export PKTGEN_VER=20.02.0
-export PCI_IF="b812:00:02.0"
+export PCI_IF="a08f:00:02.0"
 
 
 if [ `whoami` != 'root' ]; then
