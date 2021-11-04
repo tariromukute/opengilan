@@ -1,6 +1,6 @@
 
 # - name: Run a script for user space program (openssl)
-#   ansible.builtin.command: sh /home/user/pktgenmonitor.sh {{ cpu }} {{ time }}
+#   ansible.builtin.command: sh /home/open/pktgenmonitor.sh {{ cpu }} {{ time }}
 #   register: monitor_command
 #   # become: yes
 #   async: "{{ aduration }}"
@@ -12,7 +12,7 @@
 # interval that is not printed (by search \n\n and counting them)
 # TODO: address the biase from the above
 - name: Run a script for starting tracing (bpftrace)
-  ansible.builtin.command: timeout {{ duration }} sh /home/user/pktgentrace.sh
+  ansible.builtin.command: timeout {{ duration }} sh /home/open/pktgentrace.sh
   register: trace_command
   async: "{{ aduration }}"
   poll: 0
@@ -24,7 +24,7 @@
 - name: Run script to start udp server
   ansible.builtin.command: 
     cmd: timeout {{ aduration }} sh pktgentraffic.sh {{ bandwidth }} {{ duration }}
-    chdir: /home/user/pktgen-dpdk/
+    chdir: /home/open/
   register: traffic_command
   async: "{{ aduration }}"
   poll: 0
@@ -118,7 +118,7 @@
 # write to remote and them copy to local after
 - name: "Filter the traffic results we are interested in and save results them on remote machine"
   ansible.builtin.copy:
-    content: "{{( traffic_command_results.stdout | from_json).stdout}}"
+    content: "{{( traffic_command_results.stdout | from_json).stderr}}"
     dest: ~/iperf-{{ inventory_hostname }}
 
 # copy from remote copy to local machine

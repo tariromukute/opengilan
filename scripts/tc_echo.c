@@ -1,4 +1,5 @@
-
+/* clang -O2 -emit-llvm -c tc_echo.c -o - | llc -march=bpf -filetype=obj -o tc_echo.o */
+/* clang -g -O2 -Wall -target bpf -I ~/iproute2/include/ -c tc_echo.c -o tc_echo.o */
 #include <linux/if_ether.h>
 #include <linux/pkt_cls.h>
 #include <linux/ip.h>

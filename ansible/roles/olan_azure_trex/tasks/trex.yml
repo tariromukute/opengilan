@@ -1,0 +1,108 @@
+- name: Variables that are common across all OS types
+  include_vars: "{{ lookup('first_found', dependencies) }}"
+  vars:
+    dependencies:
+      files:
+        - common.yml
+      paths:
+        - 'vars'
+
+- name: Load a variable file based on the OS type, or a default if not found. Using free-form to specify the file.
+  include_vars: "{{ lookup('first_found', dependencies) }}"
+  vars:
+    dependencies:
+      files:
+        - "{{ ansible_facts['distribution'] }}.yml"
+        - default.yml
+      paths:
+        - 'vars'
+
+- name: Install compile packages for trex
+  ansible.builtin.package:
+    name: "{{ trex_compile_packages }}"
+    state: present
+  become: yes
+
+- name: Get TREX source code from git and checkout to v2.89
+  ansible.builtin.git:
+    repo: 'https://github.com/cisco-system-traffic-generator/trex-core.git'
+    dest: /home/{{ user }}/trex-core
+    version: v2.89
+
+- name: Configure TREX without OFED check
+  ansible.builtin.command: ./b configure --no-ofed-check
+  args:
+    chdir: /home/{{ user }}/trex-core/linux_dpdk
+
+- name: Build TREX
+  ansible.builtin.command: ./b build
+  args:
+    chdir: /home/{{ user }}/trex-core/linux_dpdk
+
+- name: Unbind eth1 and eth2 from kernel
+  ansible.builtin.command: ./azure_trex_setup.sh
+  args:
+    chdir: /home/{{ user }}/trex-core/scripts
+  register: azure_trex_setup
+
+- name: Get eth1's  MLX PCI address (value when NIC's macaddresses are equal)
+  set_fact:
+    eth1_pci: "{{ ansible_facts[item]['pciid'] }}"
+    eth1_netvsc: "{{ item }}"
+  when: ansible_facts[item]['macaddress'] is not undefined and ansible_facts[item]['device'] != eth1 and ansible_facts[eth1]['macaddress'] == ansible_facts[item]['macaddress']
+  with_items:
+  - "{{ ansible_interfaces }}"
+
+- name: Get eth2's  MLX PCI address (value when NIC's macaddresses are equal)
+  set_fact:
+    eth2_pci: "{{ ansible_facts[item]['pciid'] }}"
+    eth2_netvsc: "{{ item }}"
+  when: ansible_facts[item]['macaddress'] is not undefined and ansible_facts[item]['device'] != eth2 and ansible_facts[eth2]['macaddress'] == ansible_facts[item]['macaddress']
+  with_items:
+  - "{{ ansible_interfaces }}"
+
+- name: Set the UUID for eth1's hv_netvsc interface
+  set_fact:
+    eth1_uuid: "{{ ansible_facts[eth1]['pciid'] }}"
+
+- name: Set the UUID for eth2's hv_netvsc interface
+  set_fact:
+    eth2_uuid: "{{ ansible_facts[eth2]['pciid'] }}"
+
+- name: Create script to start udp server
+  copy:
+    dest: "/etc/trex_cfg.yaml"
+    content: |
+      - version: 2
+        interfaces: ['{{ eth1_pci }}', '{{ eth2_pci }}']
+        ext_dpdk_opt: ['--vdev=net_vdev_netvsc,ignore=0', '--vdev=net_vdev_netvsc,ignore=0']
+        interfaces_vdevs : ['{{ eth1_uuid }}','{{ eth2_uuid }}']
+        rx_desc : 1024
+        tx_desc : 1024
+        port_bandwidth_gb : 10
+        port_speed : 10000
+        port_info:
+            - ip: {{ eth1_ip }}
+              default_gw: {{ eth1_gw }}
+            - ip: {{ eth2_ip }}
+              default_gw: {{ eth2_gw }}
+
+        platform:
+            master_thread_id: 0
+            latency_thread_id: 2
+            dual_if:
+              - socket: 0
+                threads: [4, 6, 8, 10]
+    mode: +x
+  become: yes
+
+- name: "Turn off TSO for eth1 ({{ eth1_netvsc }}) MLX device"
+  ansible.builtin.command: "ethtool -K {{ eth1_netvsc }} tso off gro off gso off"
+  become: yes
+
+- name: "Turn off TSO for eth2 ({{ eth2_netvsc }}) MLX device"
+  ansible.builtin.command: "ethtool -K {{ eth2_netvsc }} tso off gro off gso off"
+  become: yes
+
+
+

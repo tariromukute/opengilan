@@ -1,0 +1,25 @@
+# publickey=$(cat ~/.ssh/id_rsa.pub) 
+# ansible-playbook az_olan.yml -i inventory.ini --extra-vars "ssh_key_data='$publickey'"
+# ansible-playbook plays/az_delete_olan.yml 
+
+- name: Include task list in play
+  include: plays/az_create_olan_loopback_testbed.yml
+
+- name: Test Ping
+  hosts:
+    - az_trex
+    - az_sut
+  tasks:
+  - action: ping
+
+- hosts:
+  - az_trex
+  roles:
+    - role: olan_azure_trex
+      user: azureuser
+      eth1: eth1
+      eth2: eth2
+      eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
+      eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
+      eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
+      eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"

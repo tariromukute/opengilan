@@ -1,0 +1,8 @@
+---
+# tasks file for olan_azure_trex
+- name: Run pre tasks for TREX (DPDK setup)
+  include: pre.yml
+
+- name: Install and setup TREX
+  include: trex.yml
+

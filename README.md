@@ -59,12 +59,22 @@ iperf -P can help influence the bandwidth results
 - https://www.researchgate.net/publication/349761932_Measuring_with_JPerf_and_PsPing_Throughput_and_Estimated_Packet_Delivery_Delay_vs_TCP_Window_Size_Parallel_Streams
 
 mst wasn't working, to install it see [link](https://community.mellanox.com/s/article/getting-started-with-mellanox-firmware-tools--mft--for-linux)
+- wget https://content.mellanox.com/ofed/MLNX_OFED-5.4-1.0.3.0/MLNX_OFED_LINUX-5.4-1.0.3.0-ubuntu20.04-x86_64.tgz
+- wget https://content.mellanox.com/ofed/MLNX_OFED-4.9-4.0.8.0/MLNX_OFED_LINUX-4.9-4.0.8.0-ubuntu18.04-x86_64.tgz
 
 install dpdk - [link](https://doc.dpdk.org/guides/linux_gsg/build_dpdk.html)
 
 for mellanox - [link](https://doc.dpdk.org/guides/nics/mlx5.html)
+- wget tar mlx5 ofed
+- extract from it and run install
 
 install pktgen - [link](https://pktgen-dpdk.readthedocs.io/en/latest/getting_started.html)
+- sudo apt install -y python3-pyelftools python-pyelftools lua5.3 liblua5.3-dev 
+- sudo apt install make
+- sudp apt install cmake
+- * the pkg-config can be put in different folder
+- sudo apt install libpcap-dev libnuma-dev pkg-config build-essential librdmacm-dev libnuma-dev libmnl-dev meson
+- sudo apt install libibverbs-dev libmlx5-1 ibverbs-providers
 
 edit cfg/xdp-40.cfg in pktgen
 
@@ -99,7 +109,57 @@ UDP server - https://gist.github.com/karupanerura/00c8ff6a48d98dd6bec2
 https://cs.baylor.edu/~donahoo/practical/CSockets/practical/
 
 https://github.com/chronoxor/CppServer#example-udp-echo-server
+  - sudo apt install binutils-dev uuid-dev libssl-dev
+  - sudo apt install python3-pip
   - sudo pip3 install --prefix /usr/local gil
+  - sudo apt install cmake
 
 With a udp echo server from the above packets are always dropped from xxx
-  - add permenent arp record to resolve that: sudo arp -s 10.0.01 b8:ce:f6:57:8e:d0
+  - add permenent arp record to resolve that: sudo arp -s 10.0.0.7 00:22:48:65:6e:cf
+
+https://dev.to/aws-builders/100g-networking-in-aws-a-network-performance-deep-dive-3bg0
+- In the world of NICs, these ‘workers’ are queues
+
+sudo ethtool -L
+sudo ethtool -U eth1 flow-type udp4 dst-port 3333 action 2
+
+https://blog.cloudflare.com/how-to-drop-10-million-packets/
+
+## Pktgen integration
+
+- Managed to set up pktgen on azure. There were issues when trying to use the latest versions of DPDK and Pktgen.
+- Managed to get it working with DPDK_VER=20.02 and PKTGEN_VER=20.02.0
+- Ran lua scripts successfully but had the following issues:
+  - The stats reported for tx where almost always the same, even when rate is changing. Not sure if this an issue with the Lua script or the pktgen
+  - When I start return traffic from the DUT, pktgen stops printing stats (it freezes). I have to stop the DUT from returning traffic and wait for a while for the pktgen console to be responsive. This because an issue in this use case where I want to automate reading and reporting of stats.
+
+## Netsvc
+
+- [Hyper-V network driver](https://www.kernel.org/doc/html/v5.12/networking/device_drivers/ethernet/microsoft/netvsc.html)
+
+## Bpftrace
+
+- [Linux Extended BPF (eBPF) Tracing Tools](https://www.brendangregg.com/ebpf.html#bpftrace)
+
+sudo cat /sys/kernel/debug/tracing/events/napi/napi_poll/format
+
+tracepoint:tcp
+tracepoint:udp
+tracepoint:sock
+tracepoint:napi
+tracepoint:net
+tracepoint:skb
+tracepoint:irq
+tracepoint:raw_syscalls
+
+- [Taming Tracepoints in the Linux Kernel](https://blogs.oracle.com/linux/post/taming-tracepoints-in-the-linux-kernel)
+- [Event Tracing](https://www.kernel.org/doc/Documentation/trace/events.txt)
+
+- [A Guide to Using Raw Sockets](https://www.opensourceforu.com/2015/03/a-guide-to-using-raw-sockets/)
+
+Test scenarios
+
+1. UDP packet where all parts of the stack are used - eth, ip, transport, sock, and user
+2. Hooks inbetweeen
+3. Raw sockets where - eth, sock, user
+4. XDP & TC

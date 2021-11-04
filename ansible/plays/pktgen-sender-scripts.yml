@@ -1,20 +1,20 @@
 - name: Creating a file with content
   copy:
-    dest: "/home/user/pktgentrace.sh"
+    dest: "/home/open/pktgentrace.sh"
     content: |
       echo 'Hello'
     mode: +x
 
 - name: Creating a file with content
   copy:
-    dest: "/home/user/pktgenmonitor.sh"
+    dest: "/home/open/pktgenmonitor.sh"
     content: |
       taskset -c $1 openssl speed -seconds $2 aes-256-cbc
     mode: +x
 
 - name: Create script to start iperf
   copy:
-    dest: "/home/user/pktgen-dpdk/pktgentraffic.sh"
+    dest: "/home/open/pktgentraffic.sh"
     content: |
-      ./Builddir/app/pktgen -l 33-35 --proc-type auto -a 0000:41:00.0 -- -P -N -m "[35].0" -f ./custom/packet_rate.lua
+      cd /opt/pktgen-20.02.0 && ./app/x86_64-native-linuxapp-gcc/pktgen --vdev="net_vdev_netvsc0,iface=eth1" -- -T -P -m "2.[0]" -f /home/open/pktgen.lua
     mode: +x
