@@ -1,7 +1,0 @@
----
-- name: Converge
-  hosts: all
-  tasks:
-    - name: "Include olan_azure_testbed"
-      include_role:
-        name: "olan_azure_testbed"

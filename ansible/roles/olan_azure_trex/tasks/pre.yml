@@ -1,0 +1,60 @@
+- name: Update packages
+  ansible.builtin.command: apt update -y
+  become: yes
+
+- name: Variables that are common across all OS types
+  include_vars: "{{ lookup('first_found', dependencies) }}"
+  vars:
+    dependencies:
+      files:
+        - common.yml
+      paths:
+        - 'vars'
+
+- name: Load a variable file based on the OS type, or a default if not found. Using free-form to specify the file.
+  include_vars: "{{ lookup('first_found', dependencies) }}"
+  vars:
+    dependencies:
+      files:
+        - "{{ ansible_facts['distribution'] }}.yml"
+        - default.yml
+      paths:
+        - 'vars'
+
+- name: Install compile packages for DPDK
+  ansible.builtin.package:
+    name: "{{ dpdk_compile_packages }}"
+    state: present
+  become: yes
+
+- name: Ensure GRUB_CMDLINE_LINUX is set up for hugepages on reboot
+  ansible.builtin.lineinfile:
+    path: /etc/default/grub
+    regexp: 'GRUB_CMDLINE_LINUX=""'
+    line: GRUB_CMDLINE_LINUX=" default_hugepagesz=1GB hugepagesz=1G hugepages=8 transparent_hugepage=never "
+  become: yes
+
+- name: Update grub
+  ansible.builtin.command: update-grub
+  become: yes
+
+- name: Insert/Update huge pages configuration block in /etc/fstab
+  blockinfile:
+    path: /etc/fstab
+    block: |
+      nodev /mnt/huge hugetlbfs defaults 0 0
+  become: yes
+
+- name: Insert/Update configuration block to load Azure drivers in /etc/fstab
+  blockinfile:
+    path: /etc/modules-load.d/modules.conf
+    block: |
+      ib_uverbs
+      mlx4_ib
+      mlx5_ib
+  become: yes
+
+- name: Unconditionally reboot the machine with all defaults
+  reboot:
+    test_command: cat /proc/meminfo | grep Huge
+  become: yes

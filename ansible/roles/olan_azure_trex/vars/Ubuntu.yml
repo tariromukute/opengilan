@@ -1,0 +1,14 @@
+dpdk_compile_packages:
+  - binutils
+  - librdmacm-dev
+  - librdmacm1
+  - build-essential
+  - libnuma-dev
+  - libmnl-dev
+  - build-essential
+  - ibverbs-utils
+  - linux-headers-{{ansible_kernel}}
+trex_compile_packages:
+  - python3-distutils
+  - zlib1g-dev
+sudo: sudo

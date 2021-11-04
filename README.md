@@ -132,3 +132,34 @@ https://blog.cloudflare.com/how-to-drop-10-million-packets/
 - Ran lua scripts successfully but had the following issues:
   - The stats reported for tx where almost always the same, even when rate is changing. Not sure if this an issue with the Lua script or the pktgen
   - When I start return traffic from the DUT, pktgen stops printing stats (it freezes). I have to stop the DUT from returning traffic and wait for a while for the pktgen console to be responsive. This because an issue in this use case where I want to automate reading and reporting of stats.
+
+## Netsvc
+
+- [Hyper-V network driver](https://www.kernel.org/doc/html/v5.12/networking/device_drivers/ethernet/microsoft/netvsc.html)
+
+## Bpftrace
+
+- [Linux Extended BPF (eBPF) Tracing Tools](https://www.brendangregg.com/ebpf.html#bpftrace)
+
+sudo cat /sys/kernel/debug/tracing/events/napi/napi_poll/format
+
+tracepoint:tcp
+tracepoint:udp
+tracepoint:sock
+tracepoint:napi
+tracepoint:net
+tracepoint:skb
+tracepoint:irq
+tracepoint:raw_syscalls
+
+- [Taming Tracepoints in the Linux Kernel](https://blogs.oracle.com/linux/post/taming-tracepoints-in-the-linux-kernel)
+- [Event Tracing](https://www.kernel.org/doc/Documentation/trace/events.txt)
+
+- [A Guide to Using Raw Sockets](https://www.opensourceforu.com/2015/03/a-guide-to-using-raw-sockets/)
+
+Test scenarios
+
+1. UDP packet where all parts of the stack are used - eth, ip, transport, sock, and user
+2. Hooks inbetweeen
+3. Raw sockets where - eth, sock, user
+4. XDP & TC
