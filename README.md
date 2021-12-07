@@ -160,6 +160,15 @@ tracepoint:raw_syscalls
 Test scenarios
 
 1. UDP packet where all parts of the stack are used - eth, ip, transport, sock, and user
-2. Hooks inbetweeen
-3. Raw sockets where - eth, sock, user
-4. XDP & TC
+2. RAW packets AF_PACKET
+3. Hooks inbetweeen
+4. Raw sockets where - eth, sock, user
+5. XDP & TC
+
+- [XDP support on Azure](https://mjmwired.net/kernel/Documentation/networking/device_drivers/microsoft)
+- [Support for XDP on Hyper-V](https://elixir.bootlin.com/linux/v5.8/source/Documentation/networking/device_drivers/microsoft/netvsc.rst)
+
+StorPerf provides the following metrics:
+• IOPS
+• Bandwidth (number of kilobytes read or written per second)
+• Latency
