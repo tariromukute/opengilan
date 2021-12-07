@@ -3,10 +3,8 @@
  * 1. Compile with clang bpf
  *    clang -O2 -target bpf -g -c tc_echo_server.c -o tc_echo_server.o
  *    `The -g flag is important. clang to generate debug info (including .BTF ELF section) needed for loading the btf maps`
- * 2. Load program using tc (iproute)
- *    sudo tc qdisc del dev $DEV clsact
- *    sudo tc qdisc add dev $DEV clsact
- *    sudo tc filter add dev $DEV ingress bpf da obj tc_echo_server.o sec ingress_redirect
+ * 2. Load program using bpftool
+ *    sudo tc filter add dev <dev_name> ingress bpf da obj tc_echo_server.o sec ingress_redirect
  * 3. Check if the map has been pinned
  *    sudo bpftool map dump pinned /sys/fs/bpf/tc/globals/egress_ifindex
  *    `Found 1 elements`
@@ -15,12 +13,12 @@
  * 4. Insert values into map
  *    bpftool map update pinned /sys/fs/bpf/maps/egress_ifindex key hex FF FF FF FF FF FF FF FF value hex 11 11 11 11 11 11 11 11
  * 5. Check if program has been attached
- *    tc filter show dev $DEV ingress
+ *    tc filter show dev <dev_name> ingress
  * 6. Print the debug messages from the bpf_trace_printk function in this xdp program
  *    sudo cat /sys/kernel/debug/tracing/trace_pipe
  * 7. Send traffic to the interface (can use any tool to do so)
  * 8. Detach the program
- *    sudo tc filter del dev $DEV ingress
+ *    sudo tc filter del dev <dev_name> ingress
  * 9. Delete the program and the map
  *    rm /sys/fs/bpf/tc/globals/egress_ifindex && rm /sys/fs/bpf/tc/globals/stats_map
  */
@@ -38,7 +36,6 @@
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_endian.h>
 
-/* This is the data record stored in the map */
 struct datarec
 {
         __u64 rx_packets;

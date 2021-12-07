@@ -172,3 +172,21 @@ StorPerf provides the following metrics:
 • IOPS
 • Bandwidth (number of kilobytes read or written per second)
 • Latency
+2. Hooks inbetweeen
+3. Raw sockets where - eth, sock, user
+4. XDP & TC
+
+## AF_PACKET
+
+- [Send an arbitrary Ethernet frame using an AF_PACKET socket in C](http://www.microhowto.info/howto/send_an_arbitrary_ethernet_frame_using_an_af_packet_socket_in_c.html)
+  - Touch on reasons for using AF_PACKET and alternatives to AF_PACKET
+  - Also the portable way of using AF_PACKET (libpcap)
+- [Send an arbitrary Ethernet frame using libpcap](http://www.microhowto.info/howto/send_an_arbitrary_ethernet_frame_using_libpcap.html)
+
+
+## Notes
+
+- For ease we can use BTF with tc programs. This will allow us to see the maps as json hence can do without a custom userspace programs for reading the stats from the maps. We can the use bpftool to print out the maps
+- However this requires the latest iproute (from tag 5.11.0) configured with support for libbpf. Might need to compile it from source.
+- For running tc (iproute2) with libbpf support set the PKG_CONFIG_PATH with the path to libpf.pc (PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig) and configure
+- http://www.policyrouting.org/iproute2.doc.html

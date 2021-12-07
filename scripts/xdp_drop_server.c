@@ -1,24 +1,22 @@
-/*  TC (Traffic Control) eBPF drop server
+/*  TC (Traffic Control) eBPF echo server
  *
  * 1. Compile with clang bpf
  *    clang -O2 -target bpf -g -c tc_drop_server.c -o tc_drop_server.o
  *    `The -g flag is important. clang to generate debug info (including .BTF ELF section) needed for loading the btf maps`
- * 2. Load program using tc
- *    sudo tc qdisc del dev $DEV clsact
- *    sudo tc qdisc add dev $DEV clsact
- *    sudo tc filter add dev $DEV ingress bpf da obj tc_drop_server.o sec ingress_drop
+ * 2. Load program using bpftool
+ *    sudo tc filter add dev <dev_name> ingress bpf da obj tc_drop_server.o sec ingress_drop
  * 3. Check if the map has been pinned
  *    sudo bpftool map dump pinned /sys/fs/bpf/tc/globals/stats_map
  *    `Found 10 elements`
  * 4. Check if program has been attached
- *    tc filter show dev $DEV ingress
+ *    tc filter show dev <dev_name> ingress
  * 5. Print the debug messages from the bpf_trace_printk function in this xdp program
  *    sudo cat /sys/kernel/debug/tracing/trace_pipe
  * 6. Send traffic to the interface (can use any tool to do so)
  * 7. Detach the program
- *    sudo tc filter del dev $DEV ingress
+ *    sudo tc filter del dev <dev_name> ingress
  * 8. Delete the program and the map
- *    rm /sys/fs/bpf/tc/globals/stats_map
+ *    rm /sys/fs/bpf/tc/globals/egress_ifindex && rm /sys/fs/bpf/tc/globals/stats_map
  */
 #include <linux/bpf.h>
 #include <linux/if_ether.h>
@@ -28,7 +26,6 @@
 #include <linux/in.h>
 #include <linux/tcp.h>
 #include <linux/udp.h>
-#include <linux/btf.h>
 
 #include <linux/pkt_cls.h>
 
