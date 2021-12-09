@@ -1,35 +1,36 @@
 # ---- netsize ----
 - name: Run a script for starting tracing (bpftrace)
-  ansible.builtin.command: timeout {{ duration }} sh /home/{{ user }}/tpstat/network/net/netsize.bt
-  register: netsize_command
+  ansible.builtin.command: timeout {{ duration }} bpftrace /home/{{ user }}/tpstat/bpftrace/network/net/{{ tool }}.bt
+  register: tool_command
   async: "{{ aduration }}"
   poll: 0
   become: yes
   ignore_errors: yes
 
-- name: Check on an async task for traffic (iperf)
+- name: Check on an async task for netsize (bpftrace)
   async_status:
-    jid: "{{ netsize_command.ansible_job_id }}"
+    jid: "{{ tool_command.ansible_job_id }}"
   register: job_result
   until: job_result.finished
   retries: 100
   delay: 10
+  become: yes
   ignore_errors: yes
 
 - name: Get results from tracing (bpftrace)
-  ansible.builtin.shell: cat {{ netsize_command.results_file }}
-  register: netsize_command_results
+  ansible.builtin.shell: cat {{ tool_command.results_file }}
+  register: tool_command_results
   become: yes
 
 # write to remote
 - name: "Filter the tracing results we are interested in and save results them on remote machine"
   ansible.builtin.copy:
-    content: "{{( netsize_command_results.stdout | from_json).stdout}}"
-    dest: ~/netsize-{{ inventory_hostname }}
+    content: "{{( tool_command_results.stdout | from_json).stdout}}"
+    dest: ~/{{ tool }}-{{ inventory_hostname }}
 
 # copy remote copy to local machine
 - name: "Save results from tracing on local machine"
   ansible.builtin.fetch:
-    src: ~/netsize-{{ inventory_hostname }}
-    dest: .results/netsize.out
+    src: ~/{{ tool }}-{{ inventory_hostname }}
+    dest: .results/{{ tool }}.out
     flat: yes

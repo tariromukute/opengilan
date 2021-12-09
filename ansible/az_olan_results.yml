@@ -1,0 +1,21 @@
+
+- name: Test Ping
+  hosts:
+    # - az_trex
+    - az_sut
+
+  vars:
+    tools:
+      - netsize
+      - nettxlat
+  tasks:
+  - action: ping
+
+  - name: Include task list in play
+    include: plays/benchmark.yml
+    vars:
+      user: azureuser
+      duration: 30
+      aduration: 40
+      tool: "{{ item }}"
+    loop: "{{ tools }}"

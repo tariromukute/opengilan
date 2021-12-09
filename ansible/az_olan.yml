@@ -2,8 +2,8 @@
 # ansible-playbook az_olan.yml -i inventory.ini --extra-vars "ssh_key_data='$publickey' olan_prefix=olanxxx"
 # ansible-playbook plays/az_delete_olan.yml 
 
-# - name: Include task list in play
-#   include: plays/az_create_olan_loopback_testbed.yml
+- name: Include task list in play
+  include: plays/az_create_olan_loopback_testbed.yml
 
 - name: Test Ping
   hosts:
@@ -23,3 +23,9 @@
       eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
       eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
       eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
+
+- hosts:
+  - az_sut
+  roles:
+    - role: olan_bpftrace
+      user: azureuser
