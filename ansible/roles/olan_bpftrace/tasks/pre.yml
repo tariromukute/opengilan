@@ -1,4 +1,8 @@
-- name: Load a variable file based on the OS type, or a default if not found. Using free-form to specify the file.
+- name: Update packages
+  ansible.builtin.command: apt update -y
+  become: yes
+
+- name: Variables that are common across all OS types
   include_vars: "{{ lookup('first_found', dependencies) }}"
   vars:
     dependencies:
@@ -17,10 +21,14 @@
       paths:
         - 'vars'
 
-# - name: Install the packages for this role
-#   ansible.builtin.package:
-#     name:
-#       - "{{ bpftool }}"
-#     state: present
-#   become: yes
+- name: Install compile packages for bpftrace
+  ansible.builtin.package:
+    name: "{{ bpftrace_compile_packages }}"
+    state: present
+  become: yes
 
+- name: Install build packages for bpftrace
+  ansible.builtin.package:
+    name: "{{ bpftrace_build_packages }}"
+    state: present
+  become: yes

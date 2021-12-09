@@ -1,0 +1,5 @@
+---
+- name: "Filter the tracing results we are interested in and save results them on remote machine"
+  ansible.builtin.copy:
+    content: "{{( netsize_command_results.stdout | from_json).stdout}}"
+    dest: ~/netsize-{{ inventory_hostname }}
