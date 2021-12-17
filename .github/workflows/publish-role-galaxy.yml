@@ -12,7 +12,7 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -45,4 +45,4 @@ jobs:
         run: ansible-galaxy collection build ansible
       - run: ls .
       - name: Publish collection
-        run: ansible-galaxy collection publish tariromukute-olan_roles-1.0.0.tar.gz --api-key=${{ secrets.galaxy_api_key }}
+        run: ansible-galaxy collection publish tariromukute-olan_roles-1.0.1.tar.gz --api-key=${{ secrets.galaxy_api_key }}
