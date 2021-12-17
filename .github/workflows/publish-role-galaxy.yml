@@ -15,3 +15,11 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: galaxy
+        uses: robertdebock/galaxy-action@1.1.0
+        with:
+          path: ./ansible/roles/olan_azure_trex
+          galaxy_api_key: ${{ secrets.galaxy_api_key }}
