@@ -5,3 +5,5 @@
     - name: "Include olan_bpftrace"
       include_role:
         name: "olan_bpftrace"
+      vars:
+        user: ubuntu

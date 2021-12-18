@@ -103,6 +103,3 @@
 - name: "Turn off TSO for eth2 ({{ eth2_netvsc }}) MLX device"
   ansible.builtin.command: "ethtool -K {{ eth2_netvsc }} tso off gro off gso off"
   become: yes
-
-
-
