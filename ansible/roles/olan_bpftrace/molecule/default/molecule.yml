@@ -14,7 +14,7 @@ verifier:
 scenario:
   name: default
   test_sequence: 
-    - destroy
+    # - destroy
     - create
     - converge
     # - idempotence
