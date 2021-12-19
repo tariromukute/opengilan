@@ -2,6 +2,8 @@ galaxy_info:
   author: Tariro Mukute
   description: Set up a bpftrace for observability 
 
+  role_name: olan_bpftrace  # if absent directory name hosting role is used instead
+  namespace: tariromukute  # if absent, author is used instead
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
   # issue_tracker_url: http://example.com/issue/tracker
