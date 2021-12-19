@@ -49,6 +49,9 @@ jobs:
           python-version: 3.9
           cache: 'pip'
       - run: pip install -r ansible/requirements.txt
+      - name: Install dependencies
+        run: |
+          pip install molecule docker
       - name: Test with molecule
         run: |
           molecule test
