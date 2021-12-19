@@ -5,6 +5,7 @@ driver:
   name: docker
 platforms:
   - name: instance
+    # TODO: build prebuilt ansible images (use this one for now)
     image: ${MOLECULE_DISTRO:-ghcr.io/artis3n/docker-ubuntu2104-ansible:latest}
     pre_build_image: true
 provisioner:
