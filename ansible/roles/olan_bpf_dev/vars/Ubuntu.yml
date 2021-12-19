@@ -6,6 +6,7 @@ bpf_compile_packages:
   - gcc-multilib
   - build-essential
   - linux-headers-{{ansible_kernel}}
+  - git
 libbpf_compile_packages:
   - zlib1g-dev
   - libelf-dev

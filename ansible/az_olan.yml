@@ -24,6 +24,10 @@
       eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
       eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
 
+# Call the NF and install it using the lifecycle events
+
+# Collect results
+
 - hosts:
   - az_sut
   roles:
