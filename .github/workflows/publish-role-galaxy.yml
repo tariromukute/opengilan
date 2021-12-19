@@ -53,10 +53,16 @@ jobs:
       - name: Install dependencies
         run: |
           pip install molecule docker
-      - name: Test with molecule
+      - name: Test olan_bpftrace with molecule
         run: |
           molecule test
         working-directory: ansible/roles/olan_bpftrace
+        env:
+          MOLECULE_DISTRO: ${{ matrix.molecule_distro }}
+      - name: Test olan_bpf_dev with molecule
+        run: |
+          molecule test
+        working-directory: ansible/roles/olan_bpf_dev
         env:
           MOLECULE_DISTRO: ${{ matrix.molecule_distro }}
   deploy:

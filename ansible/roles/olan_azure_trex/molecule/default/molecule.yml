@@ -5,8 +5,9 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: docker.io/ubuntu:20.04
-    pre_build_image: false
+    # TODO: build prebuilt ansible images (use this one for now)
+    image: ${MOLECULE_DISTRO:-ghcr.io/artis3n/docker-ubuntu2104-ansible:latest}
+    pre_build_image: true
 provisioner:
   name: ansible
 verifier:
