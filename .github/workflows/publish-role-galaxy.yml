@@ -24,7 +24,7 @@ jobs:
       fail-fast: false
       max-parallel: 4
       matrix:
-        molecule_distro: ['geerlingguy/docker-ubuntu2004-ansible:latest']
+        molecule_distro: ['docker.io/ubuntu:20.04']
     env:
       ANSIBLE_CALLBACK_WHITELIST: profile_tasks
 

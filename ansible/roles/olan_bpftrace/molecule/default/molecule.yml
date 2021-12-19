@@ -5,8 +5,8 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: geerlingguy/docker-ubuntu2004-ansible:latest
-    pre_build_image: true
+    image: docker.io/ubuntu:20.04
+    pre_build_image: false
 provisioner:
   name: ansible
 verifier:
@@ -14,7 +14,7 @@ verifier:
 scenario:
   name: default
   test_sequence: 
-    # - destroy
+    - destroy
     - create
     - converge
     # - idempotence
