@@ -27,6 +27,7 @@
   ansible.builtin.git:
     repo: 'https://github.com/libbpf/libbpf.git'
     dest: /home/{{ user }}/libbpf
+    version: v0.6.0
   become: yes
 
 - name: Build the libbpf target
