@@ -20,4 +20,5 @@ bpftrace_build_packages:
   - libgmock-dev
   - asciidoctor
   # - linux-headers-{{ansible_kernel}}
+  - linux-headers-generic
 sudo: sudo

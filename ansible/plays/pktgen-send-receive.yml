@@ -1,4 +1,3 @@
-
 # - name: Run a script for user space program (openssl)
 #   ansible.builtin.command: sh /home/open/pktgenmonitor.sh {{ cpu }} {{ time }}
 #   register: monitor_command

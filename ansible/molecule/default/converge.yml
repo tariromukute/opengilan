@@ -1,0 +1,39 @@
+---
+- name: Converge
+  hosts: all
+
+  vars:
+    tools:
+      - netsize
+      - nettxlat
+
+  tasks:
+    - name: Update apt cache (on Debian).
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_os_family == 'Debian'
+
+    - name: Set up the Gi-LAN (DUT)
+      include: ../../plays/gilan.yml
+      vars:
+        user: ubuntu
+
+    # - name: Test the lifecycle events play
+    #   include: ../../plays/events.yml
+    #   vars:
+    #     user: ubuntu
+    #     vnf_repo: https://github.com/tariromukute/libpcap_echo_server.git
+    #     vnf_name: libpcap_echo_server
+    #     vnf_version: HEAD
+
+    - name: Include task list in play
+      include: ../../plays/benchmark.yml
+      vars:
+        user: ubuntu
+        duration: 30
+        aduration: 40
+        tool: "{{ item }}"
+      loop: "{{ tools }}"
+
+# - import_playbook: ../../plays/test.yml

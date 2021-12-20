@@ -1,0 +1,41 @@
+# This play will run the lifecycle events events required to set up the VNF (accourding to ETSI)
+# TODO: migrate to ansible-pull. Currently can't run ansible-galaxy (to install the collection and roles) with
+# ansible-pull hence we going with checkout the repo and running the VNF
+
+# Install ansible of the remote server (target/DUT)
+- name: Install ansible python package (on target/DUT)
+  pip:
+    name: ansible
+
+- name: Install git (target/DUT)
+  ansible.builtin.package:
+    name: git
+    state: present
+
+- name: Get VNF {{ vnf_name }} source code from git and checkout to {{ vnf_version }}
+  ansible.builtin.git:
+    repo: "{{ vnf_repo }}"
+    dest: /home/{{ user }}/{{ vnf_name }}
+    version: "{{ vnf_version }}"
+
+# Install the roles and collection for the VNF (requirements.yml)
+- name: Install the roles and collection for the VNF (requirements.yml)
+  ansible.builtin.command: ansible-galaxy install -r ansible/requirements.yml
+  args:
+    chdir: /home/{{ user }}/{{ vnf_name }}
+
+# Run the playbook for get the VNF, instantiated, confugure and started (etc)
+- name: Run the VNF's instatiate play
+  ansible.builtin.command: ansible-playbook ansible/events/instantiate/site.yml
+  args:
+    chdir: /home/{{ user }}/{{ vnf_name }}
+
+- name: Run the VNF's configure play
+  ansible.builtin.command: ansible-playbook ansible/events/configure/site.yml
+  args:
+    chdir: /home/{{ user }}/{{ vnf_name }}
+
+- name: Run the VNF's start play
+  ansible.builtin.command: ansible-playbook ansible/events/operate/start.yml
+  args:
+    chdir: /home/{{ user }}/{{ vnf_name }}
