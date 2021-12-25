@@ -191,3 +191,7 @@ StorPerf provides the following metrics:
 - For running tc (iproute2) with libbpf support set the PKG_CONFIG_PATH with the path to libpf.pc (PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig) and configure
 - http://www.policyrouting.org/iproute2.doc.html
 - We install bpftrace from source because ......
+
+## Test with Open Source VNFs
+- [OPNFV List Of VNFs](https://wiki.opnfv.org/display/functest/List+Of+VNFs)
+- [OSM List of VNFs](https://osm.etsi.org/wikipub/index.php/VNFs)
