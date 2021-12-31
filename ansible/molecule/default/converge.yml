@@ -6,6 +6,8 @@
     tools:
       - netsize
       - nettxlat
+    definitions_type: json
+    events_type: ansible 
 
   tasks:
     - name: Update apt cache (on Debian).
@@ -14,28 +16,51 @@
         cache_valid_time: 3600
       when: ansible_os_family == 'Debian'
 
-    - name: Set up the Gi-LAN (DUT)
-      include: ../../plays/gilan.yml
-      vars:
-        user: ubuntu
+    # - name: Set up the Gi-LAN (DUT)
+    #   include: ../../plays/gilan.yml
+    #   vars:
+    #     user: ubuntu
 
-    - name: Test the lifecycle events play
+    - name: Update the inventory and vars on the DUT for the VNF
+      include: ../../plays/inventory.yml
+      vars:
+        vnf_group_vars: /Users/tariromukute/Documents/personal/dev/libpcap_echo_server/ansible/group_vars/
+        vnf_inventory: /Users/tariromukute/Documents/personal/dev/libpcap_echo_server/ansible/inventory.ini
+      when: events_type == 'ansible'
+
+    - name: Test the lifecycle events play with ansible based VNF lifecycle libpcap_echo_server
       include: ../../plays/events.yml
       vars:
         user: ubuntu
         vnf_repo: https://github.com/tariromukute/libpcap_echo_server.git
         vnf_name: libpcap_echo_server
+        vnf_path: /home/libpcap_echo_server
         vnf_version: HEAD
+        vnf_descriptors: /Users/tariromukute/Documents/personal/dev/libpcap_echo_server/vnfd.json
 
-    # Converge with bpftrace (used in the benchmark) will not work on local Mac OS see https://petermalmgren.com/docker-mac-bpf-perf/ on details and how to resolve it
-    # TODO: Create a docker image for testing bpftrace locally
-    - name: Include task list in play
-      include: ../../plays/benchmark.yml
+    - set_fact:
+        events_type: "script"
+
+    
+
+    - name: Test the lifecycle events play with script based VNF lifecycle bind9_vnf
+      include: ../../plays/events.yml
       vars:
         user: ubuntu
-        duration: 30
-        aduration: 40
-        tool: "{{ item }}"
-      loop: "{{ tools }}"
+        vnf_repo: https://github.com/tariromukute/bind9_vnf.git
+        vnf_name: bind9_vnf
+        vnf_path: /home/bind9_vnf
+        vnf_version: HEAD
+
+    # # Converge with bpftrace (used in the benchmark) will not work on local Mac OS see https://petermalmgren.com/docker-mac-bpf-perf/ on details and how to resolve it
+    # # TODO: Create a docker image for testing bpftrace locally
+    # - name: Include task list in play
+    #   include: ../../plays/benchmark.yml
+    #   vars:
+    #     user: ubuntu
+    #     duration: 30
+    #     aduration: 40
+    #     tool: "{{ item }}"
+    #   loop: "{{ tools }}"
 
 # - import_playbook: ../../plays/test.yml
