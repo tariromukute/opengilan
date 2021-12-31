@@ -195,3 +195,6 @@ StorPerf provides the following metrics:
 ## Test with Open Source VNFs
 - [OPNFV List Of VNFs](https://wiki.opnfv.org/display/functest/List+Of+VNFs)
 - [OSM List of VNFs](https://osm.etsi.org/wikipub/index.php/VNFs)
+
+## VNF Lifecycle Docs
+- [Network Functions Virtualisation (NFV) Release 3; Protocols and Data Models; RESTful protocols specification for the Or-Vnfm Reference Point](https://www.etsi.org/deliver/etsi_gs/NFV-SOL/001_099/003/03.05.01_60/gs_NFV-SOL003v030501p.pdf)

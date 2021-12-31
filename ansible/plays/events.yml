@@ -1,11 +1,11 @@
 # This play will run the lifecycle events events required to set up the VNF (accourding to ETSI)
 # TODO: migrate to ansible-pull. Currently can't run ansible-galaxy (to install the collection and roles) with
 # ansible-pull hence we going with checkout the repo and running the VNF
-
-# Install ansible of the remote server (target/DUT)
-- name: Install ansible python package (on target/DUT)
-  pip:
-    name: ansible
+- name: Unset variables
+  set_fact:
+    loaded_vnfd_json:
+    loaded_vnfd_events_json:
+    lifecycle_events_dict:
 
 - name: Install git (target/DUT)
   ansible.builtin.package:
@@ -15,27 +15,91 @@
 - name: Get VNF {{ vnf_name }} source code from git and checkout to {{ vnf_version }}
   ansible.builtin.git:
     repo: "{{ vnf_repo }}"
-    dest: /home/{{ user }}/{{ vnf_name }}
+    dest: "{{ vnf_path }}" # TODO: change it so
     version: "{{ vnf_version }}"
+
+- name: Load the vnfd from the git repo if not supplied
+  ansible.builtin.slurp:
+    src: "{{ vnf_path }}/vnfd.json"
+  register: loaded_vnfd_slup
+  when: vnf_descriptors is undefined
+
+- name: Set the json in variable
+  set_fact:
+    loaded_vnfd_json: "{{ loaded_vnfd_slup['content'] | b64decode }}"
+  when: vnf_descriptors is undefined
+
+- name: Load variables from vnfd input file
+  set_fact:
+    loaded_vnfd_json: "{{ ( lookup('file', '{{ vnf_descriptors }}') | from_json ) }}"
+  when: vnf_descriptors is defined
+
+- name: Define Interfaces Array
+  set_fact:
+    loaded_vnfd_events_json: "{{ loaded_vnfd_json | json_query('lifecycle_event') }}"
+
+- name: Create lifecycle object
+  set_fact:
+    lifecycle_events_dict: "{{ lifecycle_events_dict | default({}) | combine( { item['event'] | upper: item['lifecycle_events'] } ) }}"
+  with_items: "{{ loaded_vnfd_events_json }}"
+
+- name: VNFD lifecycle_events_dict
+  debug:
+    msg: "{{ item }}"
+  with_items: "{{ lifecycle_events_dict['INSTANTIATE'] }}"
+
+# Install ansible of the remote server (target/DUT)
+- name: Install ansible python package (on target/DUT)
+  pip:
+    name: ansible
+  when: events_type == 'ansible'
 
 # Install the roles and collection for the VNF (requirements.yml)
 - name: Install the roles and collection for the VNF (requirements.yml)
   ansible.builtin.command: ansible-galaxy install -r ansible/requirements.yml
   args:
-    chdir: /home/{{ user }}/{{ vnf_name }}
+    chdir: "{{ vnf_path }}"
+  when: events_type == 'ansible'
 
 # Run the playbook for get the VNF, instantiated, confugure and started (etc)
-- name: Run the VNF's instatiate play
-  ansible.builtin.command: ansible-playbook ansible/events/instantiate/site.yml
+- name: Run the VNF's instatiate ansible play
+  ansible.builtin.command: ansible-playbook {{ item }}
   args:
-    chdir: /home/{{ user }}/{{ vnf_name }}
+    chdir: "{{ vnf_path }}"
+  with_items: "{{ lifecycle_events_dict['INSTANTIATE'] }}"
+  when: events_type == 'ansible'
 
-- name: Run the VNF's configure play
-  ansible.builtin.command: ansible-playbook ansible/events/configure/site.yml
+- name: Run the VNF's instatiate script
+  ansible.builtin.command: sh {{ item }}
   args:
-    chdir: /home/{{ user }}/{{ vnf_name }}
+    chdir: "{{ vnf_path }}"
+  with_items: "{{ lifecycle_events_dict['INSTANTIATE'] }}"
+  when: events_type == 'script'
 
-- name: Run the VNF's start play
-  ansible.builtin.command: ansible-playbook ansible/events/operate/start.yml
+- name: Run the VNF's configure ansible play
+  ansible.builtin.command: ansible-playbook {{ item }}
   args:
-    chdir: /home/{{ user }}/{{ vnf_name }}
+    chdir: "{{ vnf_path }}"
+  with_items: "{{ lifecycle_events_dict['CONFIGURE'] }}"
+  when: lifecycle_events_dict['CONFIGURE'] is not undefined and events_type == 'ansible'
+
+- name: Run the VNF's configure script
+  ansible.builtin.command: sh {{ item }}
+  args:
+    chdir: "{{ vnf_path }}"
+  with_items: "{{ lifecycle_events_dict['CONFIGURE'] }}"
+  when: lifecycle_events_dict['CONFIGURE'] is not undefined and events_type == 'script'
+
+- name: Run the VNF's start ansible play
+  ansible.builtin.command: ansible-playbook {{ item }}
+  args:
+    chdir: "{{ vnf_path }}"
+  with_items: "{{ lifecycle_events_dict['START'] }}"
+  when: events_type == 'ansible'
+
+- name: Run the VNF's start script
+  ansible.builtin.command: sh {{ item }}
+  args:
+    chdir: "{{ vnf_path }}"
+  with_items: "{{ lifecycle_events_dict['START'] }}"
+  when: events_type == 'script'
