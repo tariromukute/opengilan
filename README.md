@@ -14,6 +14,9 @@ source .venv/bin/activate
 # Install packages
 pip install -r requirements.txt
 
+# Install packages for deploying with Azure
+pip install -r requirements-azure.txt
+
 ```
 
 ## Connect to test bed with a bastion host
