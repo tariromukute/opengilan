@@ -7,6 +7,9 @@
     loaded_vnfd_events_json:
     lifecycle_events_dict:
 
+- name: Update packages
+  ansible.builtin.command: apt update -y
+
 - name: Install git (target/DUT)
   ansible.builtin.package:
     name: git
@@ -69,10 +72,11 @@
   with_items: "{{ lifecycle_events_dict['INSTANTIATE'] }}"
   when: events_type == 'ansible'
 
-- name: Run the VNF's instatiate script
-  ansible.builtin.command: sh {{ item }}
+- name: Run the VNF's instatiate script {{vnf_path}}
+  ansible.builtin.shell:
   args:
-    chdir: "{{ vnf_path }}"
+    cmd: "{{ vnf_path }}/{{ item }}"
+    # chdir: "{{ vnf_path }}"
   with_items: "{{ lifecycle_events_dict['INSTANTIATE'] }}"
   when: events_type == 'script'
 
@@ -84,9 +88,11 @@
   when: lifecycle_events_dict['CONFIGURE'] is not undefined and events_type == 'ansible'
 
 - name: Run the VNF's configure script
-  ansible.builtin.command: sh {{ item }}
+  ansible.builtin.shell:
   args:
+    cmd: "{{ vnf_path }}/{{ item }}"
     chdir: "{{ vnf_path }}"
+  become: yes
   with_items: "{{ lifecycle_events_dict['CONFIGURE'] }}"
   when: lifecycle_events_dict['CONFIGURE'] is not undefined and events_type == 'script'
 
@@ -98,8 +104,9 @@
   when: events_type == 'ansible'
 
 - name: Run the VNF's start script
-  ansible.builtin.command: sh {{ item }}
+  ansible.builtin.shell:
   args:
-    chdir: "{{ vnf_path }}"
+    cmd: "{{ vnf_path }}/{{ item }}"
+    # chdir: "{{ vnf_path }}"
   with_items: "{{ lifecycle_events_dict['START'] }}"
   when: events_type == 'script'
