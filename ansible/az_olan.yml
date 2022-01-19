@@ -15,7 +15,7 @@
         # virtualenv_python: python3.9
 
 - name: Include task list in play
-  include: plays/az_create_olan_loopback_testbed.yml
+  import_playbook: plays/az_create_olan_loopback_testbed.yml
 
 - name: Test Ping
   hosts:
