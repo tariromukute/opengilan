@@ -14,15 +14,15 @@
         virtualenv: /Users/tariromukute/Documents/personal/dev/olan-bench/.venv
         # virtualenv_python: python3.9
 
-# - name: Include task list in play
-#   import_playbook: plays/az_create_olan_loopback_testbed.yml
+- name: Include task list in play
+  import_playbook: plays/az_create_olan_loopback_testbed.yml
 
-# - name: Test Ping
-#   hosts:
-#     # - az_trex
-#     - az_sut
-#   tasks:
-#   - action: ping
+- name: Test Ping
+  hosts:
+    # - az_trex
+    - az_sut
+  tasks:
+  - action: ping
 
 # - hosts:
 #   - az_trex
