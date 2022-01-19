@@ -1,6 +1,18 @@
 # publickey=$(cat ~/.ssh/id_rsa.pub) 
 # ansible-playbook az_olan.yml -i inventory.ini --extra-vars "ssh_key_data='$publickey' olan_prefix=olanxxx"
 # ansible-playbook plays/az_delete_olan.yml 
+- name: Install azure ansible requirements
+  hosts: localhost
+  tasks:
+    - name: Creating a file with content
+      copy:
+        dest: "/Users/tariromukute/Documents/personal/dev/olan-bench"
+        src: ./requirements-azure.txt
+    - pip:
+        requirements: /Users/tariromukute/Documents/personal/dev/olan-bench/requirements-azure.txt
+        # chdir: Users/tariromukute/Documents/personal/dev/olan-bench
+        virtualenv: /Users/tariromukute/Documents/personal/dev/olan-bench/.venv
+        # virtualenv_python: python3.9
 
 - name: Include task list in play
   include: plays/az_create_olan_loopback_testbed.yml
@@ -12,37 +24,37 @@
   tasks:
   - action: ping
 
-- hosts:
-  - az_trex
-  roles:
-    - role: olan_azure_trex
-      user: azureuser
-      eth1: eth1
-      eth2: eth2
-      eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
-      eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
-      eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
-      eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
+# - hosts:
+#   - az_trex
+#   roles:
+#     - role: olan_azure_trex
+#       user: azureuser
+#       eth1: eth1
+#       eth2: eth2
+#       eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
+#       eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
+#       eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
+#       eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
 
-# Install ansible
-- hosts:
-  - az_sut
-  tasks:
-    - name: Install ansible python package
-      pip:
-        name: ansible
+# # Install ansible
+# - hosts:
+#   - az_sut
+#   tasks:
+#     - name: Install ansible python package
+#       pip:
+#         name: ansible
 
-# Call the NF and install it using the lifecycle events
-- hosts:
-  - az_sut
-  tasks:
-  - name: Include task list in play
-    include: plays/events.yml
+# # Call the NF and install it using the lifecycle events
+# - hosts:
+#   - az_sut
+#   tasks:
+#   - name: Include task list in play
+#     include: plays/events.yml
     
-# Collect results
+# # Collect results
 
-- hosts:
-  - az_sut
-  roles:
-    - role: olan_bpftrace
-      user: azureuser
+# - hosts:
+#   - az_sut
+#   roles:
+#     - role: olan_bpftrace
+#       user: azureuser

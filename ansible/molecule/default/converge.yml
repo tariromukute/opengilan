@@ -16,10 +16,10 @@
         cache_valid_time: 3600
       when: ansible_os_family == 'Debian'
 
-    # - name: Set up the Gi-LAN (DUT)
-    #   include: ../../plays/gilan.yml
-    #   vars:
-    #     user: ubuntu
+    - name: Set up the Gi-LAN (DUT)
+      include: ../../plays/gilan.yml
+      vars:
+        user: ubuntu
 
     - name: Update the inventory and vars on the DUT for the VNF
       include: ../../plays/inventory.yml
@@ -54,13 +54,13 @@
 
     # # Converge with bpftrace (used in the benchmark) will not work on local Mac OS see https://petermalmgren.com/docker-mac-bpf-perf/ on details and how to resolve it
     # # TODO: Create a docker image for testing bpftrace locally
-    # - name: Include task list in play
-    #   include: ../../plays/benchmark.yml
-    #   vars:
-    #     user: ubuntu
-    #     duration: 30
-    #     aduration: 40
-    #     tool: "{{ item }}"
-    #   loop: "{{ tools }}"
+    - name: Include task list in play
+      include: ../../plays/benchmark.yml
+      vars:
+        user: ubuntu
+        duration: 30
+        aduration: 40
+        tool: "{{ item }}"
+      loop: "{{ tools }}"
 
 # - import_playbook: ../../plays/test.yml
