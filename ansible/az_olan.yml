@@ -1,19 +1,6 @@
 # publickey=$(cat ~/.ssh/id_rsa.pub) 
 # ansible-playbook az_olan.yml -i inventory.ini --extra-vars "ssh_key_data='$publickey' olan_prefix=olanxxx"
 # ansible-playbook plays/az_delete_olan.yml 
-- name: Install azure ansible requirements
-  hosts: localhost
-  tasks:
-    - name: Creating a file with content
-      copy:
-        dest: "/Users/tariromukute/Documents/personal/dev/olan-bench"
-        src: ./requirements-azure.txt
-    - pip:
-        requirements: /Users/tariromukute/Documents/personal/dev/olan-bench/requirements-azure.txt
-        # chdir: Users/tariromukute/Documents/personal/dev/olan-bench
-        virtualenv: /Users/tariromukute/Documents/personal/dev/olan-bench/.venv
-        # virtualenv_python: python3.9
-
 - name: Include task list in play
   import_playbook: plays/az_create_olan_loopback_testbed.yml
 
