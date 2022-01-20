@@ -11,4 +11,6 @@ dpdk_compile_packages:
 trex_compile_packages:
   - python3-distutils
   - zlib1g-dev
+dpdk:
+  - dpdk
 sudo: sudo

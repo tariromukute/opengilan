@@ -212,9 +212,9 @@
         - "ANLinux_eth1_NIC_{{ olan_prefix }}_SutVM"
         - "ANLinux_eth2_NIC_{{ olan_prefix }}_SutVM"
       image:
-        offer: 0001-com-ubuntu-server-focal
+        offer: UbuntuServer
         publisher: Canonical
-        sku: '20_04-lts'
+        sku: '18.04-LTS'
         version: latest
 
   - name: Private IP of Sut VM eth1

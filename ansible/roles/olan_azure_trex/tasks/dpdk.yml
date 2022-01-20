@@ -1,23 +1,6 @@
-- name: Add repository
-  ansible.builtin.command: add-apt-repository ppa:canonical-server/server-backports -y
-  become: yes
-
 - name: Update packages
   ansible.builtin.command: apt update -y
   become: yes
-
-- name: Install compile packages for DPDK
-  ansible.builtin.package:
-    name: dpdk
-    state: present
-  become: yes
-# - name: Upgrade
-#   ansible.builtin.command: apt-get upgrade -y
-#   become: yes
-
-# - name: Dist-upgrade
-#   ansible.builtin.command: dist-upgrade -y
-#   become: yes
 
 - name: Variables that are common across all OS types
   include_vars: "{{ lookup('first_found', dependencies) }}"
@@ -40,11 +23,24 @@
 
 - name: Install compile packages for DPDK
   ansible.builtin.package:
-    name: "{{ dpdk_compile_packages }}"
+    name: "{{ dpdk }}"
     state: present
   become: yes
 
-- name: Ensure GRUB_CMDLINE_LINUX is set up for hugepages on reboot
+- name: Create a /mnt/huge directory if it does not exist
+  ansible.builtin.file:
+    path: /mnt/huge
+    state: directory
+
+- name: Mount hugepages 
+  ansible.posix.mount:
+    path: /mnt/huge
+    src: nodev
+    fstype: hugetlbfs
+    state: mounted
+  become: yes
+
+  - name: Ensure GRUB_CMDLINE_LINUX is set up for hugepages on reboot
   ansible.builtin.lineinfile:
     path: /etc/default/grub
     regexp: 'GRUB_CMDLINE_LINUX=""'
