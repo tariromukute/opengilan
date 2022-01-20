@@ -9,11 +9,13 @@
 
 - name: Update packages
   ansible.builtin.command: apt update -y
+  become: yes
 
 - name: Install git (target/DUT)
   ansible.builtin.package:
     name: git
     state: present
+  become: yes
 
 - name: Get VNF {{ vnf_name }} source code from git and checkout to {{ vnf_version }}
   ansible.builtin.git:
@@ -79,6 +81,7 @@
     # chdir: "{{ vnf_path }}"
   with_items: "{{ lifecycle_events_dict['INSTANTIATE'] }}"
   when: events_type == 'script'
+  become: yes
 
 - name: Run the VNF's configure ansible play
   ansible.builtin.command: ansible-playbook {{ item }}
@@ -110,3 +113,4 @@
     # chdir: "{{ vnf_path }}"
   with_items: "{{ lifecycle_events_dict['START'] }}"
   when: events_type == 'script'
+  become: yes

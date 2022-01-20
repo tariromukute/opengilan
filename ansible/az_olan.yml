@@ -35,9 +35,19 @@
 - hosts:
   - az_sut
   tasks:
-  - name: Include task list in play
+
+  - set_fact:
+      events_type: "script"
+
+  - name: Test the lifecycle events play with script based VNF lifecycle bind9_vnf
     include: plays/events.yml
-    
+    vars:
+      user: ubuntu
+      vnf_repo: https://github.com/tariromukute/OOB-Server.git
+      vnf_name: OOB-Server
+      vnf_path: /home/azureuser/OOB-Server
+      vnf_version: HEAD
+       
 # Collect results
 
 - hosts:
