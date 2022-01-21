@@ -1,16 +1,16 @@
 # publickey=$(cat ~/.ssh/id_rsa.pub) 
-# ansible-playbook az_olan.yml -i inventory.ini --extra-vars "ssh_key_data='$publickey' olan_prefix=olanxxx"
+# ansible-playbook ansible/az_olan.yml -i ansible/inventory.ini --extra-vars "ssh_key_data='$publickey' olan_prefix=olanxxx"
 # ansible-playbook plays/az_delete_olan.yml 
 
-# - name: Include task list in play
-#   import_playbook: plays/az_create_olan_loopback_testbed.yml
+- name: Include task list in play
+  import_playbook: plays/az_create_olan_loopback_testbed.yml
 
-# - name: Test Ping
-#   hosts:
-#     # - az_trex
-#     - az_sut
-#   tasks:
-#   - action: ping
+- name: Test Ping
+  hosts:
+    # - az_trex
+    - az_sut
+  tasks:
+  - action: ping
 
 - hosts:
   - az_trex
