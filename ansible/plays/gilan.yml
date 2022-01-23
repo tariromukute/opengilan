@@ -1,0 +1,5 @@
+# This play will set up the Gi-LAN (The system under test)
+- import_role:
+    name: olan_bpftrace
+  vars:  
+    user: "{{ user }}"

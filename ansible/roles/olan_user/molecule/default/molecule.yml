@@ -22,6 +22,6 @@ scenario:
     - destroy
     - create
     - converge
-    # - idempotence
+    # - idempotence # TODO: enable idempotence
     - lint
     - verify

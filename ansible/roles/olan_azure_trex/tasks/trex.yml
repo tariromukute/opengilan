@@ -39,6 +39,7 @@
   args:
     chdir: /home/{{ user }}/trex-core/linux_dpdk
 
+# Need ./b configure & ./b build in linux folder to ./stl-sim and related bp-sim-64-debug
 - name: Unbind eth1 and eth2 from kernel
   ansible.builtin.command: ./azure_trex_setup.sh
   args:
