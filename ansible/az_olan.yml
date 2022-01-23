@@ -1,6 +1,7 @@
 # publickey=$(cat ~/.ssh/id_rsa.pub) 
 # ansible-playbook ansible/az_olan.yml -i ansible/inventory.ini --extra-vars "ssh_key_data='$publickey' olan_prefix=olanxxx"
 # ansible-playbook ansible/plays/az_delete_olan.yml 
+
 - name: Include task list in play
   import_playbook: plays/az_create_olan_loopback_testbed.yml
 
