@@ -23,51 +23,6 @@
 
 - name: Install compile packages for DPDK
   ansible.builtin.package:
-    name: "{{ dpdk }}"
+    name: "{{ dpdk_compile_packages }}"
     state: present
-  become: yes
-
-- name: Create a /mnt/huge directory if it does not exist
-  ansible.builtin.file:
-    path: /mnt/huge
-    state: directory
-
-- name: Mount hugepages 
-  ansible.posix.mount:
-    path: /mnt/huge
-    src: nodev
-    fstype: hugetlbfs
-    state: mounted
-  become: yes
-
-  - name: Ensure GRUB_CMDLINE_LINUX is set up for hugepages on reboot
-  ansible.builtin.lineinfile:
-    path: /etc/default/grub
-    regexp: 'GRUB_CMDLINE_LINUX=""'
-    line: GRUB_CMDLINE_LINUX=" default_hugepagesz=1GB hugepagesz=1G hugepages=8 transparent_hugepage=never "
-  become: yes
-
-- name: Update grub
-  ansible.builtin.command: update-grub
-  become: yes
-
-- name: Insert/Update huge pages configuration block in /etc/fstab
-  blockinfile:
-    path: /etc/fstab
-    block: |
-      nodev /mnt/huge hugetlbfs defaults 0 0
-  become: yes
-
-- name: Insert/Update configuration block to load Azure drivers in /etc/fstab
-  blockinfile:
-    path: /etc/modules-load.d/modules.conf
-    block: |
-      ib_uverbs
-      mlx4_ib
-      mlx5_ib
-  become: yes
-
-- name: Unconditionally reboot the machine with all defaults
-  reboot:
-    test_command: cat /proc/meminfo | grep Huge
   become: yes

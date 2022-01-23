@@ -14,6 +14,9 @@ source .venv/bin/activate
 # Install packages
 pip install -r requirements.txt
 
+# Install packages for deploying with Azure
+pip install -r requirements-azure.txt
+
 ```
 
 ## Connect to test bed with a bastion host
@@ -190,3 +193,19 @@ StorPerf provides the following metrics:
 - However this requires the latest iproute (from tag 5.11.0) configured with support for libbpf. Might need to compile it from source.
 - For running tc (iproute2) with libbpf support set the PKG_CONFIG_PATH with the path to libpf.pc (PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig) and configure
 - http://www.policyrouting.org/iproute2.doc.html
+- We install bpftrace from source because ......
+
+## Test with Open Source VNFs
+- [OPNFV List Of VNFs](https://wiki.opnfv.org/display/functest/List+Of+VNFs)
+- [OSM List of VNFs](https://osm.etsi.org/wikipub/index.php/VNFs)
+
+## VNF Lifecycle Docs
+- [Network Functions Virtualisation (NFV) Release 3; Protocols and Data Models; RESTful protocols specification for the Or-Vnfm Reference Point](https://www.etsi.org/deliver/etsi_gs/NFV-SOL/001_099/003/03.05.01_60/gs_NFV-SOL003v030501p.pdf)
+
+tcpdump -ttttnnr cap2/dns.pcap  
+
+*Install libs for access TREX python API*
+
+https://trex-tgn.cisco.com/trex/doc/cp_stl_docs/index.html#how-to-install
+
+export PYTHONPATH=/home/azureuser/trex-core/scripts/automation/trex_control_plane/interactive

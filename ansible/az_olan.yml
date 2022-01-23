@@ -1,6 +1,6 @@
 # publickey=$(cat ~/.ssh/id_rsa.pub) 
 # ansible-playbook ansible/az_olan.yml -i ansible/inventory.ini --extra-vars "ssh_key_data='$publickey' olan_prefix=olanxxx"
-# ansible-playbook plays/az_delete_olan.yml 
+# ansible-playbook ansible/plays/az_delete_olan.yml 
 
 - name: Include task list in play
   import_playbook: plays/az_create_olan_loopback_testbed.yml
@@ -24,8 +24,31 @@
       eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
       eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
 
-# Call the NF and install it using the lifecycle events
+# Install ansible
+- hosts:
+  - az_sut
+  tasks:
+    - name: Install ansible python package
+      pip:
+        name: ansible
 
+# Call the NF and install it using the lifecycle events
+- hosts:
+  - az_sut
+  tasks:
+
+  - set_fact:
+      events_type: "script"
+
+  - name: Test the lifecycle events play with script based VNF lifecycle bind9_vnf
+    include: plays/events.yml
+    vars:
+      user: ubuntu
+      vnf_repo: https://github.com/tariromukute/OOB-Server.git
+      vnf_name: OOB-Server
+      vnf_path: /home/azureuser/OOB-Server
+      vnf_version: HEAD
+       
 # Collect results
 
 - hosts:
