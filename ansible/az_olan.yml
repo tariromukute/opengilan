@@ -27,15 +27,6 @@
       eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
       eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
 
-
-# # Install ansible
-# - hosts:
-#   - az_sut
-#   tasks:
-#     - name: Install ansible python package
-#       pip:
-#         name: ansible
-
 # Call the NF and install it using the lifecycle events
 - hosts:
   - az_sut
@@ -52,11 +43,17 @@
       vnf_name: OOB-Server
       vnf_path: /home/azureuser/OOB-Server
       vnf_version: HEAD
-       
-# Collect results
 
 - hosts:
   - az_sut
   roles:
     - role: olan_bpftrace
       user: azureuser
+
+# Install ansible
+- hosts:
+  - az_sut
+  tasks:
+    - name: Install ansible python package
+      pip:
+        name: ansible
