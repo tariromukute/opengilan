@@ -32,3 +32,9 @@
     name: "{{ bpftrace_build_packages }}"
     state: present
   become: yes
+
+- name: Install packages for deploying VNFs
+  ansible.builtin.package:
+    name: "{{ deployment_packages }}"
+    state: present
+  become: yes
