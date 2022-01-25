@@ -5,9 +5,12 @@
 - name: Include task list in play
   import_playbook: plays/az_create_olan_loopback_testbed.yml
 
+# {{ olan_prefix }}SutVM
+# {{ olan_prefix }}TrexVM
+
 - name: Test Ping
   hosts:
-    # - az_trex
+    - az_trex
     - az_sut
   tasks:
   - action: ping

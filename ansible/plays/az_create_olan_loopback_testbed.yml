@@ -197,7 +197,7 @@
         sku: '20_04-lts'
         version: latest
 
-  - name: Create Trex VM
+  - name: Create Sut VM
     azure_rm_virtualmachine:
       resource_group: "{{ resource_group }}"
       name: "{{ olan_prefix }}SutVM"
@@ -280,3 +280,49 @@
     add_host:
       name: "DUMMY_HOST"
       sut_client16_nic_ip: "{{ sut_client16_nic.state.ip_configuration.private_ip_address }}"
+
+  - name: Get SUT VM ECDSA key fingerprint
+    shell: az vm run-command invoke -g {{ resource_group }} -n {{ olan_prefix }}SutVM  --command-id RunShellScript --scripts "cat /etc/ssh/ssh_host_ecdsa_key.pub"
+    register: sut_vm_fingerprint_out
+    delegate_to: localhost
+
+  - set_fact:
+      sut_vm_fingerprint_msg: "{{ (sut_vm_fingerprint_out.stdout | from_json).value[0].message }}"
+
+  - set_fact:
+      sut_vm_fingerprint: "{{ ( (sut_vm_fingerprint_msg |  regex_findall(regexp, multiline=True))[4] ) }}"
+    vars:
+      regexp: '[\S]+'
+
+  - debug:
+      msg: "{{ sut_vm_fingerprint }}"
+
+  - name: Another way to call known_hosts
+    known_hosts:
+      name: "{{ output_sut_ip_address.state.dns_settings.fqdn }}"   
+      key: "{{ output_sut_ip_address.state.dns_settings.fqdn }},{{ output_sut_ip_address.state.ip_address }} ecdsa-sha2-nistp256 {{ sut_vm_fingerprint }}" # some key gibberish
+      path: ~/.ssh/known_hosts
+      state: present
+
+  - name: Get TREX VM ECDSA key fingerprint
+    shell: az vm run-command invoke -g {{ resource_group }} -n {{ olan_prefix }}TrexVM  --command-id RunShellScript --scripts "cat /etc/ssh/ssh_host_ecdsa_key.pub"
+    register: trex_vm_fingerprint_out
+    delegate_to: localhost
+
+  - set_fact:
+      trex_vm_fingerprint_msg: "{{ (trex_vm_fingerprint_out.stdout | from_json).value[0].message }}"
+
+  - set_fact:
+      trex_vm_fingerprint: "{{ ( (trex_vm_fingerprint_msg |  regex_findall(regexp, multiline=True))[4] ) }}"
+    vars:
+      regexp: '[\S]+'
+
+  - debug:
+      msg: "{{ trex_vm_fingerprint }}"
+
+  - name: Another way to call known_hosts
+    known_hosts:
+      name: "{{ output_trex_ip_address.state.dns_settings.fqdn }}"   
+      key: "{{ output_trex_ip_address.state.dns_settings.fqdn }},{{ output_trex_ip_address.state.ip_address }} ecdsa-sha2-nistp256 {{ trex_vm_fingerprint }}" # some key gibberish
+      path: ~/.ssh/known_hosts
+      state: present
