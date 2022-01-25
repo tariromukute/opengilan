@@ -12,29 +12,31 @@ port_1 = 1
 
 ports = [0, 1]
 
-# TODO fix me. doesn't always work
-def create_steam(ip_src, ip_dst, pcap_file, link_percentage):
+# TODO implment streams. doesn't work every time
+
+def create_vm_object(ip_src, ip_dst):
     vm = [
         # src                                                            <4>
         STLVmFlowVar(name="src",
-                     value_list=[ip_src],op="inc"),
+                     min_value=ip_src,
+                     max_value=ip_src,
+                     size=4,op="inc"),
         STLVmWrFlowVar(fv_name="src",pkt_offset= "IP.src"),
 
         # dst
         STLVmFlowVar(name="dst",
-                     value_list=[ip_dst],op="inc"),
+                     min_value=ip_dst,
+                     max_value=ip_dst,
+                     size=4,op="inc"),
         STLVmWrFlowVar(fv_name="dst",pkt_offset= "IP.dst"),
 
         # checksum
         STLVmFixIpv4(offset = "IP")
     ]
 
-    s =  STLStream(packet = STLPktBuilder(pkt=pcap_file, vm=vm), # path relative to profile and not to loader path
-                         mode = STLTXCont( percentage = link_percentage ))
-    
-    return s
+    return vm
 
-def send_dns_stream(args):
+def push_dns_packets(args):
     try:
         ports = [i for i, v in enumerate(args.ip_src)]
 
@@ -43,24 +45,30 @@ def send_dns_stream(args):
         
         for idx, val in enumerate(args.ip_src):
 
-            s = create_steam(val, args.ip_dst[idx], args.pcap_file, args.link_percentage)
+            vm = create_vm_object(val, args.ip_dst[idx])
             
-            # add the streams
-            c.add_streams(streams = [s], ports = idx)
+           
+            # pcap packets
+            c.push_pcap(args.pcap_file,             # our local PCAP file
+                ports = idx,                           # use 'port'
+                ipg_usec = args.ipg_usec,                         # IPG
+                count = args.count,                              # inject only once
+                vm = vm                                 # provide VM object
+            )
 
         # start traffic with limit of args.duration in seconds (otherwise it will continue forever)
         c.start(ports = ports, duration = args.duration, force = True)
 
         stats = []
-        while c.is_traffic_active():
-            stats.append(c.get_stats())
-            c.clear_stats()
-            time.sleep(5)
+        
 
         # hold until traffic ends
         c.wait_on_traffic(ports = ports)
 
-        # print(stats)
+        stats.append(c.get_stats())
+
+        print(stats)
+        # print(c.get_stats())
     except STLError as e:
         print(e)
 
@@ -85,11 +93,15 @@ if __name__ == "__main__":
         help="The duration of the sending in seconds",
         type=int, 
         default = 30 )
-    parser.add_argument("-r", "--rate", dest="link_percentage",
+    parser.add_argument("-i", "--ipg_usec", dest="ipg_usec",
         type=int,
-        help="The Interface link percentage to use", 
-        default = 10 )
+        help="The interval between packets in usec", 
+        default = 100 )
+    parser.add_argument("-c", "--count", dest="count",
+        type=int,
+        help="The number of packets to send", 
+        default = 1000 )
     
-    # python3 olan/stl_pcap_dns_streams.py --rate 1 -t 10 -f dns.pcap -s 10.0.3.4 -d 10.0.3.5
+    # python3 olan/stl_pcap_dns_push.py -t 10 -f dns.pcap -s 10.0.3.4 -d 10.0.3.5 -i 100 -c 1000
     args = parser.parse_args()
-    send_dns_stream(args)
+    push_dns_packets(args)
