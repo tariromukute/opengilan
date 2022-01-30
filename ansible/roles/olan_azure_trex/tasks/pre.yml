@@ -71,6 +71,12 @@
       mlx5_ib
   become: yes
 
+- name: Set the PYTHONPATH environment variable to for automation scripts
+  ansible.builtin.lineinfile:
+    path: /home/{{ user }}/.profile
+    regexp: '^export PYTHONPATH='
+    line: export PYTHONPATH=/home/{{ user }}/trex-core/scripts/automation/trex_control_plane/interactive
+
 - name: Unconditionally reboot the machine with all defaults
   reboot:
     test_command: cat /proc/meminfo | grep Huge

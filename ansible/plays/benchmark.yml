@@ -1,6 +1,6 @@
 # ---- netsize ----
 - name: Run a script for starting tracing (bpftrace)
-  ansible.builtin.command: timeout {{ duration }} bpftrace /home/{{ user }}/tpstat/bpftrace/network/net/{{ tool }}.bt
+  ansible.builtin.command: timeout {{ duration }} bpftrace /home/{{ user }}/tpstat/bpftrace/{{ tool }}
   register: tool_command
   async: "{{ aduration }}"
   poll: 0
@@ -13,7 +13,7 @@
   register: job_result
   until: job_result.finished
   retries: 100
-  delay: 10
+  delay: 5
   become: yes
   ignore_errors: yes
 
@@ -32,5 +32,5 @@
 - name: "Save results from tracing on local machine"
   ansible.builtin.fetch:
     src: ~/{{ tool }}-{{ inventory_hostname }}
-    dest: .results/{{ tool }}.out
+    dest: .results/{{ prefix }}{{ tool }}
     flat: yes

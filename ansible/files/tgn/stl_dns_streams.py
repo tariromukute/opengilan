@@ -2,6 +2,10 @@
 from asyncio import streams
 from trex_stl_lib.api import *
 from argparse import ArgumentParser
+from datetime import datetime
+import os 
+import json
+
 
 c = STLClient(server = '127.0.0.1')
 c.connect()
@@ -26,6 +30,13 @@ def send_dns_stream(args):
     try:
         ports = [i for i, v in enumerate(args.ip_src)]
 
+        start_time = datetime.now()
+        results = {
+            "ports": ports,
+            "traffic": "stl_dns_pcap",
+            "start_time": start_time.strftime("%d-%m-%Y %H:%M:%S"),
+        }
+
         c.reset(ports = ports)
 
         
@@ -47,8 +58,23 @@ def send_dns_stream(args):
 
         # hold until traffic ends
         c.wait_on_traffic(ports = ports)
+        
+        results["end_time"] = datetime.now()
 
-        print(stats)
+        stats.append(c.get_stats())
+
+        end_time = datetime.now()
+        results["end_time"] = end_time.strftime("%d-%m-%Y %H:%M:%S")
+
+        stats.append(c.get_stats())
+
+        results["stats"] = stats
+
+        # write the results to file
+        filename = "stl_dns_streams-{}.json".format(start_time.strftime("%d-%m-%Y-%H-%M-%S"))
+        f = open("{}/{}".format(args.output_folder, filename), "a")
+        f.write(json.dumps(results))
+        f.close()
 
     except STLError as e:
         print(e)
@@ -59,8 +85,9 @@ def send_dns_stream(args):
         c.disconnect()
 
 if __name__ == "__main__":
+    # python3 tgn/stl_dns_streams.py -t 10 -s 10.0.2.4 -d 10.0.2.5 -s 10.0.3.4 -d 10.0.3.5 -i -r 1
     parser = ArgumentParser(description = 'Run TRex client API and send DNS packet',
-        usage = """stl_dns_debug.py [options]""" )
+        usage = """stl_dns_streams.py [options]""" )
 
     parser.add_argument("-s", "--ip_src", dest="ip_src",
         action="extend", nargs="+", type=str,
@@ -68,6 +95,9 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--ip_dst", dest="ip_dst",
         action="extend", nargs="+", type=str,
         help="The dest IP address to use in the DNS packet. To provide more addresses supply the field multiple times e.g., -d <address1> -d <address2>" )
+    parser.add_argument("-o", "--output-folder", dest="output_folder",
+        help="The folder to write the results",
+        default = "/tmp/results")
     parser.add_argument("-t", "--duration", dest="duration",
         help="The duration of the sending in seconds",
         type=int, 
@@ -78,4 +108,6 @@ if __name__ == "__main__":
         default = 10 )
 
     args = parser.parse_args()
+    if not os.path.exists(args.output_folder):
+        os.mkdir(args.output_folder)
     send_dns_stream(args)

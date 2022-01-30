@@ -104,3 +104,15 @@
 - name: "Turn off TSO for eth2 ({{ eth2_netvsc }}) MLX device"
   ansible.builtin.command: "ethtool -K {{ eth2_netvsc }} tso off gro off gso off"
   become: yes
+
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/trex.service"
+    dest: /lib/systemd/system/
+  become: yes
+
+- name: Start service trex, if not started
+  ansible.builtin.service:
+    name: trex
+    state: started
+  become: yes

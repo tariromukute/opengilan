@@ -1,0 +1,14 @@
+[Unit]
+Description=Start TRex traffic generator in interactive mode
+
+[Service]
+Type=simple
+ExecStart=/home/azureuser/trex-core/scripts/t-rex-64 -i -c 2 -v 7 --no-ofed-check
+# Software mode can useful e.g. in cloud
+#ExecStart=/opt/trex/t-rex-64 -i --software
+WorkingDirectory=/home/azureuser/trex-core/scripts
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

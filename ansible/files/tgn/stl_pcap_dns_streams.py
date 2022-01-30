@@ -3,6 +3,9 @@ from asyncio import streams
 
 from trex_stl_lib.api import *
 from argparse import ArgumentParser
+from datetime import datetime
+import os 
+import json
 
 c = STLClient(server = '127.0.0.1')
 c.connect()
@@ -38,6 +41,13 @@ def send_dns_stream(args):
     try:
         ports = [i for i, v in enumerate(args.ip_src)]
 
+        start_time = datetime.now()
+        results = {
+            "ports": ports,
+            "traffic": "stl_dns_pcap",
+            "start_time": start_time.strftime("%d-%m-%Y %H:%M:%S"),
+        }
+
         c.reset(ports = ports)
 
         
@@ -60,7 +70,19 @@ def send_dns_stream(args):
         # hold until traffic ends
         c.wait_on_traffic(ports = ports)
 
-        # print(stats)
+        end_time = datetime.now()
+        results["end_time"] = end_time.strftime("%d-%m-%Y %H:%M:%S")
+
+        stats.append(c.get_stats())
+
+        results["stats"] = stats
+
+        # write the results to file
+        filename = "stl_pcap_dns_streams-{}.json".format(start_time.strftime("%d-%m-%Y-%H-%M-%S"))
+        f = open("{}/{}".format(args.output_folder, filename), "a")
+        f.write(json.dumps(results))
+        f.close()
+
     except STLError as e:
         print(e)
 
@@ -92,4 +114,6 @@ if __name__ == "__main__":
     
     # python3 olan/stl_pcap_dns_streams.py --rate 1 -t 10 -f dns.pcap -s 10.0.3.4 -d 10.0.3.5
     args = parser.parse_args()
+    if not os.path.exists(args.output_folder):
+        os.mkdir(args.output_folder)
     send_dns_stream(args)
