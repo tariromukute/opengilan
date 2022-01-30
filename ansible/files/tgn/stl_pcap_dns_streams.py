@@ -1,7 +1,11 @@
 # get TRex APIs
 from asyncio import streams
+
 from trex_stl_lib.api import *
 from argparse import ArgumentParser
+from datetime import datetime
+import os 
+import json
 
 c = STLClient(server = '127.0.0.1')
 c.connect()
@@ -10,33 +14,51 @@ port_0 = 0
 port_1 = 1
 
 ports = [0, 1]
-def create_steam(ip_src, ip_dst, link_percentage):
-    # create a base packet with scapy
-    base_pkt = Ether()/IP(src=ip_src,dst=ip_dst)/UDP(sport=1025)/DNS(rd=1, qd=DNSQR(qname='openlan.mk'))
 
-    # later on we will use the packet builder to provide more properties
-    pkt = STLPktBuilder(base_pkt)
+# TODO fix me. doesn't always work
+def create_steam(ip_src, ip_dst, pcap_file, link_percentage):
+    vm = [
+        # src                                                            <4>
+        STLVmFlowVar(name="src",
+                     value_list=[ip_src],op="inc"),
+        STLVmWrFlowVar(fv_name="src",pkt_offset= "IP.src"),
 
-    # create a stream with a rate of 1000 PPS and continuous
-    s1 = STLStream(packet = pkt, mode = STLTXCont(percentage = link_percentage))
+        # dst
+        STLVmFlowVar(name="dst",
+                     value_list=[ip_dst],op="inc"),
+        STLVmWrFlowVar(fv_name="dst",pkt_offset= "IP.dst"),
 
-    return s1
+        # checksum
+        STLVmFixIpv4(offset = "IP")
+    ]
+
+    s =  STLStream(packet = STLPktBuilder(pkt=pcap_file, vm=vm), # path relative to profile and not to loader path
+                         mode = STLTXCont( percentage = link_percentage ))
+    
+    return s
 
 def send_dns_stream(args):
     try:
         ports = [i for i, v in enumerate(args.ip_src)]
+
+        start_time = datetime.now()
+        results = {
+            "ports": ports,
+            "traffic": "stl_dns_pcap",
+            "start_time": start_time.strftime("%d-%m-%Y %H:%M:%S"),
+        }
 
         c.reset(ports = ports)
 
         
         for idx, val in enumerate(args.ip_src):
 
-            s = create_steam(val, args.ip_dst[idx], args.link_percentage)
+            s = create_steam(val, args.ip_dst[idx], args.pcap_file, args.link_percentage)
             
             # add the streams
             c.add_streams(streams = [s], ports = idx)
 
-        # start traffic with limit of 3 seconds (otherwise it will continue forever)
+        # start traffic with limit of args.duration in seconds (otherwise it will continue forever)
         c.start(ports = ports, duration = args.duration, force = True)
 
         stats = []
@@ -48,7 +70,18 @@ def send_dns_stream(args):
         # hold until traffic ends
         c.wait_on_traffic(ports = ports)
 
-        print(stats)
+        end_time = datetime.now()
+        results["end_time"] = end_time.strftime("%d-%m-%Y %H:%M:%S")
+
+        stats.append(c.get_stats())
+
+        results["stats"] = stats
+
+        # write the results to file
+        filename = "stl_pcap_dns_streams-{}.json".format(start_time.strftime("%d-%m-%Y-%H-%M-%S"))
+        f = open("{}/{}".format(args.output_folder, filename), "a")
+        f.write(json.dumps(results))
+        f.close()
 
     except STLError as e:
         print(e)
@@ -68,6 +101,8 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--ip_dst", dest="ip_dst",
         action="extend", nargs="+", type=str,
         help="The dest IP address to use in the DNS packet. To provide more addresses supply the field multiple times e.g., -d <address1> -d <address2>" )
+    parser.add_argument("-f", "--file", dest="pcap_file",
+        help="The pcap file to generate streams from")
     parser.add_argument("-t", "--duration", dest="duration",
         help="The duration of the sending in seconds",
         type=int, 
@@ -76,6 +111,9 @@ if __name__ == "__main__":
         type=int,
         help="The Interface link percentage to use", 
         default = 10 )
-
+    
+    # python3 olan/stl_pcap_dns_streams.py --rate 1 -t 10 -f dns.pcap -s 10.0.3.4 -d 10.0.3.5
     args = parser.parse_args()
+    if not os.path.exists(args.output_folder):
+        os.mkdir(args.output_folder)
     send_dns_stream(args)
