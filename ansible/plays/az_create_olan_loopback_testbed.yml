@@ -21,7 +21,7 @@
   - name: Create resource group
     azure_rm_resourcegroup:
       name: "{{ resource_group }}"
-      location: southafricanorth
+      location: westeurope
   - name: Create virtual network
     azure_rm_virtualnetwork:
       resource_group: "{{ resource_group }}"
@@ -30,12 +30,12 @@
   
   - name: Create a route table for traffic for clients 48.0.0.0/16 from Trex to Sut
     azure_rm_routetable:
-      name: "{{ olan_prefix }}RouteTable48Trex2Sut"
+      name: "{{ olan_prefix }}RouteTable48"
       resource_group: "{{ resource_group }}"
 
   - name: Create a route table for traffic for clients 16.0.0.0/16 from Trex to Sut
     azure_rm_routetable:
-      name: "{{ olan_prefix }}RouteTable16Trex2Sut"
+      name: "{{ olan_prefix }}RouteTable16"
       resource_group: "{{ resource_group }}"
 
   - name: Add subnet for ssh into VM
@@ -51,7 +51,7 @@
       name: "{{ olan_prefix }}Subnet48"
       address_prefix: "10.0.2.0/24"
       virtual_network: "{{ olan_prefix }}Vnet"
-      route_table: "{{ olan_prefix }}RouteTable48Trex2Sut"
+      route_table: "{{ olan_prefix }}RouteTable48"
 
   - name: Add subnet for client 16.0.0.0/16
     azure_rm_subnet:
@@ -59,7 +59,7 @@
       name: "{{ olan_prefix }}Subnet16"
       address_prefix: "10.0.3.0/24"
       virtual_network: "{{ olan_prefix }}Vnet"
-      route_table: "{{ olan_prefix }}RouteTable16Trex2Sut"
+      route_table: "{{ olan_prefix }}RouteTable16"
 
   - name: Create public IP address for TREX VM
     azure_rm_publicipaddress:
@@ -232,7 +232,7 @@
       next_hop_type: virtual_appliance
       address_prefix: "48.0.0.0/16"
       next_hop_ip_address: "{{ sut_client48_nic.state.ip_configuration.private_ip_address }}"
-      route_table_name: "{{ olan_prefix }}RouteTable48Trex2Sut"
+      route_table_name: "{{ olan_prefix }}RouteTable48"
 
   - name: Create route for clients 16.0.0.0/16 from TREX to SUT
     azure_rm_route:
@@ -240,8 +240,8 @@
       resource_group: "{{ resource_group }}"
       next_hop_type: virtual_appliance
       address_prefix: "16.0.0.0/16"
-      next_hop_ip_address: "{{ sut_client48_nic.state.ip_configuration.private_ip_address }}"
-      route_table_name: "{{ olan_prefix }}RouteTable48Trex2Sut"
+      next_hop_ip_address: "{{ sut_client16_nic.state.ip_configuration.private_ip_address }}"
+      route_table_name: "{{ olan_prefix }}RouteTable16"
 
   - name: Create route for clients 16.0.0.0/16 from SUT to TREX
     azure_rm_route:
@@ -249,8 +249,8 @@
       resource_group: "{{ resource_group }}"
       next_hop_type: virtual_appliance
       address_prefix: "16.0.0.0/16"
-      next_hop_ip_address: "{{ trex_client16_nic.state.ip_configuration.private_ip_address }}"
-      route_table_name: "{{ olan_prefix }}RouteTable16Trex2Sut"
+      next_hop_ip_address: "{{ trex_client48_nic.state.ip_configuration.private_ip_address }}"
+      route_table_name: "{{ olan_prefix }}RouteTable48"
 
   - name: Create route for clients 48.0.0.0/16 from SUT to TREX
     azure_rm_route:
@@ -259,7 +259,7 @@
       next_hop_type: virtual_appliance
       address_prefix: "48.0.0.0/16"
       next_hop_ip_address: "{{ trex_client16_nic.state.ip_configuration.private_ip_address }}"
-      route_table_name: "{{ olan_prefix }}RouteTable16Trex2Sut"
+      route_table_name: "{{ olan_prefix }}RouteTable16"
 
   - name: Register dummy host with for Trex's 48.0.0.0/16 nic IP
     add_host:

@@ -127,6 +127,15 @@ az vm create --resource-group opengilan --name DUTUbuntuAN --image Canonical:Ubu
 az vm create --resource-group opengilan --name DUTUbuntuAN2 --image Canonical:UbuntuServer:18_04-lts-gen2:18.04.202010140 --size Standard_D16ds_v4 --admin-username azureuser --admin-password trexTesting001 --nics ANLinux_eth0_NIC_vm3 ANLinux_eth1_NIC_vm3 ANLinux_eth2_NIC_vm3
 ```
 
+You need to increase the quota to be deploy the number of vCPUs that are needed for the testbed
+
+```
+https://portal.azure.com/#blade/Microsoft_Azure_Capacity/UsageAndQuota.ReactView/Parameters/%7B%22subscriptionId%22%3A%2270bc0bb8-73dc-4ae5-8187-2780c07018a1%22%2C%22command%22%3A%22openQuotaApprovalBlade%22%2C%22quotas%22%3A%5B%7B%22location%22%3A%22westeurope%22%2C%22providerId%22%3A%22Microsoft.Compute%22%2C%22resourceName%22%3A%22standardDDSv4Family%22%2C%22quotaRequest%22%3A%7B%22properties%22%3A%7B%22limit%22%3A16%2C%22unit%22%3A%22Count%22%2C%22name%22%3A%7B%22value%22%3A%22standardDDSv4Family%22%7D%7D%7D%7D%5D%7D
+
+# note possible error with az
+
+https://docs.microsoft.com/en-us/answers/questions/729574/deploy-vm-from-azure-cli-failing.html
+```
 ## Dependencies
 - sudo apt install binutils
 - sudo apt-get install -y librdmacm-dev librdmacm1 build-essential libnuma-dev libmnl-dev

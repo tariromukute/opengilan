@@ -14,21 +14,59 @@ port_0 = 0
 port_1 = 1
 
 ports = [0, 1]
-def create_steam(ip_src, ip_dst, link_percentage):
-    # create a base packet with scapy
-    base_pkt = Ether()/IP(src=ip_src,dst=ip_dst)/UDP(sport=1025)/DNS(rd=1, qd=DNSQR(qname='openlan.mk'))
 
-    # later on we will use the packet builder to provide more properties
-    pkt = STLPktBuilder(base_pkt)
+ip_range = {'src': {'start': "16.0.0.1", 'end': "16.0.0.254"},
+                'dst': {'start': "48.0.0.1",  'end': "48.0.0.254"}}
+
+# default IMIX properties
+imix_table = [  {'size': 1514, 'pps': 800000,   'isg':0 },
+                    {'size': 68,   'pps': 28,  'isg':0.2 },
+                    {'size': 590,  'pps': 16,  'isg':0.1 } ]
+
+
+def create_stream (size, pps, isg, vm ):
+    # Create base packet and pad it to size
+    base_pkt = Ether()/IP()/UDP(chksum=0)
+    pad = max(0, size - len(base_pkt)) * 'x'
+
+    pkt = STLPktBuilder(pkt = base_pkt/pad,
+                        vm = vm)
 
     # create a stream with a rate of 1000 PPS and continuous
-    s1 = STLStream(packet = pkt, mode = STLTXCont(percentage = link_percentage))
+    return STLStream(isg = isg,
+                        packet = pkt,
+                        mode = STLTXCont(pps = pps))
 
-    return s1
 
-def send_dns_stream(args):
+def get_streams(direction):
+    if direction == 0:
+        src = ip_range['src']
+        dst = ip_range['dst']
+    else:
+        src = ip_range['dst']
+        dst = ip_range['src']
+
+    # construct the base packet for the profile
+    vm = STLVM()
+    
+    # define two vars (src and dst)
+    vm.var(name="src",min_value=src['start'],max_value=src['end'],size=4,op="inc")
+    vm.var(name="dst",min_value=dst['start'],max_value=dst['end'],size=4,op="inc")
+    
+    # write them
+    vm.write(fv_name="src",pkt_offset= "IP.src")
+    vm.write(fv_name="dst",pkt_offset= "IP.dst")
+    
+    # fix checksum
+    vm.fix_chksum()
+    
+    # create imix streams
+    # return [create_stream(x['size'], x['pps'],x['isg'] , vm) for x in imix_table]
+    return create_stream(1514, 800000, 0, vm)
+
+def send_udp_stream(args):
     try:
-        ports = [i for i, v in enumerate(args.ip_src)]
+        # ports = [i for i, v in enumerate(args.ip_src)]
 
         start_time = datetime.now()
         results = {
@@ -38,23 +76,23 @@ def send_dns_stream(args):
         }
 
         c.reset(ports = ports)
-
         
-        for idx, val in enumerate(args.ip_src):
+        # for idx, val in enumerate(args.ip_src):
 
-            s = create_steam(val, args.ip_dst[idx], args.link_percentage)
+        #     s = create_steam(val, args.ip_dst[idx], args.link_percentage)
             
-            # add the streams
-            c.add_streams(streams = [s], ports = idx)
-
+        #     # add the streams
+        #     c.add_streams(streams = [s], ports = idx)
+        ss = get_streams(0)
+        c.add_streams(streams = ss, ports = 0)
         # start traffic with limit of 3 seconds (otherwise it will continue forever)
-        c.start(ports = ports, duration = args.duration, force = True)
+        c.start(ports = port_0, duration = args.duration, force = True)
 
         stats = []
-        while c.is_traffic_active():
-            stats.append(c.get_stats())
-            c.clear_stats()
-            time.sleep(5)
+        # while c.is_traffic_active():
+        #     stats.append(c.get_stats())
+        #     c.clear_stats()
+        #     time.sleep(5)
 
         # hold until traffic ends
         c.wait_on_traffic(ports = ports)
@@ -85,7 +123,7 @@ def send_dns_stream(args):
         c.disconnect()
 
 if __name__ == "__main__":
-    # python3 tgn/stl_dns_streams.py -t 10 -s 10.0.2.4 -d 10.0.2.5 -s 10.0.3.4 -d 10.0.3.5 -r 1
+    # python3 tgn/stl_udp_streams_1.py -t 10 -s 10.0.2.4 -d 10.0.2.5 -s 10.0.3.4 -d 10.0.3.5 -r 1
     parser = ArgumentParser(description = 'Run TRex client API and send DNS packet',
         usage = """stl_dns_streams.py [options]""" )
 
@@ -110,4 +148,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if not os.path.exists(args.output_folder):
         os.mkdir(args.output_folder)
-    send_dns_stream(args)
+    send_udp_stream(args)

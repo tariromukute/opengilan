@@ -209,3 +209,143 @@ tcpdump -ttttnnr cap2/dns.pcap
 https://trex-tgn.cisco.com/trex/doc/cp_stl_docs/index.html#how-to-install
 
 export PYTHONPATH=/home/azureuser/trex-core/scripts/automation/trex_control_plane/interactive
+
+```bash
+while true; do echo -n "hello" > /dev/udp/10.0.2.4/8000; done
+```
+
+```bash
+sudo ip r add 16.0.0.0/16 via 10.0.2.5 dev eth2
+
+sudo ip r add 48.0.0.0/16 via 10.0.3.5 dev eth1
+```
+
+To debug whether packets are being deliver, in our case testing UDR configurations we use nping to send raw packets.
+
+```bash
+sudo nping --send-ip --source-mac 00:0d:3a:2e:43:f9 --dest-mac 00:0d:3a:2d:48:5e --source-ip 48.0.1.7 --dest-ip 16.0.1.6 --udp -g 5000 -p 5001 --data-length 16
+
+sudo tcpdump -eni eth0 host 48.0.1.7
+```
+
+```bash
+scp -i ~/.ssh/id_rsa azureuser@olan151trex.southafricanorth.cloudapp.azure.com:/home/azureuser/tpstat/offcputime.out ~/Documents/personal/phd/dev/opengilan/ansible/.results/stl_dns_streams-rate_20-trex.json
+```
+
+scp -i ~/.ssh/id_rsa -r azureuser@olan151trex.southafricanorth.cloudapp.azure.com:/tmp/results ~/Documents/personal/phd/dev/opengilan/ansible/.results/trex
+
+lsb-release
+
+gnupg
+
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD
+
+### bcc tools from source
+
+sudo apt install -y bison build-essential cmake flex git libedit-dev \
+  libllvm7 llvm-7-dev libclang-7-dev python zlib1g-dev libelf-dev libfl-dev python3-distutils
+
+sudo apt-get -y install luajit libluajit-5.1-dev
+
+sudo apt install -y iperf3 netperf
+
+export PYTHONPATH=$(dirname `find /usr/lib -name bcc`):$PYTHONPATH
+
+:/usr/src/5.10.76-linuxkit/include/:$C_INCLUDE_PATH
+
+### BCC tools tracings
+
+```bash
+docker build -t docker-bpf .
+
+git clone --depth 1 --branch v5.6.11-linuxkit https://github.com/linuxkit/linux 5.10.76-linuxkit
+
+docker run -it --rm \
+  --privileged \
+  -v /lib/modules:/lib/modules:ro \
+  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/usr/src/5.10.76-linuxkit \
+  -v /etc/localtime:/etc/localtime:ro \
+  --workdir /usr/share/bcc/tools \
+  docker-bpf
+
+docker run -it --rm \
+  --privileged \
+  -v /lib/modules:/lib/modules \
+  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/usr/src/5.10.76-linuxkit \
+  -v /etc/localtime:/etc/localtime \
+  --workdir /usr/share/bcc/tools \
+  ubuntu:20.04
+
+ docker run -it --rm \
+  --privileged \
+  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/lib/modules/5.10.76-linuxkit/source \
+  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/lib/modules/5.10.76-linuxkit/build \ 
+  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/usr/src/5.10.76-linuxkit \
+  --workdir /usr/share/bcc/tools \
+  docker-bpf
+
+ docker run -it --rm \
+  --privileged \
+  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/lib/modules/5.10.76-linuxkit/source -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/lib/modules/5.10.76-linuxkit/build -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/usr/src/5.10.76-linuxkit \
+  --workdir /usr/share/bcc/tools \
+  ubuntu:20.04
+
+  sudo docker run --rm -it --privileged \
+  -v /lib/modules:/lib/modules \
+  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/lib/modules/5.10.76-linuxkit/build \
+  -v /sys:/sys \
+  -v /usr/src:/usr/src \
+  alpine:3.12
+
+ apt-get install aptitude
+
+ aptitude install libssl-dev 
+stackcount -f -P -D 10 ktime_get > out.stackcount01.txt
+
+
+```
+
+To compile the linux code you need to be on a case sensitive filesystem. To create one
+
+```bash
+Launch Disk Utility
+Choose "New Image"
+Enter a nice Name for your Volume, e.g "LinuxWorkspace"
+Set the size to something that will most likely fit your needs (resizing is a whole another story)
+Select "APFS (Case Sensitive)" in "Format".
+Select "Single Partition - GUID partition map" in "Partitions"
+Ensure "read/write disk format" is set in "Image Format".
+Save it somewhere on your hard drive
+```
+
+```bash
+git clone https://github.com/iovisor/bcc.git
+mkdir bcc/build; cd bcc/build
+cmake ..
+make
+sudo make install
+cmake -DPYTHON_CMD=python3 .. # build python3 binding
+pushd src/python/
+make
+sudo make install
+popd
+```
+
+
+## Lessons
+
+Azure has limits for concurrent connections per VM see [link](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#networking-limits)
+The limit is 500,000, up to 1,000,000 for two or more NICs.
+It also has a list on the number of flows 250k see [link](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-machine-network-throughput#flow-limits-and-active-connections-recommendations)
+
+tx_bps tx_pps tx_util sut_total_rx_pps - duration was 10s on trex
+287342528.0 500291.25 3.6738912800000003 2101315 (500kpps)
+574196480.0 996902.25 7.337008399999998 1946131 (1Mpps)
+779903104.0 1355321.125 9.96754484 2636674 (set % to 10)
+3128658688.0 5424779.0 39.966233280000004 3052634 (set % to 40)
+
+The SUT at some level seems to roughly maintain the number of received packets. The bytes can go up as we increase the packet size but the number of packets seems to be roundabout the same range.
+
+The Inbound flows on the SUT seems to be around 250 for sum. The limit on active flows is 250k. Not sure if the number of flows is the issue or the recording from the inbound flows is wrong or off by 1k. Regardless the Inbound flows seem to be ~250 everytime. Calculating the packets per second 500kpps if these are directly proportional to flows then we are probably getting to the limit of 500k flows with 250k flows per second.
+
+The Azure Monitor doesn't record any outbound packets on the Trex VM. This maybe due to the DPDK being used, might need to verify with docs, see the screenshots in assests folder.

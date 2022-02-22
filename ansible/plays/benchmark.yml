@@ -7,7 +7,7 @@
   become: yes
   ignore_errors: yes
 
-- name: Check on an async task for netsize (bpftrace)
+- name: Check on an async task for {{ tool }} (bpftrace)
   async_status:
     jid: "{{ tool_command.ansible_job_id }}"
   register: job_result

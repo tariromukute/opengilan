@@ -2,7 +2,7 @@ import socket
 
 # Addresses and data
 # Set this to your Ethernet interface (e.g. eth0, eth1, ...)
-interface = "vnet1"
+interface = "eth1"
 protocol = 0  # 0 = ICMP, 6 = TCP, 17 = UDP, ...
 
 # Create a raw socket with address family PACKET
@@ -16,8 +16,8 @@ s.bind((interface, protocol))
 # - Source MAC: 6 Bytes
 # - Type: 2 Bytes (IP = 0x0800)
 # Change the MAC addresses to match the your computer and the destination
-ethernet_hdr = [0x52, 0x54, 0x00, 0x2c, 0x2e, 0xdb,  # 52:54:00:2c:2e:db
-                0x90, 0x2b, 0x34, 0x60, 0xdc, 0x2f,  # 90:2b:34:60:dc:2f
+ethernet_hdr = [0x12, 0x34, 0x56, 0x78, 0x9a, 0xbc,  # 12:34:56:78:9a:bc
+                0x00, 0x22, 0x48, 0x66, 0x67, 0x85,  # 00:22:48:65:67:85
                 0x08, 0x00]
 
 # ------------
@@ -74,9 +74,9 @@ ip_hdr = [0x45,
           0x40, 0x00,
           0x40,
           0x01,
-          0x36, 0x8a,  # checksum - change this!
-          0xc0, 0xa8, 0x01, 0x07,  # 192.168.1.7
-          0xc0, 0xa8, 0x01, 0x01]  # 192.168.1.1
+          0x9b, 0xda,  # checksum - change this!
+          0x0a, 0x00, 0x02, 0x05,  # 10.0.2.5 0a.00.02.05
+          0x10, 0x00, 0x02, 0x04]  # 16.0.2.4 10.00.02.04 
 
 # ICMP Ping header
 # - Type: 1 Byte (0x08 = Echo request, 0x00 = Echo reply)
