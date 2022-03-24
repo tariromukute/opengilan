@@ -1,0 +1,20 @@
+bcc_build_packages:
+  - bison
+  - cmake
+  - flex
+  - git
+  - libedit-dev 
+  - libelf-dev
+  - zlib1g-dev
+  - libfl-dev
+  - llvm-7-dev
+  - libclang-7-dev
+  - python
+  - python3-distutils
+  - build-essential
+  - libllvm7
+  - luajit
+  - libluajit-5.1-dev
+  - iperf3
+  - netperf
+sudo: sudo

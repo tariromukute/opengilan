@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include olan_bcc"
+      include_role:
+        name: "olan_bcc"

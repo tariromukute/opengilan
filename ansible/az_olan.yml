@@ -25,10 +25,19 @@
       eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
 
   tasks:
-    - name: Copy file with owner and permissions
+    - name: Copy the traffic generation scripts
       ansible.builtin.copy:
         src: files/tgn
         dest: /home/azureuser/trex-core/scripts
+        
+- hosts:
+  - az_sut
+  
+  tasks: 
+    - name: Copy the tools for bcc and bpftrace scripts
+      ansible.builtin.copy:
+        src: files/tools
+        dest: /home/azureuser
 
 # Call the NF and install it using the lifecycle events
 - hosts:
@@ -38,19 +47,22 @@
   - set_fact:
       events_type: "script"
 
-  # - name: Test the lifecycle events play with script based VNF lifecycle bind9_vnf
-  #   include: plays/events.yml
-  #   vars:
-  #     user: ubuntu
-  #     vnf_repo: https://github.com/tariromukute/OOB-Server.git
-  #     vnf_name: OOB-Server
-  #     vnf_path: /home/azureuser/OOB-Server
-  #     vnf_version: HEAD
+  - name: Test the lifecycle events play with script based VNF lifecycle bind9_vnf
+    include: plays/events.yml
+    vars:
+      user: ubuntu
+      vnf_repo: https://github.com/tariromukute/OOB-Server.git
+      vnf_name: OOB-Server
+      vnf_path: /home/azureuser/OOB-Server
+      vnf_version: HEAD
 
 - hosts:
   - az_sut
   roles:
     - role: olan_bpftrace
+      user: azureuser
+
+    - role: olan_bcc
       user: azureuser
 
 #Install ansible
@@ -61,62 +73,27 @@
       pip:
         name: ansible
 
-# - hosts:
-#   - az_trex
-#   tasks:
-#     - name: Start the trex in the background
-#       ansible.builtin.shell: sh t-rex-64 -i -c 2 -v 7 --no-ofed-check
-#       become: yes
-# - hosts:
-#   - az_trex
-#   tasks:
-#     - name: Run a script using an executable in a system path
-#       ansible.builtin.shell: 
-#         cmd: python3 stl_dns_streams.py -t 10 -s 10.0.2.4 -d 10.0.2.5 -s 10.0.3.4 -d 10.0.3.5 -r 1
-#         chdir: /home/azureuser/trex-core/scripts/tgn
-#       args:
-#         executable: python3
-#       register: trex_command
-#       async: 5
-#       poll: 0
-#       become: yes
-#       ignore_errors: yes
-
-#     - name: Check on an async task for netsize (bpftrace)
-#       async_status:
-#         jid: "{{ trex_command.ansible_job_id }}"
-#       register: job_result
-#       until: job_result.finished
-#       retries: 100
-#       delay: 10
-#       become: yes
-#       ignore_errors: yes
-
-# - hosts:
-#   - az_sut
-
-#   vars:
-#     tools:
-#       - netcount.bt
-#       - netsize.bt
-#       - nettxlat-dev.bt
-#       - runqlat.bt
-#       - skblife.bt
-#       - sockstat.bt
-#       - skbdrop.bt --unsafe
-#       # - syscount.bt
-#     definitions_type: json
-#     events_type: ansible
-
-#   tasks:
-
-#     - name: Include task list in play
-#       include: plays/benchmark.yml
-#       vars:
-#         user: azureuser
-#         duration: 62
-#         aduration: 65
-#         tool: "{{ item }}"
-#         prefix: stl_imix_streams-rate_100-
-#       loop: "{{ tools }}"
-        
+- hosts:
+  - az_trex
+  - az_sut
+  tasks:
+    - name: Collect results
+      include: plays/collect.yml
+      vars:
+        user: azureuser
+        time: 1680 # 27 x 60 + 60
+        duration: 60 
+        aduration: 1700 # 27 x 60 + 60
+        tool: "all"
+        kpps: "{{ item }}"
+      loop:
+        - 1
+        - 10
+        - 50
+        - 100
+        - 200
+        - 300
+        - 400
+        - 500
+        - 600
+      

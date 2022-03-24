@@ -15,9 +15,12 @@ def send_dns_packet(args):
         c.set_service_mode(ports = [port_0, port_1])
 
         # start a capture
-        id = c.start_capture(tx_ports = [port_0], rx_ports = [port_0, port_1],
-                    limit = 100)
+        # id = c.start_capture(tx_ports = [port_0], rx_ports = [port_0, port_1],
+        #             limit = 100)
 
+        # start a capture
+        tx_capture = c.start_capture(tx_ports = [port_0],
+                    limit = 10)
         # create a base packet with scapy
         base_pkt = Ether()/IP(src=args.ip_src,dst=args.ip_dst)/UDP(sport=1025)/DNS(rd=1, qd=DNSQR(qname='openlan.mk'))
         # create a list of 100 packets
@@ -29,11 +32,11 @@ def send_dns_packet(args):
         c.wait_on_traffic()
 
         # print the capture status so far
-        status = c.get_capture_status()[id['id']]
+        status = c.get_capture_status()[tx_capture['id']]
         print("Packet Capture Status:\n{0}".format(status))
 
         # save the packets to PCAP
-        c.stop_capture(capture_id = id['id'], output = '/tmp/dns.pcap')
+        c.stop_capture(capture_id = tx_capture['id'], output = '/tmp/tx_dns.pcap')
 
     except STLError as e:
         print(e)

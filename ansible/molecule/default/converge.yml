@@ -38,19 +38,19 @@
 #         vnf_version: HEAD
 #         vnf_descriptors: /Users/tariromukute/Documents/personal/dev/libpcap_echo_server/vnfd.json
 
-#     - set_fact:
-#         events_type: "script"
+    - set_fact:
+        events_type: "script"
 
     
 
-#     - name: Test the lifecycle events play with script based VNF lifecycle bind9_vnf
-#       include: ../../plays/events.yml
-#       vars:
-#         user: ubuntu
-#         vnf_repo: https://github.com/tariromukute/OOB-Server.git
-#         vnf_name: OOB-Server
-#         vnf_path: /home/OOB-Server
-#         vnf_version: HEAD
+    - name: Test the lifecycle events play with script based VNF lifecycle bind9_vnf
+      include: ../../plays/events.yml
+      vars:
+        user: ubuntu
+        vnf_repo: https://github.com/tariromukute/OOB-Server.git
+        vnf_name: OOB-Server
+        vnf_path: /home/OOB-Server
+        vnf_version: HEAD
 
 #     # # Converge with bpftrace (used in the benchmark) will not work on local Mac OS see https://petermalmgren.com/docker-mac-bpf-perf/ on details and how to resolve it
 #     # # TODO: Create a docker image for testing bpftrace locally

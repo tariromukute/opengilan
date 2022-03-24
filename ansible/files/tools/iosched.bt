@@ -1,0 +1,29 @@
+#!/usr/local/bin/bpftrace
+#include <linux/blkdev.h>
+
+BEGIN
+{
+    printf("Tracing block I/O schedulers. Hit Ctrl-C to end.\n");
+}
+
+kprobe:__elv_add_request
+{
+    @start[arg1] = nsecs;
+}
+
+kprobe:blk_start_request,
+kprobe:blk_mq_start_request
+/@start[arg0]/
+{
+    $r = (struct request *)arg0;
+    @usecs[$r->q->elevator->type->elevator_name] =
+    hist((nsecs - @start[arg0]) / 1000);
+    delete(@start[arg0]);
+}
+
+interval:s:60 { exit(); }
+
+END
+{
+    clear(@start);
+}

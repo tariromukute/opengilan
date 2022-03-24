@@ -15,8 +15,9 @@ port_1 = 1
 
 ports = [0, 1]
 
+
 # TODO fix me. doesn't always work
-def create_steam(ip_src, ip_dst, pcap_file, link_percentage):
+def create_steam(ip_src, ip_dst, pcap_file, pps):
     vm = [
         # src                                                            <4>
         STLVmFlowVar(name="src",
@@ -33,8 +34,10 @@ def create_steam(ip_src, ip_dst, pcap_file, link_percentage):
     ]
 
     s =  STLStream(packet = STLPktBuilder(pkt=pcap_file, vm=vm), # path relative to profile and not to loader path
-                         mode = STLTXCont( percentage = link_percentage ))
-    
+                         mac_src_override_by_pkt=0,
+                         mac_dst_override_mode=0,
+                         mode = STLTXCont(pps = pps))
+
     return s
 
 def send_dns_stream(args):
@@ -50,13 +53,18 @@ def send_dns_stream(args):
 
         c.reset(ports = ports)
 
+        c.set_service_mode(ports = ports)
+
+        # start a capture
+        tx_capture = c.start_capture(tx_ports = ports,
+                    limit = 10)
         
         for idx, val in enumerate(args.ip_src):
 
-            s = create_steam(val, args.ip_dst[idx], args.pcap_file, args.link_percentage)
+            s = create_steam(val, args.ip_dst[idx], args.pcap_file[idx], args.pps)
             
             # add the streams
-            c.add_streams(streams = [s], ports = idx)
+            c.add_streams(streams = [s], ports = ports[idx])
 
         # start traffic with limit of args.duration in seconds (otherwise it will continue forever)
         c.start(ports = ports, duration = args.duration, force = True)
@@ -76,6 +84,13 @@ def send_dns_stream(args):
         stats.append(c.get_stats())
 
         results["stats"] = stats
+
+        # print the capture status so far
+        tx_status = c.get_capture_status()[tx_capture['id']]
+        print("TX Packet Capture Status:\n{0}".format(tx_status))
+
+        # save the packets to PCAP
+        c.stop_capture(capture_id = tx_status['id'], output = '/tmp/tx_v_dns.pcap')
 
         # write the results to file
         filename = "stl_pcap_dns_streams-{}.json".format(start_time.strftime("%d-%m-%Y-%H-%M-%S"))
@@ -101,18 +116,22 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--ip_dst", dest="ip_dst",
         action="extend", nargs="+", type=str,
         help="The dest IP address to use in the DNS packet. To provide more addresses supply the field multiple times e.g., -d <address1> -d <address2>" )
+    parser.add_argument("-o", "--output-folder", dest="output_folder",
+        help="The folder to write the results",
+        default = "/tmp/results")
     parser.add_argument("-f", "--file", dest="pcap_file",
-        help="The pcap file to generate streams from")
+        action="extend", nargs="+", type=str,
+        help="The pcap file to generate streams from -f /tmp/port_0.pcap -f /tmp/port_1.pcap")
     parser.add_argument("-t", "--duration", dest="duration",
         help="The duration of the sending in seconds",
         type=int, 
         default = 30 )
-    parser.add_argument("-r", "--rate", dest="link_percentage",
+    parser.add_argument("-r", "--rate", dest="pps",
         type=int,
         help="The Interface link percentage to use", 
         default = 10 )
     
-    # python3 olan/stl_pcap_dns_streams.py --rate 1 -t 10 -f dns.pcap -s 10.0.3.4 -d 10.0.3.5
+    # python3 tgn/stl_pcap_dns_streams.py --rate 10 -t 10 -f /tmp/rx_dns.pcap -s 10.0.3.4 -d 10.0.3.5
     args = parser.parse_args()
     if not os.path.exists(args.output_folder):
         os.mkdir(args.output_folder)

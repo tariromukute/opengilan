@@ -14,7 +14,7 @@ port_0 = 0
 port_1 = 1
 
 ports = [0, 1]
-def create_steam(ip_src, ip_dst, link_percentage):
+def create_steam(ip_src, ip_dst, pps):
     # create a base packet with scapy
     base_pkt = Ether()/IP(src=ip_src,dst=ip_dst)/UDP(sport=1025)/DNS(rd=1, qd=DNSQR(qname='openlan.mk'))
 
@@ -22,7 +22,7 @@ def create_steam(ip_src, ip_dst, link_percentage):
     pkt = STLPktBuilder(base_pkt)
 
     # create a stream with a rate of 1000 PPS and continuous
-    s1 = STLStream(packet = pkt, mode = STLTXCont(percentage = link_percentage))
+    s1 = STLStream(packet = pkt, mode = STLTXCont(pps = pps))
 
     return s1
 
@@ -42,7 +42,7 @@ def send_dns_stream(args):
         
         for idx, val in enumerate(args.ip_src):
 
-            s = create_steam(val, args.ip_dst[idx], args.link_percentage)
+            s = create_steam(val, args.ip_dst[idx], args.pps)
             
             # add the streams
             c.add_streams(streams = [s], ports = idx)
@@ -85,7 +85,7 @@ def send_dns_stream(args):
         c.disconnect()
 
 if __name__ == "__main__":
-    # python3 tgn/stl_dns_streams.py -t 10 -s 10.0.2.4 -d 10.0.2.5 -s 10.0.3.4 -d 10.0.3.5 -r 1
+    # python3 tgn/stl_dns_streams.py -t 3 -s 10.0.2.4 -d 10.0.2.5 -s 10.0.3.4 -d 10.0.3.5 -r 10
     parser = ArgumentParser(description = 'Run TRex client API and send DNS packet',
         usage = """stl_dns_streams.py [options]""" )
 
@@ -102,7 +102,7 @@ if __name__ == "__main__":
         help="The duration of the sending in seconds",
         type=int, 
         default = 30 )
-    parser.add_argument("-r", "--rate", dest="link_percentage",
+    parser.add_argument("-r", "--rate", dest="pps",
         type=float,
         help="The Interface link percentage to use", 
         default = 10 )

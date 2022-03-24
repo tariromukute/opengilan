@@ -6,6 +6,7 @@ from argparse import ArgumentParser
 from datetime import datetime
 import os 
 import json
+import math
 
 c = STLClient(server = '127.0.0.1')
 c.connect()
@@ -21,16 +22,12 @@ def create_vm_object(ip_src, ip_dst):
     vm = [
         # src                                                            <4>
         STLVmFlowVar(name="src",
-                     min_value=ip_src,
-                     max_value=ip_src,
-                     size=4,op="inc"),
+                     value_list=[ip_src],op="inc"),
         STLVmWrFlowVar(fv_name="src",pkt_offset= "IP.src"),
 
         # dst
         STLVmFlowVar(name="dst",
-                     min_value=ip_dst,
-                     max_value=ip_dst,
-                     size=4,op="inc"),
+                     value_list=[ip_dst],op="inc"),
         STLVmWrFlowVar(fv_name="dst",pkt_offset= "IP.dst"),
 
         # checksum
@@ -52,7 +49,11 @@ def push_dns_packets(args):
 
         c.reset(ports = ports)
 
-        
+        ipg_usec = 1000000 / args.pps
+        packets = rdpcap(args.pcap_file)
+        pkt_count = len(packets)
+        count = max(1, math.ceil((args.pps / pkt_count) * args.duration))
+
         for idx, val in enumerate(args.ip_src):
 
             vm = create_vm_object(val, args.ip_dst[idx])
@@ -61,13 +62,11 @@ def push_dns_packets(args):
             # pcap packets
             c.push_pcap(args.pcap_file,             # our local PCAP file
                 ports = idx,                           # use 'port'
-                ipg_usec = args.ipg_usec,                         # IPG
-                count = args.count,                              # inject only once
+                ipg_usec = ipg_usec,                         # IPG
+                count = count,                              # inject only once
+                duration=args.duration,
                 vm = vm                                 # provide VM object
             )
-
-        # start traffic with limit of args.duration in seconds (otherwise it will continue forever)
-        c.start(ports = ports, duration = args.duration, force = True)
 
         stats = []
         
@@ -119,16 +118,12 @@ if __name__ == "__main__":
         help="The duration of the sending in seconds",
         type=int, 
         default = 30 )
-    parser.add_argument("-i", "--ipg_usec", dest="ipg_usec",
-        type=int,
-        help="The interval between packets in usec", 
-        default = 100 )
-    parser.add_argument("-c", "--count", dest="count",
-        type=int,
-        help="The number of packets to send", 
-        default = 1000 )
+    parser.add_argument("-r", "--rate", dest="pps",
+        type=float,
+        help="The Interface link percentage to use", 
+        default = 10)
     
-    # python3 olan/stl_pcap_dns_push.py -t 10 -f dns.pcap -s 10.0.3.4 -d 10.0.3.5 -i 100 -c 1000
+    # python3 tgn/stl_pcap_dns_push.py -t 3 -f /tmp/rx_dns.pcap -s 10.0.2.4 -d 10.0.2.5 -r 10
     args = parser.parse_args()
     if not os.path.exists(args.output_folder):
         os.mkdir(args.output_folder)

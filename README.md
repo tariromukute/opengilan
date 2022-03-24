@@ -146,14 +146,6 @@ https://blog.cloudflare.com/how-to-drop-10-million-packets/
 
 sudo cat /sys/kernel/debug/tracing/events/napi/napi_poll/format
 
-tracepoint:tcp
-tracepoint:udp
-tracepoint:sock
-tracepoint:napi
-tracepoint:net
-tracepoint:skb
-tracepoint:irq
-tracepoint:raw_syscalls
 
 - [Taming Tracepoints in the Linux Kernel](https://blogs.oracle.com/linux/post/taming-tracepoints-in-the-linux-kernel)
 - [Event Tracing](https://www.kernel.org/doc/Documentation/trace/events.txt)
@@ -170,14 +162,6 @@ Test scenarios
 
 - [XDP support on Azure](https://mjmwired.net/kernel/Documentation/networking/device_drivers/microsoft)
 - [Support for XDP on Hyper-V](https://elixir.bootlin.com/linux/v5.8/source/Documentation/networking/device_drivers/microsoft/netvsc.rst)
-
-StorPerf provides the following metrics:
-• IOPS
-• Bandwidth (number of kilobytes read or written per second)
-• Latency
-2. Hooks inbetweeen
-3. Raw sockets where - eth, sock, user
-4. XDP & TC
 
 ## AF_PACKET
 
@@ -232,8 +216,6 @@ sudo tcpdump -eni eth0 host 48.0.1.7
 scp -i ~/.ssh/id_rsa azureuser@olan151trex.southafricanorth.cloudapp.azure.com:/home/azureuser/tpstat/offcputime.out ~/Documents/personal/phd/dev/opengilan/ansible/.results/stl_dns_streams-rate_20-trex.json
 ```
 
-scp -i ~/.ssh/id_rsa -r azureuser@olan151trex.southafricanorth.cloudapp.azure.com:/tmp/results ~/Documents/personal/phd/dev/opengilan/ansible/.results/trex
-
 lsb-release
 
 gnupg
@@ -256,71 +238,10 @@ export PYTHONPATH=$(dirname `find /usr/lib -name bcc`):$PYTHONPATH
 ### BCC tools tracings
 
 ```bash
-docker build -t docker-bpf .
-
-git clone --depth 1 --branch v5.6.11-linuxkit https://github.com/linuxkit/linux 5.10.76-linuxkit
-
-docker run -it --rm \
-  --privileged \
-  -v /lib/modules:/lib/modules:ro \
-  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/usr/src/5.10.76-linuxkit \
-  -v /etc/localtime:/etc/localtime:ro \
-  --workdir /usr/share/bcc/tools \
-  docker-bpf
-
-docker run -it --rm \
-  --privileged \
-  -v /lib/modules:/lib/modules \
-  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/usr/src/5.10.76-linuxkit \
-  -v /etc/localtime:/etc/localtime \
-  --workdir /usr/share/bcc/tools \
-  ubuntu:20.04
-
- docker run -it --rm \
-  --privileged \
-  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/lib/modules/5.10.76-linuxkit/source \
-  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/lib/modules/5.10.76-linuxkit/build \ 
-  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/usr/src/5.10.76-linuxkit \
-  --workdir /usr/share/bcc/tools \
-  docker-bpf
-
- docker run -it --rm \
-  --privileged \
-  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/lib/modules/5.10.76-linuxkit/source -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/lib/modules/5.10.76-linuxkit/build -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/usr/src/5.10.76-linuxkit \
-  --workdir /usr/share/bcc/tools \
-  ubuntu:20.04
-
-  sudo docker run --rm -it --privileged \
-  -v /lib/modules:/lib/modules \
-  -v /Volumes/LinuxWorkspace/5.10.76-linuxkit:/lib/modules/5.10.76-linuxkit/build \
-  -v /sys:/sys \
-  -v /usr/src:/usr/src \
-  alpine:3.12
-
- apt-get install aptitude
-
- aptitude install libssl-dev 
-stackcount -f -P -D 10 ktime_get > out.stackcount01.txt
-
-
-```
-
-To compile the linux code you need to be on a case sensitive filesystem. To create one
-
-```bash
-Launch Disk Utility
-Choose "New Image"
-Enter a nice Name for your Volume, e.g "LinuxWorkspace"
-Set the size to something that will most likely fit your needs (resizing is a whole another story)
-Select "APFS (Case Sensitive)" in "Format".
-Select "Single Partition - GUID partition map" in "Partitions"
-Ensure "read/write disk format" is set in "Image Format".
-Save it somewhere on your hard drive
-```
-
-```bash
 git clone https://github.com/iovisor/bcc.git
-mkdir bcc/build; cd bcc/build
+cd bcc 
+git checkout v0.24.0
+mkdir build; cd build
 cmake ..
 make
 sudo make install
@@ -330,7 +251,6 @@ make
 sudo make install
 popd
 ```
-
 
 ## Lessons
 
@@ -348,4 +268,4 @@ The SUT at some level seems to roughly maintain the number of received packets. 
 
 The Inbound flows on the SUT seems to be around 250 for sum. The limit on active flows is 250k. Not sure if the number of flows is the issue or the recording from the inbound flows is wrong or off by 1k. Regardless the Inbound flows seem to be ~250 everytime. Calculating the packets per second 500kpps if these are directly proportional to flows then we are probably getting to the limit of 500k flows with 250k flows per second.
 
-The Azure Monitor doesn't record any outbound packets on the Trex VM. This maybe due to the DPDK being used, might need to verify with docs, see the screenshots in assests folder.
+The Azure Monitor doesn't record any outbound packets on the Trex VM. This maybe due to the DPDK being used, might need to verify with docs, see the screenshots in assests folder.\

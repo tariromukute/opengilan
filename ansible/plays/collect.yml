@@ -1,181 +1,55 @@
-- name: Test Ping
-  hosts:
-    - client
-    - server
-  tasks:
-  - action: ping
 
-- hosts:
-  - client
-  tasks:
-  - name: Creating a file with content
-    copy:
-      dest: "/home/user/trace.sh"
-      content: |
-        echo 'Hello'
-      mode: +x
+- name: Run a script using an executable in a system path
+  ansible.builtin.command: 
+    cmd: python3 tgn/stl_pcap_dns_push.py -t {{ time }} -f /tmp/rx_dns.pcap -s 10.0.2.4 -d 10.0.2.5 -r {{ kpps }}000
+    chdir: /home/azureuser/trex-core/scripts
+  # args:
+  #   executable: python3
+  environment:
+    - PYTHONPATH: "/home/azureuser/trex-core/scripts/automation/trex_control_plane/interactive"
+  when:
+    - inventory_hostname in groups["az_trex"]
+  register: trex_command
+  async: "{{ aduration }}"
+  poll: 0
+  # become: yes
+  ignore_errors: yes
 
-  - name: Creating a file with content
-    copy:
-      dest: "/home/user/monitor.sh"
-      content: |
-        taskset -c 169 openssl speed -seconds 10 aes-256-cbc
-      mode: +x
+- name: Sleep for 30 seconds (trex takes some time to read the pcap file) and continue with play
+  wait_for:
+    timeout: 30
+  delegate_to: localhost
 
-  - name: Create script to start iperf
-    copy:
-      dest: "/home/user/traffic.sh"
-      content: |
-        iperf -c 10.0.0.2 -u -b 10m -t 122
-      mode: +x
+- name: Get results from tracing (bpftrace)
+  ansible.builtin.shell: ./main.sh {{ tool }} {{ duration }} 1 {{ duration }} {{ kpps }}
+  args:
+    chdir: /home/azureuser/tools
+    executable: /bin/bash
+  become: yes
+  when:
+    - inventory_hostname in groups["az_sut"]
 
-- hosts:
-  - server
-  tasks:
-  - name: Creating a file with content
-    copy:
-      dest: "/home/user/trace.sh"
-      content: |
-        bpftrace tpstat/bpftrace/net/biostack.bt
-      mode: +x
+- name: Check on an async task for netsize (bpftrace)
+  async_status:
+    jid: "{{ trex_command.ansible_job_id }}"
+  when:
+    - inventory_hostname in groups["az_trex"]
+  register: job_result
+  until: job_result.finished
+  retries: 100
+  delay: 10
+  # become: yes
+  ignore_errors: yes
 
-  - name: Creating a file with content
-    copy:
-      dest: "/home/user/monitor.sh"
-      content: |
-        taskset -c 169 openssl speed -seconds 10 aes-256-cbc
-      mode: +x
+- name: Fetch stuff from the remote and save to local
+  synchronize:  src=/home/azureuser/tools/results dest=.results/kpps={{ kpps }} mode=pull
+  when:
+    - inventory_hostname in groups["az_sut"]
 
-  - name: Create script to start iperf
-    copy:
-      dest: "/home/user/traffic.sh"
-      content: |
-        iperf -s -u
-      mode: +x
-
-- hosts:
-  - server
-  - client
-  tasks:
-  # ====================== run scripts (programs) ===================
-  - name: Run a script for user space program (openssl)
-    ansible.builtin.command: sh /home/user/monitor.sh
-    register: monitor_command
-    # become: yes
-    async: 65
-    poll: 0
-
-  - name: Run a script for starting tracing (bpftrace)
-    ansible.builtin.command: timeout 60 sh /home/user/trace.sh
-    register: trace_command
-    async: 65
-    poll: 0
-    become: yes
-    ignore_errors: yes
-
-  # We want to avoid the iperf server being terminated before the client. 
-  # Therefore timeout should be larger than expect client to server connection time
-  - name: Run script to start iperf
-    ansible.builtin.command: timeout 62 sh /home/user/traffic.sh
-    register: traffic_command
-    async: 65
-    poll: 0
-
-  # ====================================================================
-
-
-  # ===================== check if the tasks are done ==================
-  #  check if the traffic sending is done before other tracing and monitoring tasks
-  - name: Check on an async task for traffic (iperf)
-    async_status:
-      jid: "{{ traffic_command.ansible_job_id }}"
-    register: job_result
-    until: job_result.finished
-    retries: 100
-    delay: 10
-    ignore_errors: yes
-
-  - name: Check on an async task for monitoring
-    async_status:
-      jid: "{{ monitor_command.ansible_job_id }}"
-    register: job_result
-    until: job_result.finished
-    retries: 100
-    delay: 10
-
-  - name: Check on an async task for tracing
-    async_status:
-      jid: "{{ trace_command.ansible_job_id }}"
-    register: job_result
-    until: job_result.finished
-    retries: 100
-    delay: 10
-    become: yes
-    ignore_errors: yes
-
-  # ================================================================
-
-  # - debug:
-  #     msg: "{{ trace_command }}"
-
-  # - debug:
-  #     msg: "{{ traffic_command }}"
-
-  # ====================== results collection ===========================
-  # async tasks have their results stored on the host server.
-  # Get the results and save them on local machine
-  - name: Get results from tracing (bpftrace)
-    ansible.builtin.shell: cat {{ trace_command.results_file }}
-    register: trace_command_results
-    become: yes
-
-  # write to remote
-  - name: "Filter the tracing results we are interested in and save results them on remote machine"
-    ansible.builtin.copy:
-      content: "{{( trace_command_results.stdout | from_json).stdout}}"
-      dest: ~/bpftrace-{{ inventory_hostname }}
-
-  # copy remote copy to local machine
-  - name: "Save results from tracing on local machine"
-    ansible.builtin.fetch:
-      src: ~/bpftrace-{{ inventory_hostname }}
-      dest: results/bpftrace/{{ inventory_hostname }}.out
-      flat: yes
-
-  - name: Get results from monitoring (openssl)
-    ansible.builtin.shell: cat {{ monitor_command.results_file }}
-    register: monitor_command_results
-    become: yes
-
-  # write to remote and them copy to local after
-  - name: "Filter the monitoring results we are interested in and save results them on remote machine"
-    ansible.builtin.copy:
-      content: "{{( monitor_command_results.stdout | from_json).stderr}}"
-      dest: ~/openssl-{{ inventory_hostname }}
-
-  # copy from remote copy to local machine
-  - name: "Save results from tracing on local machine"
-    ansible.builtin.fetch:
-      src: ~/openssl-{{ inventory_hostname }}
-      dest: results/openssl/{{ inventory_hostname }}.out
-      flat: yes
-
-  - name: Get results from traffic (iperf)
-    ansible.builtin.shell: cat {{ traffic_command.results_file }}
-    register: traffic_command_results
-    become: yes
-
-  # write to remote and them copy to local after
-  - name: "Filter the traffic results we are interested in and save results them on remote machine"
-    ansible.builtin.copy:
-      content: "{{( traffic_command_results.stdout | from_json).stdout}}"
-      dest: ~/iperf-{{ inventory_hostname }}
-
-  # copy from remote copy to local machine
-  - name: "Save results from traffic (iperf) on local machine"
-    ansible.builtin.fetch:
-      src: ~/iperf-{{ inventory_hostname }}
-      dest: results/iperf/{{ inventory_hostname }}.out
-      flat: yes
-  # ====================================================================
-# ntp sync
+- name: Delete content & directory
+  file:
+    state: absent
+    path: /home/azureuser/tools/results/
+  become: yes
+  when:
+    - inventory_hostname in groups["az_sut"]

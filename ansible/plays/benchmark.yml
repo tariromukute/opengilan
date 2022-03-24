@@ -1,11 +1,13 @@
 # ---- netsize ----
 - name: Run a script for starting tracing (bpftrace)
-  ansible.builtin.command: timeout {{ duration }} bpftrace /home/{{ user }}/tpstat/bpftrace/{{ tool }}
+  ansible.builtin.command: timeout {{ duration }} {{ command }} {{ tool }}
+  args:
+    chdir: "{{ dir }}"
   register: tool_command
   async: "{{ aduration }}"
   poll: 0
   become: yes
-  ignore_errors: yes
+  # ignore_errors: yes
 
 - name: Check on an async task for {{ tool }} (bpftrace)
   async_status:
@@ -16,6 +18,11 @@
   delay: 5
   become: yes
   ignore_errors: yes
+
+- name: Print return information from the previous task
+  ansible.builtin.debug:
+    var: tool_command
+    verbosity: 2
 
 - name: Get results from tracing (bpftrace)
   ansible.builtin.shell: cat {{ tool_command.results_file }}
