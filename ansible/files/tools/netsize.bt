@@ -1,5 +1,6 @@
 #!/usr/local/bin/bpftrace
 
+/* $1 reads the first argument of the file */
 /**
  * shows the size of received and sent packets from the net device layer, both before and after software segmentation  * offload (GSO and GRO).
  */
