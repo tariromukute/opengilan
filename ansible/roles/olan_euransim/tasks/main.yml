@@ -1,0 +1,7 @@
+---
+# tasks file for olan_euransim
+- name: Run pre tasks for EURAMSIM
+  include: pre.yml
+
+- name: Install and setup EURAMSIM
+  include: setup.yml

@@ -2,7 +2,7 @@
 - hosts: localhost
 
   vars:
-    resource_group: opengilan
+    resource_group: openn6lan
 
   tasks:
     - name: Deleting resource group - "{{ resource_group }}"

@@ -23,11 +23,11 @@
     state: present
   become: yes
 
-- name: Get TREX source code from git and checkout to v2.89
+- name: Get TREX source code from git and checkout to v2.97
   ansible.builtin.git:
     repo: 'https://github.com/cisco-system-traffic-generator/trex-core.git'
     dest: /home/{{ user }}/trex-core
-    version: v2.89
+    version: v2.97
 
 - name: Configure TREX without OFED check
   ansible.builtin.command: ./b configure --no-ofed-check
@@ -105,14 +105,14 @@
   ansible.builtin.command: "ethtool -K {{ eth2_netvsc }} tso off gro off gso off"
   become: yes
 
-- name: Copy file with owner and permissions
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/trex.service"
-    dest: /lib/systemd/system/
-  become: yes
+# - name: Copy file with owner and permissions
+#   ansible.builtin.copy:
+#     src: "{{ role_path }}/files/trex.service"
+#     dest: /lib/systemd/system/
+#   become: yes
 
-- name: Start service trex, if not started
-  ansible.builtin.service:
-    name: trex
-    state: started
-  become: yes
+# - name: Start service trex, if not started
+#   ansible.builtin.service:
+#     name: trex
+#     state: started
+#   become: yes

@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include olan_euransim"
+      include_role:
+        name: "olan_euransim"
+      vars:
+        user: ubuntu
