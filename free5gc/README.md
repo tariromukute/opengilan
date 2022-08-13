@@ -22,6 +22,205 @@ The initial step is to manually set up and configure the Free5gc and run the dif
 - [ ] Run Trex GTP-U for EUs that would have been registered using EURANSIM
 - [ ] Update ansible script to run the above in sequencial order and increase the number of EU
 
+## Add subscribers to Free5gc
+
+
+```python
+import http.client
+import json
+
+imsi="imsi-208930000000012"
+base_url = "olan138sut.westeurope.cloudapp.azure.com:5000"
+
+conn = http.client.HTTPConnection(base_url)
+
+
+payload = {
+    "plmnID": "20893",
+    "ueId": imsi,
+    "AuthenticationSubscription": {
+        "authenticationManagementField": "8000",
+        "authenticationMethod": "5G_AKA",
+        "milenage": {"op": {
+                "encryptionAlgorithm": 0,
+                "encryptionKey": 0,
+                "opValue": "8e27b6af0e692e750f32667a3b14605d"
+            }},
+        "opc": {
+            "encryptionAlgorithm": 0,
+            "encryptionKey": 0,
+            "opcValue": ""
+        },
+        "permanentKey": {
+            "encryptionAlgorithm": 0,
+            "encryptionKey": 0,
+            "permanentKeyValue": "8baf473f2f8fd09487cccbd7097c6862"
+        },
+        "sequenceNumber": "16f3b3f70fc2"
+    },
+    "AccessAndMobilitySubscriptionData": {
+        "gpsis": ["msisdn-0900000000"],
+        "nssai": {
+            "defaultSingleNssais": [
+                {
+                    "sst": 1,
+                    "sd": "010203",
+                    "isDefault": True
+                },
+                {
+                    "sst": 1,
+                    "sd": "112233",
+                    "isDefault": True
+                }
+            ],
+            "singleNssais": []
+        },
+        "subscribedUeAmbr": {
+            "downlink": "2 Gbps",
+            "uplink": "1 Gbps"
+        }
+    },
+    "SessionManagementSubscriptionData": [
+        {
+            "singleNssai": {
+                "sst": 1,
+                "sd": "010203"
+            },
+            "dnnConfigurations": {
+                "internet": {
+                    "sscModes": {
+                        "defaultSscMode": "SSC_MODE_1",
+                        "allowedSscModes": ["SSC_MODE_2", "SSC_MODE_3"]
+                    },
+                    "pduSessionTypes": {
+                        "defaultSessionType": "IPV4",
+                        "allowedSessionTypes": ["IPV4"]
+                    },
+                    "sessionAmbr": {
+                        "uplink": "200 Mbps",
+                        "downlink": "100 Mbps"
+                    },
+                    "5gQosProfile": {
+                        "5qi": 9,
+                        "arp": {"priorityLevel": 8},
+                        "priorityLevel": 8
+                    }
+                },
+                "internet2": {
+                    "sscModes": {
+                        "defaultSscMode": "SSC_MODE_1",
+                        "allowedSscModes": ["SSC_MODE_2", "SSC_MODE_3"]
+                    },
+                    "pduSessionTypes": {
+                        "defaultSessionType": "IPV4",
+                        "allowedSessionTypes": ["IPV4"]
+                    },
+                    "sessionAmbr": {
+                        "uplink": "200 Mbps",
+                        "downlink": "100 Mbps"
+                    },
+                    "5gQosProfile": {
+                        "5qi": 9,
+                        "arp": {"priorityLevel": 8},
+                        "priorityLevel": 8
+                    }
+                }
+            }
+        },
+        {
+            "singleNssai": {
+                "sst": 1,
+                "sd": "112233"
+            },
+            "dnnConfigurations": {
+                "internet": {
+                    "sscModes": {
+                        "defaultSscMode": "SSC_MODE_1",
+                        "allowedSscModes": ["SSC_MODE_2", "SSC_MODE_3"]
+                    },
+                    "pduSessionTypes": {
+                        "defaultSessionType": "IPV4",
+                        "allowedSessionTypes": ["IPV4"]
+                    },
+                    "sessionAmbr": {
+                        "uplink": "200 Mbps",
+                        "downlink": "100 Mbps"
+                    },
+                    "5gQosProfile": {
+                        "5qi": 9,
+                        "arp": {"priorityLevel": 8},
+                        "priorityLevel": 8
+                    }
+                },
+                "internet2": {
+                    "sscModes": {
+                        "defaultSscMode": "SSC_MODE_1",
+                        "allowedSscModes": ["SSC_MODE_2", "SSC_MODE_3"]
+                    },
+                    "pduSessionTypes": {
+                        "defaultSessionType": "IPV4",
+                        "allowedSessionTypes": ["IPV4"]
+                    },
+                    "sessionAmbr": {
+                        "uplink": "200 Mbps",
+                        "downlink": "100 Mbps"
+                    },
+                    "5gQosProfile": {
+                        "5qi": 9,
+                        "arp": {"priorityLevel": 8},
+                        "priorityLevel": 8
+                    }
+                }
+            }
+        }
+    ],
+    "SmfSelectionSubscriptionData": {"subscribedSnssaiInfos": {
+            "01010203": {"dnnInfos": [{"dnn": "internet"}, {"dnn": "internet2"}]},
+            "01112233": {"dnnInfos": [{"dnn": "internet"}, {"dnn": "internet2"}]}
+        }},
+    "AmPolicyData": {"subscCats": ["free5gc"]},
+    "SmPolicyData": {"smPolicySnssaiData": {
+            "01010203": {
+                "snssai": {
+                    "sst": 1,
+                    "sd": "010203"
+                },
+                "smPolicyDnnData": {
+                    "internet": {"dnn": "internet"},
+                    "internet2": {"dnn": "internet2"}
+                }
+            },
+            "01112233": {
+                "snssai": {
+                    "sst": 1,
+                    "sd": "112233"
+                },
+                "smPolicyDnnData": {
+                    "internet": {"dnn": "internet"},
+                    "internet2": {"dnn": "internet2"}
+                }
+            }
+        }},
+    "FlowRules": []
+}
+
+payload = json.dumps(payload)
+headers = {
+    'Accept': "application/json",
+    'Accept-Language': "en-GB,en-US;q=0.9,en;q=0.8",
+    'Connection': "keep-alive",
+    'Content-Type': "application/json;charset=UTF-8",
+    'Token': "admin"
+    }
+
+conn.request("POST", "/api/subscriber/{}/20893".format(imsi), payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+```
+
 ## Notes
 * Followed the installation guide while running the free5gc on the VM-sut using the default IP assigned by the prototype system `10.0.2.5` for eth1 and the ueransim on a seperate VM-ueransim. The PDU session is estabilished but the ping did not get a response. I then re-did the steps on `Linux Host Network Settings` but applied the rules to both eth0 and eth1 and this time it worked. Not sure if there is a requirement for the `Linux Host Network Settings` to be applied even when the interface is not being used. I will try to reproduce the issue and permutate the different `Linux Host Network Settings` on interfaces and see if that remains true. 
 * Tested the above point. Set up the testbed again and ran `sudo iptables -t nat -A POSTROUTING -o <dn_interface> -j MASQUERADE` for all the interfaces during configuration. This time the ueransim manage to send traffic without issues. Will verify if this is a requirement by spinning the testbed again and only running `sudo iptables -t nat -A POSTROUTING -o <dn_interface> -j MASQUERADE` for the eth1 interface and see if it results in the ping not responding.

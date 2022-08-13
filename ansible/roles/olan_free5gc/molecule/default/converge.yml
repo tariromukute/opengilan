@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include olan_free5gc"
+      include_role:
+        name: "olan_free5gc"
+      vars:
+        user: ubuntu
