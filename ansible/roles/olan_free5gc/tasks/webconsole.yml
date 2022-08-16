@@ -46,22 +46,22 @@
     line: 'deb https://dl.yarnpkg.com/debian/ stable main'
   become: yes
 
-- name: download setup_5.x file to tmp dir
+- name: download setup_12.x file to tmp dir
   get_url:
-    url: https://deb.nodesource.com/setup_5.x
+    url: https://deb.nodesource.com/setup_12.x
     dest: /tmp/
     mode: 0755
 
-- name: execute setup_5.x script
-  shell: ./setup_5.x
+- name: execute setup_12.x script
+  shell: ./setup_12.x
   args:
     chdir: /tmp/
   ignore_errors: yes
   become: yes
 
-- name: Remove the setup_5.x
+- name: Remove the setup_12.x
   file: 
-    path: /tmp/setup_5.x
+    path: /tmp/setup_12.x
     state: absent
 
 - name: Update packages
@@ -88,3 +88,15 @@
   environment: 
     PATH: /sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin
     GOPATH: /home/{{ user }}/go
+
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/webconsole.service"
+    dest: /lib/systemd/system/
+  become: yes
+
+- name: Start service free5gc webconsole, if not started
+  ansible.builtin.service:
+    name: webconsole
+    state: started
+  become: yes
