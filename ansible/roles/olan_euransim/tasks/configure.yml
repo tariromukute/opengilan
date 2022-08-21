@@ -1,0 +1,36 @@
+# Set up the config files (Optionally copy from files/)
+- name: check result
+  debug:
+    var: "{{ eth1_ip }}"
+
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/free5gc-gnb.yaml"
+    dest: /home/{{ user }}/UERANSIM/config/
+
+- name: "change ~/UERANSIM/config/free5gc-gnb.yaml"
+  become_user: root
+  replace: 
+    path: /home/{{ user }}/UERANSIM/config/free5gc-gnb.yaml
+    regexp: '__NGAP_IP__'
+    replace: '{{ eth1_ip }}'
+    backup: yes
+  become: yes
+
+- name: "change ~/UERANSIM/config/free5gc-gnb.yaml"
+  become_user: root
+  replace: 
+    path: /home/{{ user }}/UERANSIM/config/free5gc-gnb.yaml
+    regexp: '__GTP_IP__'
+    replace: '{{ eth1_ip }}'
+    backup: yes
+  become: yes
+
+- name: "change ~/UERANSIM/config/free5gc-gnb.yaml"
+  become_user: root
+  replace: 
+    path: /home/{{ user }}/UERANSIM/config/free5gc-gnb.yaml
+    regexp: '__AMF_IP__'
+    replace: '{{ eth1_gw }}'
+    backup: yes
+  become: yes
