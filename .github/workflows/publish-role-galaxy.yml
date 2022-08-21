@@ -65,6 +65,12 @@ jobs:
         working-directory: ansible/roles/olan_bpf_dev
         env:
           MOLECULE_DISTRO: ${{ matrix.molecule_distro }}
+      - name: Test olan_free5gc with molecule
+        run: |
+          molecule test
+        working-directory: ansible/roles/olan_free5gc
+        env:
+          MOLECULE_DISTRO: ${{ matrix.molecule_distro }}
   deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
