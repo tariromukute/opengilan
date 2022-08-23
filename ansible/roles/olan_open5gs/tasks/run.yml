@@ -1,0 +1,18 @@
+# This works with the master UERANSIM
+- name: Restart service open5gs-amfd
+  ansible.builtin.service:
+    name: open5gs-amfd
+    state: restarted
+  become: yes
+
+- name: Restart service open5gs-upfd
+  ansible.builtin.service:
+    name: open5gs-upfd
+    state: restarted
+  become: yes
+
+- name: Restart service open5gs-webui
+  ansible.builtin.service:
+    name: open5gs-webui
+    state: restarted
+  become: yes

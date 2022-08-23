@@ -59,7 +59,7 @@
 - hosts:
   - az_sut
   roles:
-    - role: olan_free5gc
+    - role: olan_open5gs
       user: azureuser
       eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
       eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
