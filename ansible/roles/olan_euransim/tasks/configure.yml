@@ -3,12 +3,17 @@
   debug:
     var: "{{ eth1_ip }}"
 
-- name: Copy file with owner and permissions
+- name: Copy free5gc-gnb file with owner and permissions
   ansible.builtin.copy:
     src: "{{ role_path }}/files/free5gc-gnb.yaml"
     dest: /home/{{ user }}/UERANSIM/config/
 
-- name: "change ~/UERANSIM/config/free5gc-gnb.yaml"
+- name: Copy open5gs-gnb file with owner and permissions
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/open5gs-gnb.yaml"
+    dest: /home/{{ user }}/UERANSIM/config/
+
+- name: "change __NGAP_IP__ in ~/UERANSIM/config/free5gc-gnb.yaml"
   become_user: root
   replace: 
     path: /home/{{ user }}/UERANSIM/config/free5gc-gnb.yaml
@@ -17,7 +22,16 @@
     backup: yes
   become: yes
 
-- name: "change ~/UERANSIM/config/free5gc-gnb.yaml"
+- name: "change __NGAP_IP__ in ~/UERANSIM/config/open5gs-gnb.yaml"
+  become_user: root
+  replace: 
+    path: /home/{{ user }}/UERANSIM/config/open5gs-gnb.yaml
+    regexp: '__NGAP_IP__'
+    replace: '{{ eth1_ip }}'
+    backup: yes
+  become: yes
+
+- name: "change __GTP_IP__ ~/UERANSIM/config/free5gc-gnb.yaml"
   become_user: root
   replace: 
     path: /home/{{ user }}/UERANSIM/config/free5gc-gnb.yaml
@@ -26,10 +40,28 @@
     backup: yes
   become: yes
 
-- name: "change ~/UERANSIM/config/free5gc-gnb.yaml"
+- name: "change __GTP_IP__ ~/UERANSIM/config/open5gs-gnb.yaml"
+  become_user: root
+  replace: 
+    path: /home/{{ user }}/UERANSIM/config/open5gs-gnb.yaml
+    regexp: '__GTP_IP__'
+    replace: '{{ eth1_ip }}'
+    backup: yes
+  become: yes
+
+- name: "change __AMF_IP__ ~/UERANSIM/config/free5gc-gnb.yaml"
   become_user: root
   replace: 
     path: /home/{{ user }}/UERANSIM/config/free5gc-gnb.yaml
+    regexp: '__AMF_IP__'
+    replace: '{{ eth1_gw }}'
+    backup: yes
+  become: yes
+
+- name: "change __AMF_IP__ ~/UERANSIM/config/open5gs-gnb.yaml"
+  become_user: root
+  replace: 
+    path: /home/{{ user }}/UERANSIM/config/open5gs-gnb.yaml
     regexp: '__AMF_IP__'
     replace: '{{ eth1_gw }}'
     backup: yes
