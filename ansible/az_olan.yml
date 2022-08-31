@@ -2,12 +2,9 @@
 # ansible-playbook ansible/az_olan.yml -i ansible/inventory.ini --extra-vars "ssh_key_data='$publickey' olan_prefix=olanxxx docker_username=xxxx docker_password=xxxx"
 # ansible-playbook ansible/plays/az_delete_olan.yml 
 
-# vars:
-#   docker_username: openn6lan
-#   docker_password: openn6lan
 
-# - name: Include task list in play
-#   import_playbook: plays/az_create_olan_loopback_testbed.yml
+- name: Include task list in play
+  import_playbook: plays/az_create_olan_loopback_testbed.yml
 
 - name: Test Ping
   hosts:
@@ -16,17 +13,17 @@
   tasks:
   - action: ping
 
-# - hosts:
-#   - az_trex
-#   roles:
-#     - role: olan_euransim
-#       user: azureuser
-#       eth1: eth1
-#       eth2: eth2
-#       eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
-#       eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
-#       eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
-#       eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
+- hosts:
+  - az_trex
+  roles:
+    - role: olan_euransim
+      user: azureuser
+      eth1: eth1
+      eth2: eth2
+      eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
+      eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
+      eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
+      eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
 
 #   tasks:
 #     - name: Copy the traffic generation scripts
@@ -70,11 +67,11 @@
       eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
       eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
 
-#     - role: olan_bpftrace
-#       user: azureuser
+    - role: olan_bpftrace
+      user: azureuser
 
-#     - role: olan_bcc
-#       user: azureuser
+    - role: olan_bcc
+      user: azureuser
 
 #Install ansible
 # - hosts:

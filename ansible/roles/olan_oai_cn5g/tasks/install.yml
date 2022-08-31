@@ -34,41 +34,37 @@
     - { name: oaisoftwarealliance/oai-nssf:v1.4.0, tag: oai-nssf:v1.4.0 }
     - { name: oaisoftwarealliance/trf-gen-cn5g:latest, tag: trf-gen-cn5g:latest }
 
-# - name: build the OAI images
-#   community.docker.docker_image:
-#     name: "{{ item.tag }}"
-#     build:
-#       path: ./sinatra
-#     repository: "{{ item.tag }}"
-#     source: pull
-#     # Select platform for pulling. If not specified, will pull whatever docker prefers.
-#     pull:
-#       platform: amd64
-#   loop:
-#     - { name: oaisoftwarealliance/oai-amf:v1.4.0, tag: oai-amf:v1.4.0, func: amf }
-#     - { name: oaisoftwarealliance/oai-nrf:v1.4.0, tag: oai-nrf:v1.4.0, func: nrf }
-#     - { name: oaisoftwarealliance/oai-spgwu-tiny:v1.4.0, tag: oai-smf:v1.4.0, func: spgwu-tiny }
-#     - { name: oaisoftwarealliance/oai-smf:v1.4.0, tag: oai-spgwu-tiny:v1.4.0, func: amf }
-#     - { name: oaisoftwarealliance/oai-udr:v1.4.0, tag: oai-udr:v1.4.0, func: amf }
-#     - { name: oaisoftwarealliance/oai-udm:v1.4.0, tag: oai-udm:v1.4.0, func: amf }
-#     - { name: oaisoftwarealliance/oai-ausf:v1.4.0, tag: oai-ausf:v1.4.0, func: amf }
-#     - { name: oaisoftwarealliance/oai-upf-vpp:v1.4.0, tag: oai-upf-vpp:v1.4.0, func: amf }
-#     - { name: oaisoftwarealliance/oai-nssf:v1.4.0, tag: oai-nssf:v1.4.0, func: amf }
-#     - { name: oaisoftwarealliance/trf-gen-cn5g:latest, tag: trf-gen-cn5g:latest, func: amf }
+- name: Clone the OAI cn5g repository and checkout to v3.2.0
+  ansible.builtin.git:
+    repo: 'https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed'
+    dest: /home/{{ user }}/oai-cn5g-fed
+    recursive: no
+    version: v1.4.0
 
-# - name: Clone the OAI cn5g repository and checkout to v3.2.0
-#   ansible.builtin.git:
-#     repo: 'https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed'
-#     dest: /home/{{ user }}/oai-cn5g-fed
-#     recursive: no
-#     version: v1.4.0
+- name: Run installation script
+  ansible.builtin.shell: ./scripts/syncComponents.sh
+  args:
+    chdir: /home/{{ user }}/oai-cn5g-fed
+    executable: /bin/bash
+  ignore_errors: yes
 
-# - name: Run installation script
-#   ansible.builtin.shell: ./scripts/syncComponents.sh
-#   args:
-#     chdir: /home/{{ user }}/oai-cn5g-fed
-#     executable: /bin/bash
-#   ignore_errors: yes
+# copy docker-compose files
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/docker-compose-basic-nrf-1.yaml"
+    dest: /home/{{ user }}/oai-cn5g-fed/docker-compose/
 
-docker-compose -f docker-compose-ueransim-vpp.yaml down -t 0
-docker-compose -f docker-compose-basic-vpp-nrf.yaml down -t 0
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/docker-compose-gnbsim-1.yaml"
+    dest: /home/{{ user }}/oai-cn5g-fed/docker-compose/
+
+- name: sysctl -w net.ipv4.ip_forward=1
+  ansible.builtin.command: sysctl -w net.ipv4.ip_forward=1
+  become: yes
+
+- name: iptables -P FORWARD ACCEPT
+  ansible.builtin.iptables:
+    chain: FORWARD
+    policy: ACCEPT
+  become: yes

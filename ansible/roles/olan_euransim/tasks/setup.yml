@@ -2,7 +2,7 @@
   ansible.builtin.git:
     repo: 'https://github.com/aligungr/UERANSIM'
     dest: /home/{{ user }}/UERANSIM
-    # version: v3.1.0
+    version: v3.2.4
 
 - name: Run make on UERANSIM
   ansible.builtin.command: make
