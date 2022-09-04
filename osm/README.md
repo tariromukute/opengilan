@@ -13,6 +13,11 @@ Login details. Host: localhost, user:admin, password: admin
 
 `Note: If you already have helm installed, make sure it's >= v3.2. The installation uses helm to install openebs. It creates a namespace for the openebs using the --create-namespace tag which is only supported >= 3.2. I ran into this issue where openebs was failing to install and hence OSM.`
 
+# Deployment on local machine
+
+For testing I used virtual machine for the running the local test. I first tried the installing everything on the machine without VMs. The connection seemed to work with the microstack approach, however the kubernetes did not work. The issue seemed to be clash of kubernetes clusters - the one OSM was running on, and the one we were using as the VIM. There were probably work arounds but seperating them into VMs on the same network made the connection easier.
+
+To get the IPs of the VMs. `virsh net-dhcp-leases default`
 ## Local development environment using microk8s
 
 ```bash
@@ -83,4 +88,13 @@ osm ns-create --ns_name ldap --nsd_name openldap_ns --vim_account dummyvim
 
 # Check status
 osm ns-op-list ldap
+```
+
+Test
+
+```bash
+sudo apt update
+sudo apt install ldap-utils
+
+ldapsearch -x -H ldap://10.152.183.14:389 -b dc=example,dc=org -D "cn=admin,dc=example,dc=org" -w osm4u
 ```
