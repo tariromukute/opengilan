@@ -58,8 +58,22 @@ git checkout -f v1.4.0
 
 ```
 
+```
+sudo sysctl net.ipv4.conf.all.forwarding=1
+sudo iptables -P FORWARD ACCEPT
+```
+
 ### Install UERANSIM on another VM
 
+```bash
+ip route add 48.0.0.0/16 via 192.168.222.186
+
+# On terminal 1
+build/nr-gnb -c config/oai-cn5g-gnb.yaml
+
+# On terminal 2
+sudo build/nr-ue -c config/oai-cn5g-ue.yaml
+```
 
 ## Notes
 
@@ -69,15 +83,24 @@ Create VM on microstack
 # Get Open stack credentials
 sudo snap get microstack config.credentials.keystone-password
 
+# Enable microstack VM to access the internet
+sudo iptables -t nat -A POSTROUTING -s 10.20.20.1/24 ! -d 10.20.20.1/24 -j MASQUERADE
+sudo sysctl -w net.ipv4.ip_forward=1
+
 # Add image
-microstack.openstack --insecure image create --disk-format qcow2 --min-disk 8 --min-ram 512 --file ~/Downloads/focal-server-cloudimg-amd64.img --public ubuntu20.04
+microstack.openstack --insecure image create --disk-format qcow2 --min-disk 8 --min-ram 512 --file ~/Downloads/focal-server-cloudimg-amd64.img --public 20.04
 
 # Launch instance
-microstack launch -f m1.medium -n oai ubuntu20.04
+microstack launch -f m1.medium -n oai 20.04
+
+microstack launch -f m1.small -n ue 20.04
 
 # (1) Add a static route to the Router (with 48.0.0.0/16 in our case)
-
+microstack.openstack router set <router> \
+    --route destination=48.0.0.0/16,gateway=<ip-address-oai>
+    
 # (2) Add Allowed Address Pairs under the instance interface (48.0.0.0/16 in our case)
+microstack.openstack port set <port-id> --allowed-address ip-address=48.0.0.0/16
 ```
 
 - Tried running the OAI on Ubuntu 20.04 VM on microstack. The oai-amf container failed with socket error. Realised that this was due to the SCTP module missing on the kernel `lsmod | grep sctp`. I tried locating the module with `modinfo sctp` but it was not found. I ran `sudo apt install linux-generic` to get the extra modules. I could now find the module and tried loading with `insmod <path_to_module>`. This failed. Turns out I was using the `focal-server-cloudimg-amd64-disk-kvm.img` as recommended or pointed to on one of the Microstack blogs. I switched to creating a VM from image `focal-server-cloudimg-amd64.img`. This also didn't have the SCTP module load but I could find it on the system. I loaded the module `modprobe sctp` and then ran the OAI and this time it worked.
