@@ -68,3 +68,9 @@
     chain: FORWARD
     policy: ACCEPT
   become: yes
+
+# #Login to mysql container once the container is running
+# (docker-compose-host)$ docker exec -it mysql /bin/bash
+# (mysql-container)$ mysql -uroot -plinux -D oai_db
+# mysql> INSERT INTO users VALUES
+# (imsi,msisdn,imei,NULL,'PURGED',50,40000000,100000000,47,0000000000,1,key,0,0,0x40,'ebd07771ace8677a',opc);

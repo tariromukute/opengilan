@@ -1,0 +1,63 @@
+
+- name: Start the gNodeB
+  ansible.builtin.command: 
+    cmd: build/nr-gnb -c config/oai-cn5g-gnb.yaml
+    chdir: /home/azureuser/UERANSIM
+  when:
+    - inventory_hostname in groups["az_trex"]
+  register: trex_command
+  async: "{{ aduration }}"
+  poll: 0
+  # become: yes
+  ignore_errors: yes
+
+- name: Sleep for 5 seconds (gNB takes some time to start up) and continue with play
+  wait_for:
+    timeout: 5
+  delegate_to: localhost
+
+- name: Start the eBPF scripts to collect results
+  ansible.builtin.shell: ./main.sh {{ tool }} {{ duration }} 1 {{ duration }} {{ ues }}
+  args:
+    chdir: /home/azureuser/tools
+    executable: /bin/bash
+  become: yes
+  when:
+    - inventory_hostname in groups["az_sut"]
+
+- name: Start PDU session establishment
+  ansible.builtin.command: 
+    cmd: build/nr-ue -c config/oai-cn5g-ue.yaml -n {{ ues }}
+    chdir: /home/azureuser/UERANSIM
+  when:
+    - inventory_hostname in groups["az_trex"]
+  register: ue_command
+  async: "{{ duration }}"
+  poll: 0
+  become: yes
+  ignore_errors: yes
+
+- name: Check on an async task for netsize (bpftrace)
+  async_status:
+    jid: "{{ ue_command.ansible_job_id }}"
+  when:
+    - inventory_hostname in groups["az_trex"]
+  register: job_result
+  until: job_result.finished
+  retries: 100
+  delay: 10
+  become: yes
+  ignore_errors: yes
+
+- name: Fetch stuff from the remote and save to local
+  synchronize:  src=/home/azureuser/tools/results dest=.results/kpps={{ kpps }} mode=pull
+  when:
+    - inventory_hostname in groups["az_sut"]
+
+- name: Delete content & directory
+  file:
+    state: absent
+    path: /home/azureuser/tools/results/
+  become: yes
+  when:
+    - inventory_hostname in groups["az_sut"]

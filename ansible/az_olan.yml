@@ -71,7 +71,7 @@
       user: azureuser
 
     - role: olan_bcc
-      user: azureuser
+#       user: azureuser
 
 #Install ansible
 # - hosts:
@@ -104,4 +104,28 @@
 #         - 400
 #         - 500
 #         - 600
-      
+
+- hosts:
+  - az_sut
+  
+  tasks: 
+    - name: Copy the tools for bcc and bpftrace scripts
+      ansible.builtin.copy:
+        src: files/tools
+        dest: /home/azureuser
+
+- hosts:
+  - az_trex
+  - az_sut
+  tasks:
+    - name: Collect results
+      include: plays/ueransim.yml
+      vars:
+        user: azureuser
+        duration: 20
+        aduration: 30
+        tool: "profile"
+        ues: "{{ item }}"
+      loop:
+        - 50
+        - 100
