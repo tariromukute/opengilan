@@ -2,7 +2,7 @@
 - name: Start the gNodeB
   ansible.builtin.command: 
     cmd: build/nr-gnb -c config/oai-cn5g-gnb.yaml
-    chdir: /home/azureuser/UERANSIM
+    chdir: /home/{{ user }}/UERANSIM
   when:
     - inventory_hostname in groups["az_trex"]
   register: trex_command
@@ -19,7 +19,7 @@
 - name: Start the eBPF scripts to collect results
   ansible.builtin.shell: ./main.sh {{ tool }} {{ duration }} 1 {{ duration }} {{ ues }}
   args:
-    chdir: /home/azureuser/tools
+    chdir: /home/{{ user }}/tools
     executable: /bin/bash
   become: yes
   when:
@@ -28,7 +28,7 @@
 - name: Start PDU session establishment
   ansible.builtin.command: 
     cmd: build/nr-ue -c config/oai-cn5g-ue.yaml -n {{ ues }}
-    chdir: /home/azureuser/UERANSIM
+    chdir: /home/{{ user }}/UERANSIM
   when:
     - inventory_hostname in groups["az_trex"]
   register: ue_command
@@ -37,7 +37,7 @@
   become: yes
   ignore_errors: yes
 
-- name: Check on an async task for netsize (bpftrace)
+- name: Check on an async task for {{ tool }} (bpftrace)
   async_status:
     jid: "{{ ue_command.ansible_job_id }}"
   when:
@@ -50,14 +50,14 @@
   ignore_errors: yes
 
 - name: Fetch stuff from the remote and save to local
-  synchronize:  src=/home/azureuser/tools/results dest=.results/kpps={{ kpps }} mode=pull
+  synchronize:  src=/home/{{ user }}/tools/results dest=.results/kpps={{ ues }} mode=pull
   when:
     - inventory_hostname in groups["az_sut"]
 
 - name: Delete content & directory
   file:
     state: absent
-    path: /home/azureuser/tools/results/
+    path: /home/{{ user }}/tools/results/
   become: yes
   when:
     - inventory_hostname in groups["az_sut"]
