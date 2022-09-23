@@ -13,17 +13,17 @@
   tasks:
   - action: ping
 
-- hosts:
-  - az_trex
-  roles:
-    - role: olan_euransim
-      user: ubuntu
-      eth1: eth1
-      eth2: eth2
-      eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
-      eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
-      eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
-      eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
+# - hosts:
+#   - az_trex
+#   roles:
+#     - role: olan_euransim
+#       user: ubuntu
+#       eth1: eth1
+#       eth2: eth2
+#       eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
+#       eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
+#       eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
+#       eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
 
   # tasks:
   #   - name: Copy the traffic generation scripts
@@ -60,7 +60,7 @@
 - hosts:
   - az_sut
   roles:
-    - role: olan_oai_cn5g
+    - role: olan_free5gc
       user: ubuntu
       eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
       eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
@@ -105,18 +105,18 @@
 #         - 500
 #         - 600
 
-- hosts:
-  - az_trex
-  - az_sut
-  tasks:
-    - name: Collect results
-      include: plays/ueransim.yml
-      vars:
-        user: ubuntu
-        duration: 20
-        aduration: 30
-        ues: "{{ item[0] }}"
-        tool: "{{ item[1] }}"
-      with_nested:
-        - [1, 5, 10, 50, 100, 200, 300, 400, 500]
-        - [ "runqlat", "profile", "offcputime", "llcstat", "mmapsnoop", "sys_enter_brk", "page_fault", "drsnoop", "vfsstat", "vfssize", "filetop", "cachestat", "biolatency", "bitesize", "iosched", "netsize", "nettxlat-dev", "qdisc-fq", "soconnect", "skblife", "sormem", "softirqs", "hardirqs" ]
+# - hosts:
+#   - az_trex
+#   - az_sut
+#   tasks:
+#     - name: Collect results
+#       include: plays/ueransim.yml
+#       vars:
+#         user: ubuntu
+#         duration: 20
+#         aduration: 30
+#         ues: "{{ item[0] }}"
+#         tool: "{{ item[1] }}"
+#       with_nested:
+#         - [1, 5, 10, 50, 100, 200, 300, 400, 500]
+#         - [ "runqlat", "profile", "offcputime", "llcstat", "mmapsnoop", "sys_enter_brk", "page_fault", "drsnoop", "vfsstat", "vfssize", "filetop", "cachestat", "biolatency", "bitesize", "iosched", "netsize", "nettxlat-dev", "qdisc-fq", "soconnect", "skblife", "sormem", "softirqs", "hardirqs" ]

@@ -1,0 +1,28 @@
+- name: sysctl -w net.ipv4.ip_forward=1
+  ansible.builtin.command: sysctl -w net.ipv4.ip_forward=1
+  become: yes
+
+- name: iptables -P FORWARD ACCEPT
+  ansible.builtin.iptables:
+    chain: FORWARD
+    policy: ACCEPT
+  become: yes
+
+- name: Clone the free5GC repository
+  ansible.builtin.git:
+    repo: 'https://github.com/free5gc/free5gc-compose'
+    dest: /home/{{ user }}/free5gc-compose
+
+- name: Run make base on free5gc-compose
+  ansible.builtin.command: make base
+  args:
+    chdir: /home/{{ user }}/free5gc-compose
+
+# - name: Run `docker-compose up` again
+#   community.docker.docker_compose:
+#     project_src: /home/{{ user }}/free5gc-compose
+#     build: true
+#   register: output
+
+# - ansible.builtin.debug:
+#     var: output
