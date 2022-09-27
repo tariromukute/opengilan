@@ -4,8 +4,10 @@ services:
         container_name: "mysql"
         image: mysql:5.7
         volumes:
-            - ./database/oai_db2.sql:/docker-entrypoint-initdb.d/oai_db.sql
+            - ./database/oai_db_load.sql:/docker-entrypoint-initdb.d/oai_db.sql
             - ./healthscripts/mysql-healthcheck2.sh:/tmp/mysql-healthcheck.sh
+        # Set max_allowed_packet to 256M for large data sets for load testing subscriptions
+        command: --max_allowed_packet=32505856
         environment:
             - TZ=Europe/Paris
             - MYSQL_DATABASE=oai_db

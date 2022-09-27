@@ -181,6 +181,14 @@ function run_tool {
         python3 hardirqs.py -d  ${INTERVAL} ${COUNT} > "results/tool=${tool}-dist/${tool}.json"
     fi
 
+    # Collect network traffic
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "tcpdump" ]; then
+        tool="tcpdump"
+        echo "Running tcpdump"
+        mkdir -p "results/tool=${tool}"
+        timeout  ${INTERVAL} tcpdump -eni eth1 -A -w "results/tool=${tool}/${tool}.pcap"
+    fi
+
 }
 
 function main {

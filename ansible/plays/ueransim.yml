@@ -17,17 +17,24 @@
   delegate_to: localhost
 
 - name: Start the eBPF scripts to collect results
-  ansible.builtin.shell: ./main.sh {{ tool }} {{ duration }} 1 {{ duration }} {{ ues }}
+  ansible.builtin.shell: ./main.sh {{ tool }} {{ duration }} 1 {{ duration }} {{ ues|int * 500 }}
   args:
     chdir: /home/{{ user }}/tools
     executable: /bin/bash
+  async: "{{ duration }}"
+  poll: 0
   become: yes
   when:
     - inventory_hostname in groups["az_sut"]
 
-- name: Start PDU session establishment
-  ansible.builtin.command: 
-    cmd: build/nr-ue -c config/oai-cn5g-ue.yaml -n {{ ues }}
+- name: Sleep for 2 seconds (to load the eBPF programs) and continue with play
+  wait_for:
+    timeout: 2
+  delegate_to: localhost
+
+- name: Start PDU session establishment (Will run a minimum of two processes. Each process registering 500 UEs. Number of UEs = 500 + ues*500)
+  ansible.builtin.shell: seq 208950000000031 500 {{ ues|int * 500 + 208950000000031 }} | parallel -I{} timeout 10 build/nr-ue -c config/oai-cn5g-ue.yaml -i imsi-{} -n 499
+  args:
     chdir: /home/{{ user }}/UERANSIM
   when:
     - inventory_hostname in groups["az_trex"]
@@ -39,7 +46,7 @@
 
 - name: Check on an async task for {{ tool }} (bpftrace)
   async_status:
-    jid: "{{ ue_command.ansible_job_id }}"
+    jid: "{{ trex_command.ansible_job_id }}"
   when:
     - inventory_hostname in groups["az_trex"]
   register: job_result
@@ -49,8 +56,22 @@
   become: yes
   ignore_errors: yes
 
+# - name: Check on an async task for {{ tool }} (bpftrace)
+#   async_status:
+#     jid: "{{ ue_command.ansible_job_id }}"
+#   when:
+#     - inventory_hostname in groups["az_trex"]
+#   register: job_result
+#   until: job_result.finished
+#   retries: 100
+#   delay: 10
+#   become: yes
+#   ignore_errors: yes
+
+- debug: msg="{{ ue_command }}"
+
 - name: Fetch stuff from the remote and save to local
-  synchronize:  src=/home/{{ user }}/tools/results dest=.results/kpps={{ ues }} mode=pull
+  synchronize:  src=/home/{{ user }}/tools/results/ dest=.results/kpps={{ ues|int * 500  }} mode=pull
   when:
     - inventory_hostname in groups["az_sut"]
 
@@ -61,3 +82,29 @@
   become: yes
   when:
     - inventory_hostname in groups["az_sut"]
+
+- name: Get results from tracing (bpftrace)
+  ansible.builtin.shell: cat {{ ue_command.results_file }}
+  register: ue_command_results
+  when:
+    - inventory_hostname in groups["az_trex"]
+  become: yes
+
+- name: Get results from tracing (bpftrace)
+  ansible.builtin.shell: cat {{ trex_command.results_file }}
+  register: trex_command_results
+  when:
+    - inventory_hostname in groups["az_trex"]
+  become: yes
+
+# - local_action: copy content={{( ue_command_results.stdout | from_json).stdout}} dest=.results/kpps={{ ues|int * 500  }}/ueransim-ue.txt
+#   when:
+#     - inventory_hostname in groups["az_trex"]
+
+- local_action: copy content={{ ue_command_results}} dest=.results/kpps={{ ues|int * 500  }}/ueransim-ue.txt
+  when:
+    - inventory_hostname in groups["az_trex"]
+
+- local_action: copy content={{( trex_command_results.stdout | from_json).stdout}} dest=.results/kpps={{ ues|int * 500  }}/ueransim-gnb.txt
+  when:
+    - inventory_hostname in groups["az_trex"]

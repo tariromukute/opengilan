@@ -73,6 +73,9 @@ build/nr-gnb -c config/oai-cn5g-gnb.yaml
 
 # On terminal 2
 sudo build/nr-ue -c config/oai-cn5g-ue.yaml
+
+# Run multiple processes
+seq 208950000000031 10 208950000000111 | parallel -I{} sudo timeout 10 build/nr-ue -c config/oai-cn5g-ue.yaml -i imsi-{} -n 10
 ```
 
 ## Notes
@@ -104,3 +107,13 @@ microstack.openstack port set <port-id> --allowed-address ip-address=48.0.0.0/16
 ```
 
 - Tried running the OAI on Ubuntu 20.04 VM on microstack. The oai-amf container failed with socket error. Realised that this was due to the SCTP module missing on the kernel `lsmod | grep sctp`. I tried locating the module with `modinfo sctp` but it was not found. I ran `sudo apt install linux-generic` to get the extra modules. I could now find the module and tried loading with `insmod <path_to_module>`. This failed. Turns out I was using the `focal-server-cloudimg-amd64-disk-kvm.img` as recommended or pointed to on one of the Microstack blogs. I switched to creating a VM from image `focal-server-cloudimg-amd64.img`. This also didn't have the SCTP module load but I could find it on the system. I loaded the module `modprobe sctp` and then ran the OAI and this time it worked.
+
+```
+(208950000000132, 5G_AKA, 0C0A34601D4F07677303652C0462535B, 0C0A34601D4F07677303652C0462535B,{"sqn": "000000000020", "sqnScheme": "NON_TIME_BASED", "lastIndexes": {"ausf": 0}}, 8000, milenage, 63bfa50ee6523365ff14c1f45f88737d, NULL, NULL,NULL,NULL,208950000000132);
+```
+
+```bash
+#Login to mysql container once the container is running
+(docker-compose-host)$ docker exec -it mysql /bin/bash
+(mysql-container)$ mysql -uroot -plinux -D oai_db
+```
