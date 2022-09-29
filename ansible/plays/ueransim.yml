@@ -1,12 +1,12 @@
 
 - name: Start the gNodeB
   ansible.builtin.command: 
-    cmd: build/nr-gnb -c config/oai-cn5g-gnb.yaml
+    cmd: timeout {{ aduration }} build/nr-gnb -c config/oai-cn5g-gnb.yaml >  oai-cn5g-gnb.{{ tool }}-{{ ues|int * 400 }}.txt
     chdir: /home/{{ user }}/UERANSIM
   when:
     - inventory_hostname in groups["az_trex"]
   register: trex_command
-  async: "{{ aduration }}"
+  async: "{{ aduration|int + 10 }}"
   poll: 0
   # become: yes
   ignore_errors: yes
@@ -17,7 +17,7 @@
   delegate_to: localhost
 
 - name: Start the eBPF scripts to collect results
-  ansible.builtin.shell: ./main.sh {{ tool }} {{ duration }} 1 {{ duration }} {{ ues|int * 500 }}
+  ansible.builtin.shell: ./main.sh {{ tool }} {{ duration }} 1 {{ duration }} {{ ues|int * 400 }}
   args:
     chdir: /home/{{ user }}/tools
     executable: /bin/bash
@@ -32,8 +32,8 @@
     timeout: 2
   delegate_to: localhost
 
-- name: Start PDU session establishment (Will run a minimum of two processes. Each process registering 500 UEs. Number of UEs = 500 + ues*500)
-  ansible.builtin.shell: seq 208950000000031 500 {{ ues|int * 500 + 208950000000031 }} | parallel -I{} timeout 10 build/nr-ue -c config/oai-cn5g-ue.yaml -i imsi-{} -n 499
+- name: Start PDU session establishment (Will run a minimum of two processes. Each process registering 500 UEs. Number of UEs = 400 + ues*400)
+  ansible.builtin.shell: seq 208950000000031 500 {{ ues|int * 500 + 208950000000031 }} | parallel -I{} timeout 10 build/nr-ue -c config/oai-cn5g-ue.yaml -i imsi-{} -n 100 > oai-cn5g-ue.{{ tool }}-{{ ues|int * 400 }}.txt
   args:
     chdir: /home/{{ user }}/UERANSIM
   when:
@@ -53,7 +53,7 @@
   until: job_result.finished
   retries: 100
   delay: 10
-  become: yes
+  # become: yes
   ignore_errors: yes
 
 # - name: Check on an async task for {{ tool }} (bpftrace)
@@ -68,10 +68,10 @@
 #   become: yes
 #   ignore_errors: yes
 
-- debug: msg="{{ ue_command }}"
+# - debug: msg="{{ ue_command }}"
 
 - name: Fetch stuff from the remote and save to local
-  synchronize:  src=/home/{{ user }}/tools/results/ dest=.results/kpps={{ ues|int * 500  }} mode=pull
+  synchronize:  src=/home/{{ user }}/tools/results/ dest=.results/kpps={{ ues|int * 400  }} mode=pull
   when:
     - inventory_hostname in groups["az_sut"]
 
@@ -83,28 +83,7 @@
   when:
     - inventory_hostname in groups["az_sut"]
 
-- name: Get results from tracing (bpftrace)
-  ansible.builtin.shell: cat {{ ue_command.results_file }}
-  register: ue_command_results
-  when:
-    - inventory_hostname in groups["az_trex"]
-  become: yes
-
-- name: Get results from tracing (bpftrace)
-  ansible.builtin.shell: cat {{ trex_command.results_file }}
-  register: trex_command_results
-  when:
-    - inventory_hostname in groups["az_trex"]
-  become: yes
-
-# - local_action: copy content={{( ue_command_results.stdout | from_json).stdout}} dest=.results/kpps={{ ues|int * 500  }}/ueransim-ue.txt
-#   when:
-#     - inventory_hostname in groups["az_trex"]
-
-- local_action: copy content={{ ue_command_results}} dest=.results/kpps={{ ues|int * 500  }}/ueransim-ue.txt
-  when:
-    - inventory_hostname in groups["az_trex"]
-
-- local_action: copy content={{( trex_command_results.stdout | from_json).stdout}} dest=.results/kpps={{ ues|int * 500  }}/ueransim-gnb.txt
+- name: Fetch oai-cn5g-ue stuff from the remote and save to local
+  synchronize:  src=/home/{{ user }}/UERANSIM/oai-cn5g-ue.{{ tool }}-{{ ues|int * 400 }}.txt dest=.results/kpps={{ ues|int * 400  }}/ mode=pull
   when:
     - inventory_hostname in groups["az_trex"]

@@ -3,8 +3,8 @@
 # ansible-playbook ansible/plays/az_delete_olan.yml 
 
 
-# - name: Include task list in play
-#   import_playbook: plays/az_create_olan_loopback_testbed.yml
+- name: Include task list in play
+  import_playbook: plays/az_create_olan_loopback_testbed.yml
 
 - name: Test Ping
   hosts:
@@ -13,17 +13,17 @@
   tasks:
   - action: ping
 
-# - hosts:
-#   - az_trex
-#   roles:
-#     - role: olan_euransim
-#       user: azureuser
-#       eth1: eth1
-#       eth2: eth2
-#       eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
-#       eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
-#       eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
-#       eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
+- hosts:
+  - az_trex
+  roles:
+    - role: olan_euransim
+      user: azureuser
+      eth1: eth1
+      eth2: eth2
+      eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
+      eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
+      eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
+      eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
 
   # tasks:
   #   - name: Copy the traffic generation scripts
@@ -31,14 +31,14 @@
   #       src: files/tgn
   #       dest: /home/azureuser/trex-core/scripts
         
-# - hosts:
-#   - az_sut
+- hosts:
+  - az_sut
   
-#   tasks: 
-#     - name: Copy the tools for bcc and bpftrace scripts
-#       ansible.builtin.copy:
-#         src: files/tools
-#         dest: /home/azureuser
+  tasks: 
+    - name: Copy the tools for bcc and bpftrace scripts
+      ansible.builtin.copy:
+        src: files/tools
+        dest: /home/azureuser
 
 # # Call the NF and install it using the lifecycle events
 # - hosts:
@@ -57,21 +57,21 @@
 #       vnf_path: /home/azureuser/OOB-Server
 #       vnf_version: HEAD
 
-# - hosts:
-#   - az_sut
-#   roles:
-#     - role: olan_oai_cn5g
-#       user: azureuser
-#       eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
-#       eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
-#       eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
-#       eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
+- hosts:
+  - az_sut
+  roles:
+    - role: olan_oai_cn5g
+      user: azureuser
+      eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
+      eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
+      eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
+      eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
 
-#     - role: olan_bpftrace
-#       user: azureuser
+    - role: olan_bpftrace
+      user: azureuser
 
-#     - role: olan_bcc
-#       user: azureuser
+    - role: olan_bcc
+      user: azureuser
 
 #Install ansible
 # - hosts:
@@ -119,5 +119,4 @@
         tool: "{{ item[1] }}"
       with_nested:
         - [20]
-        - [ "runqlat" ]
-        # - [ "runqlat", "profile", "offcputime", "llcstat", "mmapsnoop", "sys_enter_brk", "page_fault", "drsnoop", "vfsstat", "vfssize", "filetop", "cachestat", "biolatency", "bitesize", "iosched", "netsize", "nettxlat-dev", "qdisc-fq", "soconnect", "skblife", "sormem", "softirqs", "hardirqs", "tcpdump" ]
+        - [ "runqlat", "profile", "offcputime", "llcstat", "mmapsnoop", "sys_enter_brk", "page_fault", "drsnoop", "vfsstat", "vfssize", "filetop", "cachestat", "biolatency", "bitesize", "iosched", "netsize", "nettxlat-dev", "qdisc-fq", "soconnect", "skblife", "sormem", "softirqs", "hardirqs", "tcpdump" ]

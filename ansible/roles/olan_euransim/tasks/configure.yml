@@ -91,6 +91,11 @@
     backup: yes
   become: yes
 
+- name: Copy oai-cn5g-ue file with owner and permissions
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/oai-cn5g-ue.yaml"
+    dest: /home/{{ user }}/UERANSIM/config/
+
 - name: configure static route to DUT
   ansible.builtin.command: ip route add 48.0.0.0/16 via {{ eth1_gw }}
   become: yes

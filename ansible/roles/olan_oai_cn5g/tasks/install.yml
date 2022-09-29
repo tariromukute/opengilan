@@ -59,6 +59,11 @@
     src: "{{ role_path }}/files/docker-compose-gnbsim-1.yaml"
     dest: /home/{{ user }}/oai-cn5g-fed/docker-compose/
 
+- name: Copy database init sql script
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/oai_db_load.sql"
+    dest: /home/{{ user }}/oai-cn5g-fed/docker-compose/database
+
 - name: sysctl -w net.ipv4.ip_forward=1
   ansible.builtin.command: sysctl -w net.ipv4.ip_forward=1
   become: yes

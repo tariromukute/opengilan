@@ -23,6 +23,12 @@
 
 - name: Install compile packages for EURANSIM
   ansible.builtin.package:
+    name: "{{ common_packages }}"
+    state: present
+  become: yes
+
+- name: Install compile packages for EURANSIM
+  ansible.builtin.package:
     name: "{{ euransim_compile_packages }}"
     state: present
   become: yes
