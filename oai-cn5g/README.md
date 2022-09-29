@@ -87,7 +87,9 @@ sudo snap get microstack config.credentials.keystone-password
 sudo iptables -t nat -A POSTROUTING -s 10.20.20.1/24 ! -d 10.20.20.1/24 -j MASQUERADE
 sudo sysctl -w net.ipv4.ip_forward=1
 
-gocubsgo
+# Incase you have Docker iptable rules that might consume the traffic
+sudo iptables -I FORWARD -s 10.20.20.1/24 -j ACCEPT
+sudo iptables -I FORWARD -d 10.20.20.1/24 -j ACCEPT
 
 # Add image
 cp ~/Downloads/focal-server-cloudimg-amd64.img /var/snap/microstack/common/images/
@@ -104,29 +106,6 @@ microstack.openstack router set <router> \
     
 # (2) Add Allowed Address Pairs under the instance interface (48.0.0.0/16 in our case)
 microstack.openstack port set <port-id> --allowed-address ip-address=48.0.0.0/16
-```
-
-```bash
-openstack --insecure network create corenet
-
-openstack --insecure subnet create --network corenet --subnet-range 172.168.0.0/24 --allocation-pool start=172.168.0.101,end=172.168.0.200 --dns-nameserver 8.8.8.8 coresubnet
-
-openstack --insecure router create corerouter
-
-openstack --insecure router set --external-gateway external corerouter
-
-openstack --insecure router add subnet corerouter coresubnet
-openstack --insecure floating ip create external
-
-openstack --insecure security group create coresecuritygroup
-openstack --insecure security group rule create --remote-ip 0.0.0.0/0 --dst-port 22:22 --protocol tcp --ingress coresecuritygroup
-
-microstack.openstack --insecure image create --disk-format qcow2 --min-disk 8 --min-ram 512 --file /var/snap/microstack/common/images/focal-server-cloudimg-amd64.img --public 20.04
-
-openstack --insecure server create --flavor m1.tiny --image cirros --network corenetwork --key-name microstack coreinstance
-
-
-
 ```
 
 - Tried running the OAI on Ubuntu 20.04 VM on microstack. The oai-amf container failed with socket error. Realised that this was due to the SCTP module missing on the kernel `lsmod | grep sctp`. I tried locating the module with `modinfo sctp` but it was not found. I ran `sudo apt install linux-generic` to get the extra modules. I could now find the module and tried loading with `insmod <path_to_module>`. This failed. Turns out I was using the `focal-server-cloudimg-amd64-disk-kvm.img` as recommended or pointed to on one of the Microstack blogs. I switched to creating a VM from image `focal-server-cloudimg-amd64.img`. This also didn't have the SCTP module load but I could find it on the system. I loaded the module `modprobe sctp` and then ran the OAI and this time it worked.
