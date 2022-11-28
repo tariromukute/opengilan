@@ -57,7 +57,7 @@ tracepoint:syscalls:sys_exit_connect
     delete(@start[tid]);
 }
 
-interval:s:60 { exit(); }
+interval:s:20{ exit(); }
 
 END
 {

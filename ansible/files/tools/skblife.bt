@@ -33,7 +33,7 @@ kprobe:kmem_cache_free
         delete(@skb_birth[arg1]);
 }
 
-interval:s:60 { exit(); }
+interval:s:20 { exit(); }
 
 END
 {

@@ -39,6 +39,7 @@
     repo: 'https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed'
     dest: /home/{{ user }}/oai-cn5g-fed
     recursive: no
+    force: yes
     version: v1.4.0
 
 - name: Run installation script

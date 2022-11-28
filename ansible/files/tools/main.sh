@@ -52,18 +52,22 @@ function run_tool {
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "sys_enter_brk" ]; then
         tool="sys_enter_brk"
         echo "Running t:syscalls:sys_enter_brk ->  code path responsible for heap extension"
-        mkdir -p results/tool=${tool}-kernel
+        mkdir -p results/tool=${tool}
         # trace -U t:syscalls:sys_enter_brk
         # stackcount -PU t:syscalls:sys_enter_brk
-        bpftrace -q -f json -e "tracepoint:syscalls:sys_enter_brk { @[comm] = count(); } interval:s:${DURATION} { exit(); }" > "results/tool=${tool}-kernel/${tool}.json"
+        bpftrace -q -f json -e "tracepoint:syscalls:sys_enter_brk { @[comm] = count(); } interval:s:${DURATION} { exit(); }" > "results/tool=${tool}/${tool}.json"
     fi
-    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "page_fault" ]; then
-        tool="page_fault"
-        echo "Running t:exceptions:page_fault* ->  code path responsible for page faults"
-        mkdir -p results/tool=${tool}-user
-        mkdir -p results/tool=${tool}-kernel
-        python3 stackcount.py -f -PU -D ${DURATION} t:exceptions:page_fault_user > "results/tool=${tool}-user/${tool}.txt"
-        python3 stackcount.py -P -df -D ${DURATION} t:exceptions:page_fault_kernel > "results/tool=${tool}-kernel/${tool}.txt"
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "page_fault_user" ]; then
+        tool="page_fault_user"
+        echo "Running t:exceptions:page_fault_user ->  code path responsible for page faults"
+        mkdir -p results/tool=${tool}
+        python3 stackcount.py -f -PU -D ${DURATION} t:exceptions:page_fault_user > "results/tool=${tool}/${tool}.txt"
+    fi
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "page_fault_kernel" ]; then
+        tool="page_fault_kernel"
+        echo "Running t:exceptions:page_fault_kernel ->  code path responsible for page faults"
+        mkdir -p results/tool=${tool}
+        python3 stackcount.py -P -df -D ${DURATION} t:exceptions:page_fault_kernel > "results/tool=${tool}/${tool}.txt"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "drsnoop" ]; then
         tool="drsnoop"
@@ -149,7 +153,7 @@ function run_tool {
         echo "Running soconnect -> latency for IP protocol connections and the process making the connection"
         mkdir -p results/tool=${tool}
         # Format needs to be sorted to json
-        bpftrace -q soconnect.bt  > "results/tool=${tool}/${tool}.json"
+        bpftrace -q -f json soconnect.bt  > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "skblife" ]; then
         tool="skblife"
@@ -164,21 +168,29 @@ function run_tool {
         bpftrace -q -f json sormem.bt  > "results/tool=${tool}/${tool}.json"
     fi
 
-    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "softirqs" ]; then
-        tool="softirqs"
-        echo "Running softirqs"
-        mkdir -p "results/tool=${tool}-count"
-        mkdir -p "results/tool=${tool}-dist"
-        python3 softirqs.py ${INTERVAL} ${COUNT} > "results/tool=${tool}-count/${tool}.json"
-        python3 softirqs.py -d  ${INTERVAL} ${COUNT} > "results/tool=${tool}-dist/${tool}.json"
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "softirqs_count" ]; then
+        tool="softirqs_count"
+        echo "Running softirqs_count"
+        mkdir -p "results/tool=${tool}"
+        python3 softirqs.py ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
-    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "hardirqs" ]; then
-        tool="hardirqs"
-        echo "Running hardirqs"
-        mkdir -p "results/tool=${tool}-count"
-        mkdir -p "results/tool=${tool}-dist"
-        python3 hardirqs.py ${INTERVAL} ${COUNT} > "results/tool=${tool}-count/${tool}.json"
-        python3 hardirqs.py -d  ${INTERVAL} ${COUNT} > "results/tool=${tool}-dist/${tool}.json"
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "softirqs_dist" ]; then
+        tool="softirqs_dist"
+        echo "Running softirqs_dist"
+        mkdir -p "results/tool=${tool}"
+        python3 softirqs.py -d  ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+    fi
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "hardirqs_count" ]; then
+        tool="hardirqs_count"
+        echo "Running hardirqs_count"
+        mkdir -p "results/tool=${tool}"
+        python3 hardirqs.py ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+    fi
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "hardirqs_dist" ]; then
+        tool="hardirqs_dist"
+        echo "Running hardirqs_dist"
+        mkdir -p "results/tool=${tool}"
+        python3 hardirqs.py -d  ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
 
     # Collect network traffic
@@ -186,7 +198,7 @@ function run_tool {
         tool="tcpdump"
         echo "Running tcpdump"
         mkdir -p "results/tool=${tool}"
-        timeout  ${INTERVAL} tcpdump -eni eth1 -A -w "results/tool=${tool}/${tool}.pcap"
+        timeout  ${INTERVAL} tcpdump -eni ens3 -A -w "results/tool=${tool}/${tool}.pcap"
     fi
 
 }

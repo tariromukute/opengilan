@@ -24,4 +24,4 @@ tracepoint:sock:sock_exceed_buf_limit
     printf("%s rmem_alloc %d, allocated %d\n", probe, args->rmem_alloc, args->allocated);
 }
 
-interval:s:60 { exit(); }
+interval:s:20{ exit(); }

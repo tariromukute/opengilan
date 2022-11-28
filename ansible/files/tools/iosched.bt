@@ -21,7 +21,7 @@ kprobe:blk_mq_start_request
     delete(@start[arg0]);
 }
 
-interval:s:60 { exit(); }
+interval:s:20{ exit(); }
 
 END
 {
