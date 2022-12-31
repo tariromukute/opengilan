@@ -62,21 +62,21 @@
 #       vnf_path: /home/azureuser/OOB-Server
 #       vnf_version: HEAD
 
-# - hosts:
-#   - az_sut
-#   roles:
-#     - role: olan_oai_cn5g
-#       user: ubuntu
-#       eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
-#       eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
-#       eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
-#       eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
+- hosts:
+  - az_sut
+  roles:
+    - role: olan_free5gc
+      user: ubuntu
+      eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
+      eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
+      eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
+      eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
 
-#     - role: olan_bpftrace
-#       user: ubuntu
+    - role: olan_bpftrace
+      user: ubuntu
 
-#     - role: olan_bcc
-#       user: ubuntu
+    - role: olan_bcc
+      user: ubuntu
 
 #Install ansible
 # - hosts:
@@ -126,21 +126,21 @@
 #         - [20]
 #         - [ "runqlat", "profile", "offcputime", "llcstat", "sys_enter_brk", "page_fault_user", "page_fault_kernel", "vfsstat", "vfssize", "filetop", "cachestat", "biolatency", "netsize", "nettxlat-dev", "soconnect", "skblife", "sormem", "softirqs_count", "softirqs_dist", "hardirqs", "tcpdump" ]
 
-- hosts:
-  - az_trex
-  - az_sut
-  tasks:
-    - name: Collect results
-      include: plays/core-tg.yml
-      vars:
-        user: ubuntu
-        duration: 20
-        aduration: 30 # duration before the app is forcefully stopped. Should include the 5 seconds wait time for gNB to set up
-        ues: "{{ item[0] }}"
-        tool: "{{ item[1] }}"
-        interval: 0
-      with_nested:
-        - [100, 150]
-        - [ "runqlat", "profile", "offcputime", "llcstat", "sys_enter_brk" ]
+# - hosts:
+#   - az_trex
+#   - az_sut
+#   tasks:
+#     - name: Collect results
+#       include: plays/core-tg.yml
+#       vars:
+#         user: ubuntu
+#         duration: 20
+#         aduration: 30 # duration before the app is forcefully stopped. Should include the 5 seconds wait time for gNB to set up
+#         ues: "{{ item[0] }}"
+#         tool: "{{ item[1] }}"
+#         interval: 0
+#       with_nested:
+#         - [100, 150]
+#         - [ "runqlat", "profile", "offcputime", "llcstat", "sys_enter_brk" ]
         # - [ "page_fault_user", "page_fault_kernel", "vfsstat", "vfssize", "filetop", "cachestat", "biolatency", "netsize", "nettxlat-dev", "soconnect", "skblife", "sormem", "softirqs_count", "softirqs_dist", "hardirqs_count", "hardirqs_dist" , "tcpdump" ]
         # - [ "runqlat", "profile", "offcputime", "llcstat", "sys_enter_brk", "page_fault_user", "page_fault_kernel", "vfsstat", "vfssize", "filetop", "cachestat", "biolatency", "netsize", "nettxlat-dev", "soconnect", "skblife", "sormem", "softirqs_count", "softirqs_dist", "hardirqs_count", "hardirqs_dist" , "tcpdump" ]

@@ -1,0 +1,6 @@
+{"pid": 713070, "comm": "kworker/u16:3", "operation": "write", "major": 8, "minor": 0, "io": 1, "kbytes": 460.0, "avg_ms": 0.941, "disk": "sda"}
+{"pid": 10603, "comm": "code", "operation": "write", "major": 8, "minor": 0, "io": 16, "kbytes": 312.0, "avg_ms": 0.1574375, "disk": "sda"}
+{"pid": 278, "comm": "jbd2/sda3-8", "operation": "write", "major": 8, "minor": 0, "io": 12, "kbytes": 188.0, "avg_ms": 0.07125, "disk": "sda"}
+{"pid": 713070, "comm": "kworker/u16:3", "operation": "read", "major": 0, "minor": 0, "io": 2, "kbytes": 0.015625, "avg_ms": 3.7375, "disk": "?"}
+{"pid": 710030, "comm": "kworker/u16:1", "operation": "read", "major": 0, "minor": 0, "io": 1, "kbytes": 0.0078125, "avg_ms": 3.557, "disk": "?"}
+{"pid": 0, "comm": "unknown", "operation": "read", "major": 8, "minor": 0, "io": 12, "kbytes": 0.0, "avg_ms": 0.3185, "disk": "sda"}

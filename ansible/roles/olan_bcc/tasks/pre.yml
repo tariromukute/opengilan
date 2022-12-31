@@ -26,6 +26,12 @@
     name: "{{ bcc_build_packages }}"
     state: present
   become: yes
+  
+- name: Install dependency packages for bcc tool tcpconnect
+  ansible.builtin.package:
+    name: "{{ tcpconnect_dependecies }}"
+    state: present
+  become: yes
 
 - name: Set the PYTHONPATH environment variable to for automation scripts
   ansible.builtin.lineinfile:

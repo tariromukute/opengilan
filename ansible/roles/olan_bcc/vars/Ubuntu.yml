@@ -18,3 +18,6 @@ bcc_build_packages:
   - iperf3
   - netperf
 sudo: sudo
+tcpconnect_dependecies:
+  - python3-dnslib 
+  - python3-cachetools

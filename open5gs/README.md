@@ -9,6 +9,7 @@ The desired set up has two virtual machines, VM-ueransim and VM-open5gs, running
 - [x] Update the Linux Host Network Settings to allow for data plane traffic from the UE to flow
 - [x] Update the config file for the UERANSIM to send traffic to VM-open5gs. See below sections for which updates to make.
 - [ ] Add a subscriber using the webui. To access the webui remotely you need to establish a port forwarding tunnel `ssh -L 8000:localhost:3000 azureuser@olan153sut.westeurope.cloudapp.azure.com -i ~/.ssh/id_rsa`. Username: admin, Password: 1423
+- [x] Download the open5gs-dbctl sript for making operations to the db `wget https://raw.githubusercontent.com/open5gs/open5gs/main/misc/db/open5gs-dbctl`
 - [x] Add a UE subscriber to the Open5gs. Use the default imsi from the `~/UERANSIM/config/open5gs-ue.yaml`. Run the following command on VM-open6gs `open5gs-dbctl add 999700000000001 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA`
 - [x] Start the gNB on VM-ueransim `cd ~/UERANSIM & build/nr-gnb -c config/open5gs-gnb.yaml`
 - [x] Establish a PDU session for the registered UE `cd ~/UERANSIM & sudo build/nr-ue -c config/open5gs-ue.yaml`
@@ -95,11 +96,13 @@ amfConfigs:
 *** Register multiple UEs for load testing ***
 
 ```bash
-imsi=9997000000000001
+imsi=999700000000100
 
-for i in {0..9000}
+for i in {1..300}
 do
-    open5gs-dbctl add  $[imsi + i] 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA
+    ./open5gs-dbctl add  $[imsi + i] 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA
     echo "Registered IMSI $[imsi + i] times"
 done
 ```
+
+Read service logs `journalctl -u open5gs-amfd.service -n 500`

@@ -9,5 +9,5 @@
 - name: Configure Free5GC with UERANSIM VM
   include: webui.yml
 
-- name: Run Free5GC
-  include: run.yml
+# - name: Run Free5GC
+#   include: run.yml

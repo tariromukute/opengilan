@@ -9,18 +9,17 @@ DURATION="${4}"
 function run_tool {
     echo "Run tool called"
     # CPU
-    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "exitsnoop" ]; then
-        tool="exitsnoop"
-        echo "Running exitsnoop -> the processes that have run and their age/lifespan"
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "oncpudist" ]; then
+        tool="oncpudist"
+        echo "Running oncpudist -> time spent by tasks on the CPU before being descheduled"
         mkdir -p results/tool=${tool}
-        # needs duration
-        # python3 exitsnoop.py > "results/tool=${tool}/${tool}.json"
+        python3 cpudist.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
-    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "runqlat" ]; then
-        tool="runqlat"
-        echo "Running runqlat -> time each of the processes spends waiting for its turn on CPU"
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "offcpudist" ]; then
+        tool="offcpudist"
+        echo "Running offcpudist -> time spent by tasks waiting for their turn to run on-CPU"
         mkdir -p results/tool=${tool}
-        python3 runqlat.py ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 cpudist.py -O -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi  
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "profile" ]; then
         tool="profile"
@@ -83,7 +82,13 @@ function run_tool {
         echo "Running vfsstat -> characterization virtual file system operations"
         mkdir -p results/tool=${tool}
         python3 vfsstat.py ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
-    fi 
+    fi
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "ext4dist" ]; then
+        tool="ext4dist"
+        echo "Running ext4dist -> traces ext4 reads, writes, opens, and fsyncs, and summarizes their latency"
+        mkdir -p results/tool=${tool}
+        python3 ext4dist.py ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+    fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "vfssize" ]; then
         tool="vfssize"
         echo "Running vfssize -> read and write operations by the process names"
@@ -103,13 +108,39 @@ function run_tool {
         mkdir -p results/tool=${tool}
         python3 cachestat.py ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "cachetop" ]; then
+        tool="cachetop"
+        echo "Running cachetop -> the page cache hit ratio over time"
+        echo "Shows Linux page cache hit/miss statistics including read and write hit % per process."
+        mkdir -p results/tool=${tool}
+        python3 cachetop.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+    fi
 
     # Disk I/O
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "biolatency" ]; then
         tool="biolatency"
         echo "Running biolatency -> block I/O device latency"
+        echo "The latency of the disk I/O is measured from the issue to the device to its
+                completion. A -Q option can be used to include time queued in the kernel.
+                
+                The -D option will print a histogram per disk
+                
+                The -F option prints a separate histogram for each unique set of request"
+        
         mkdir -p results/tool=${tool}
-        python3 biolatency.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 biolatency.py -Q -F -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+    fi
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "biotop" ]; then
+        tool="biotop"
+        echo "Running biotop -> block device I/O top"
+        echo "Summary of processes which are performing disk I/O. This only shows the top 20 processes (-r 20).
+                I/O gives the number read/write (rwflag) operations peformed by process X (name) in the interval.
+                The tool also gives the total kbytes of the I/O operations.
+
+                The -C option can be used to prevent the screen from clearing"
+        
+        mkdir -p results/tool=${tool}
+        python3 biotop.py -C -j -r 20 ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "bitesize" ]; then
         tool="bitesize"

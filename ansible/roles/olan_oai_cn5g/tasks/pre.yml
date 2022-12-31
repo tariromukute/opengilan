@@ -50,14 +50,14 @@
     name: docker
 
 # sudo groupadd docker
-- name: Create "docker" group
+- name: Create "docker" group (sudo groupadd docker)
   group:
     name: docker
     state: present
   become: true
 
 # sudo usermod -aG docker root
-- name: Add remote "ubuntu" user to "docker" group
+- name: Add remote "ubuntu" user to "docker" group (sudo usermod -aG docker $USER)
   user:
     name: "{{ user }}"
     group: docker

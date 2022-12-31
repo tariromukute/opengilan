@@ -108,7 +108,7 @@ sudo cp focal-server-cloudimg-amd64.img /var/snap/microstack/common/images/
 microstack.openstack --insecure image create --disk-format qcow2 --min-disk 8 --min-ram 512 --file /var/snap/microstack/common/images/focal-server-cloudimg-amd64.img --public 20.04
 
 # Launch instance
-microstack launch -f m1.medium -n oai 20.04
+microstack launch -f m2.medium -n oai 20.04
 
 microstack launch -f m1.small -n ue 20.04
 
