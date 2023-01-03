@@ -8,6 +8,20 @@ DURATION="${4}"
 
 function run_tool {
     echo "Run tool called"
+    # System
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "syscount" ]; then
+        tool="syscount"
+        echo "Running syscount -> time spent by tasks on the CPU before being descheduled"
+        mkdir -p results/tool=${tool}
+        python3 syscount.py -L -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+    fi
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "sysprocess" ]; then
+        tool="sysprocess"
+        echo "Running sysprocess -> time spent by tasks on the CPU before being descheduled"
+        mkdir -p results/tool=${tool}
+        python3 syscount.py -L -P -j -i ${INTERVAL} -d ${DURATION} > "results/tool=${tool}/${tool}.json"
+    fi
+
     # CPU
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "oncpudist" ]; then
         tool="oncpudist"
@@ -32,22 +46,16 @@ function run_tool {
         echo "Running offcputime ->  code path resulting in the process being off-CPU"
         mkdir -p results/tool=${tool}
         python3 offcputime.py -fKu ${DURATION} > "results/tool=${tool}/${tool}.txt"
-    fi
-    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "llcstat" ]; then
-        tool="llcstat"
-        echo "Running llcstat -> number of cache misses of the LLC and the hit ratios of the LLC (this can't run on a virtual machine)"
-        mkdir -p results/tool=${tool}
-        python3 llcstat.py ${DURATION} > "results/tool=${tool}/${tool}.json"
     fi 
 
     # Memory
-    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "mmapsnoop" ]; then
-        tool="mmapsnoop"
-        echo "Running mmapsnoop -> requests for mappings"
-        mkdir -p results/tool=${tool}
-        # not on repo
-        # python3 mmapsnoop.py ${INTERVAL} ${DURATION} > "results/tool=${tool}/${tool}.json"
-    fi
+    # if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "mmapsnoop" ]; then
+    #     tool="mmapsnoop"
+    #     echo "Running mmapsnoop -> requests for mappings"
+    #     mkdir -p results/tool=${tool}
+    #     # not on repo
+    #     # python3 mmapsnoop.py ${INTERVAL} ${DURATION} > "results/tool=${tool}/${tool}.json"
+    # fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "sys_enter_brk" ]; then
         tool="sys_enter_brk"
         echo "Running t:syscalls:sys_enter_brk ->  code path responsible for heap extension"
@@ -73,34 +81,23 @@ function run_tool {
         echo "Running drsnoop -> process affected and the latency: the time taken for the reclaim"
         mkdir -p results/tool=${tool}
         # duration not working
-        # python3 drsnoop.py -d ${DURATION} > "results/tool=${tool}/${tool}.json"
+        python3 drsnoop.py -j -d ${DURATION} > "results/tool=${tool}/${tool}.json"
     fi
 
     # Filesystem
-    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "vfsstat" ]; then
-        tool="vfsstat"
-        echo "Running vfsstat -> characterization virtual file system operations"
-        mkdir -p results/tool=${tool}
-        python3 vfsstat.py ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
-    fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "ext4dist" ]; then
         tool="ext4dist"
-        echo "Running ext4dist -> traces ext4 reads, writes, opens, and fsyncs, and summarizes their latency"
+        echo "Running ext4dist -> traces ext4 reads, writes, opens, and fsyncs, and summarizes their latency.
+                also includes data presented by vfsstat tool."
         mkdir -p results/tool=${tool}
         python3 ext4dist.py ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
-    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "vfssize" ]; then
-        tool="vfssize"
-        echo "Running vfssize -> read and write operations by the process names"
-        mkdir -p results/tool=${tool}
-
-        bpftrace -q -f json vfssize.bt ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
-    fi 
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "filetop" ]; then
         tool="filetop"
-        echo "Running filetop -> filenames with the most frequent read and writes (includes sockets -a)"
+        echo "Running filetop -> filenames with the most frequent read and writes (includes sockets -a)
+                inlcude information from vfssize.bt"
         mkdir -p results/tool=${tool}
-        python3 filetop.py -C -a ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 filetop.py -C -a -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "cachestat" ]; then
         tool="cachestat"
@@ -146,8 +143,7 @@ function run_tool {
         tool="bitesize"
         echo "Running bitesize -> processes performing I/O on disk and the bite-size"
         mkdir -p results/tool=${tool}
-        # needs duration and json output
-        # python3 bitesize.py  > "results/tool=${tool}/${tool}.json"
+        python3 bitesize.py -j -d ${DURATION}  > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "iosched" ]; then
         tool="iosched"
@@ -169,8 +165,9 @@ function run_tool {
         echo "Running nettxlat-dev -> latency of the device queue"
         tool="nettxlat-dev"
         mkdir -p results/tool=${tool}
-        # bt 
-        bpftrace -q -f json nettxlat-dev.bt  > "results/tool=${tool}/${tool}.json"
+        # bt
+        # Having issues with duplicate device names
+        # bpftrace -q -f json nettxlat-dev.bt  > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "qdisc-fq" ]; then
         echo "Running qdisc-fq -> time spent on the queuing disciplines"
@@ -179,49 +176,50 @@ function run_tool {
         # bt needs kprobe which was removed
         # bpftrace qdisc-fq.bt  > "results/tool=${tool}/${tool}.json"
     fi
-    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "soconnect" ]; then
-        tool="soconnect"
-        echo "Running soconnect -> latency for IP protocol connections and the process making the connection"
-        mkdir -p results/tool=${tool}
-        # Format needs to be sorted to json
-        bpftrace -q -f json soconnect.bt  > "results/tool=${tool}/${tool}.json"
-    fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "skblife" ]; then
         tool="skblife"
         echo "Running skblife -> lifespan of the kernel buffers"
         mkdir -p results/tool=${tool}
         bpftrace -q -f json skblife.bt  > "results/tool=${tool}/${tool}.json"
     fi
-    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "sormem" ]; then
-        tool="sormem"
-        echo "Running sormem -> the number of packets and allocated size of the socket buffers and their limits"
-        mkdir -p results/tool=${tool}
-        bpftrace -q -f json sormem.bt  > "results/tool=${tool}/${tool}.json"
-    fi
 
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "softirqs_count" ]; then
         tool="softirqs_count"
         echo "Running softirqs_count"
         mkdir -p "results/tool=${tool}"
-        python3 softirqs.py ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 softirqs.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "softirqs_dist" ]; then
         tool="softirqs_dist"
         echo "Running softirqs_dist"
         mkdir -p "results/tool=${tool}"
-        python3 softirqs.py -d  ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 softirqs.py -d -j  ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "hardirqs_count" ]; then
         tool="hardirqs_count"
         echo "Running hardirqs_count"
         mkdir -p "results/tool=${tool}"
-        python3 hardirqs.py ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 hardirqs.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "hardirqs_dist" ]; then
         tool="hardirqs_dist"
         echo "Running hardirqs_dist"
         mkdir -p "results/tool=${tool}"
-        python3 hardirqs.py -d  ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 hardirqs.py -d -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+    fi
+
+    # TCP 
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "tcplife" ]; then
+        tool="tcplife"
+        echo "Running tcplife -> lifespan of the tcp connections"
+        mkdir -p results/tool=${tool}
+        python3 tcplife.py -j -d ${DURATION}  > "results/tool=${tool}/${tool}.json"
+    fi
+    if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "tcpconnlat" ]; then
+        tool="tcpconnlat"
+        echo "Running tcpconnlat -> latency of tcp connections"
+        mkdir -p results/tool=${tool}
+        python3 tcpconnlat.py -j -d ${DURATION}  > "results/tool=${tool}/${tool}.json"
     fi
 
     # Collect network traffic
