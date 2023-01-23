@@ -96,9 +96,9 @@ amfConfigs:
 *** Register multiple UEs for load testing ***
 
 ```bash
-imsi=999700000000100
+imsi=999700000000001
 
-for i in {1..300}
+for i in {1..6}
 do
     ./open5gs-dbctl add  $[imsi + i] 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA
     echo "Registered IMSI $[imsi + i] times"
@@ -106,3 +106,13 @@ done
 ```
 
 Read service logs `journalctl -u open5gs-amfd.service -n 500`
+
+*** Configurations for testing with Core TG ***
+
+At the time of writing Core TG doesn't support dymanically selected ciphering or . you will need to update Open5gs's AMF config to only use a single algorithm. It's currently harded coded to 1 in 5Gs. Edit `/etc/open5gs/amf.yaml` security section to below.
+
+```
+      security:
+        integrity_order : [ NIA1 ]
+        ciphering_order : [ NEA1 ]
+```
