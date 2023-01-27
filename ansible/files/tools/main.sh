@@ -13,7 +13,7 @@ function run_tool {
         tool="syscount"
         echo "Running syscount -> time spent by tasks on the CPU before being descheduled"
         mkdir -p results/tool=${tool}
-        python3 syscount.py -L -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 syscount.py -L -j -i ${INTERVAL} -d ${DURATION} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "sysprocess" ]; then
         tool="sysprocess"
@@ -90,7 +90,7 @@ function run_tool {
         echo "Running ext4dist -> traces ext4 reads, writes, opens, and fsyncs, and summarizes their latency.
                 also includes data presented by vfsstat tool."
         mkdir -p results/tool=${tool}
-        python3 ext4dist.py ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 ext4dist.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "filetop" ]; then
         tool="filetop"
@@ -103,7 +103,7 @@ function run_tool {
         tool="cachestat"
         echo "Running cachestat -> the page cache hit ratio over time"
         mkdir -p results/tool=${tool}
-        python3 cachestat.py ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 cachestat.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "cachetop" ]; then
         tool="cachetop"
