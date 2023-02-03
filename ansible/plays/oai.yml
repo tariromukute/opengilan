@@ -31,7 +31,7 @@
 - name: Start the eBPF scripts to collect results
   ansible.builtin.shell: ./main.sh {{ tool }} {{ duration }} 1 {{ duration }}
   args:
-    chdir: /home/{{ user }}/tools
+    chdir: /home/{{ user }}/tools/bcc/tools
     executable: /bin/bash
   async: "{{ duration }}"
   poll: 0
@@ -46,7 +46,7 @@
 
 - name: Start 5G core traffic generator
   ansible.builtin.command:
-    cmd: ./.venv/bin/python3 src/app.py -t {{ duration }} -i {{ interval }} -n {{ ues }} -f /tmp/coretg
+    cmd: ./.venv/bin/python3 src/app.py -t {{ duration }} -i {{ interval }} -n {{ ues }} -f /tmp/core-tg -u src/config/oai-cn5g-ue.yaml -g src/config/oai-cn5g-gnb.yaml
     chdir: /home/{{ user }}/core-tg
   when:
     - inventory_hostname in groups["az_trex"]
@@ -69,14 +69,14 @@
   ignore_errors: yes
 
 - name: Fetch stuff from the remote and save to local
-  synchronize:  src=/home/{{ user }}/tools/results/ dest=.results/kpps={{ ues }} mode=pull
+  synchronize:  src=/home/{{ user }}/tools/bcc/tools/results/ dest=.results/kpps={{ ues }} mode=pull
   when:
     - inventory_hostname in groups["az_sut"]
 
 - name: Delete content & directory
   file:
     state: absent
-    path: /home/{{ user }}/tools/results/
+    path: /home/{{ user }}/tools/bcc/tools/results/
   become: yes
   when:
     - inventory_hostname in groups["az_sut"]
@@ -148,7 +148,7 @@
 # ------------------------------
 
 - name: Fetch 5G Core traffic generator logs
-  synchronize:  src=/tmp/coretg/ dest=.results/kpps={{ ues }}/tool={{ tool }} mode=pull
+  synchronize:  src=/tmp/core-tg/ dest=.results/kpps={{ ues }}/tool={{ tool }} mode=pull
   when:
     - inventory_hostname in groups["az_trex"]
 
@@ -156,6 +156,6 @@
 - name: Delete content & directory
   file:
     state: absent
-    path: /tmp/coretg
+    path: /tmp/core-tg
   when:
     - inventory_hostname in groups["az_trex"]

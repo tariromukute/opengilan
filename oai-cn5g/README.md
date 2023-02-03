@@ -17,7 +17,10 @@
 ```bash
 docker pull ubuntu:bionic
 docker pull mysql:5.7
+```
 
+*** To run OAI in debug mode pull the images from docker, else skip to manually building the images ***
+```bash
 # OAI images
 docker pull oaisoftwarealliance/oai-amf:v1.4.0
 docker pull oaisoftwarealliance/oai-nrf:v1.4.0
@@ -58,7 +61,82 @@ git checkout -f v1.4.0
 
 ```
 
+## Reducing the logs for the file
+
+Although the documentation (at the time of writing) states that the network functions produce info level logs see [docs](https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed/-/blob/master/docs/DEBUG_5G_CORE.md#1-building-images-in-debug-mode). The docker containers from oaisoftwarealliance tags v1.4.0 and v1.5.0 produce debug logs. When doing load testing this affects the performance of the core network. To produce info logs going to build the images from source. See below. 
+
+```bash
+# Build AMF
+cd ~/
+
+docker build --target oai-amf --tag tariromukute/oai-amf:v1.4.0 \
+               --file component/oai-amf/docker/Dockerfile.amf.ubuntu \
+               --build-arg BASE_IMAGE=ubuntu:bionic \
+               component/oai-amf
+docker image push tariromukute/oai-amf:v1.4.0
+docker image tag tariromukute/oai-amf:v1.4.0 oai-amf:v1.4.0
+
+# Build SMF
+docker build --target oai-smf --tag tariromukute/oai-smf:v1.4.0 \
+               --file component/oai-smf/docker/Dockerfile.smf.ubuntu \
+               --build-arg BASE_IMAGE=ubuntu:bionic \
+               component/oai-smf
+docker image push tariromukute/oai-smf:v1.4.0
+docker image tag tariromukute/oai-smf:v1.4.0 oai-smf:v1.4.0
+
+# Build NRF
+docker build --target oai-nrf --tag tariromukute/oai-nrf:v1.4.0 \
+               --file component/oai-nrf/docker/Dockerfile.nrf.ubuntu \
+               --build-arg BASE_IMAGE=ubuntu:jammy \
+               component/oai-nrf
+docker image push tariromukute/oai-nrf:v1.4.0
+docker image tag tariromukute/oai-nrf:v1.4.0 oai-nrf:v1.4.0
+
+# Build SPGW-U
+docker build --target oai-spgwu-tiny --tag tariromukute/oai-spgwu-tiny:v1.4.0 \
+               --file component/oai-upf-equivalent/docker/Dockerfile.ubuntu \
+               --build-arg BASE_IMAGE=ubuntu:20.04 \
+               component/oai-upf-equivalent
+docker image push tariromukute/oai-spgwu-tiny:v1.4.0
+docker image tag tariromukute/oai-spgwu-tiny:v1.4.0 oai-spgwu-tiny:v1.4.0
+
+# Build ausf (failed)
+docker build --target oai-ausf --tag tariromukute/oai-ausf:v1.4.0 \
+               --file component/oai-ausf/docker/Dockerfile.ausf.ubuntu \
+               component/oai-ausf
+docker image push tariromukute/oai-ausf:v1.4.0
+docker image tag tariromukute/oai-ausf:v1.4.0 oai-ausf:v1.4.0
+
+# Build UDM
+docker build --target oai-udm --tag tariromukute/oai-udm:v1.4.0 \
+               --file component/oai-udm/docker/Dockerfile.udm.ubuntu \
+               component/oai-udm
+docker image push tariromukute/oai-udm:v1.4.0
+docker image tag tariromukute/oai-udm:v1.4.0 oai-udm:v1.4.0
+
+# Build UDR (failed)
+docker build --target oai-udr --tag tariromukute/oai-udr:v1.4.0 \
+               --file component/oai-udr/docker/Dockerfile.udr.ubuntu \
+               component/oai-udr
+docker image push tariromukute/oai-udr:v1.4.0
+docker image tag tariromukute/oai-udr:v1.4.0 oai-udr:v1.4.0
+
+# Build VPP (skipped)
+docker build --target oai-upf-vpp --tag tariromukute/oai-upf-vpp:v1.4.0 \
+               --file component/oai-upf-vpp/docker/Dockerfile.upf-vpp.ubuntu \
+               component/oai-upf-vpp
+docker image push tariromukute/oai-upf-vpp:v1.4.0
+docker image tag tariromukute/oai-upf-vpp:v1.4.0 oai-upf-vpp:v1.4.0
+
+# Build NSSF
+docker build --target oai-nssf --tag tariromukute/oai-nssf:v1.4.0 \
+               --file component/oai-nssf/docker/Dockerfile.nssf.ubuntu \
+               component/oai-nssf
+docker image push tariromukute/oai-nssf:v1.4.0
+docker image tag tariromukute/oai-nssf:v1.4.0 oai-nssf:v1.4.0
 ```
+
+```bash
 sudo sysctl net.ipv4.conf.all.forwarding=1
 sudo iptables -P FORWARD ACCEPT
 ```
