@@ -65,7 +65,7 @@
 # - hosts:
 #   - az_sut
 #   roles:
-#     - role: olan_oai_cn5g
+#     - role: olan_free5gc
 #       user: ubuntu
 #       eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
 #       eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
@@ -145,12 +145,31 @@
 #             "page_fault_kernel", "drsnoop", "ext4dist", "filetop", "cachestat", "cachetop", "biolatency", "biotop", "bitesize",
 #             "iosched", "softirqs_count", "softirqs_dist", "hardirqs_count", "hardirqs_dist", "tcplife", "tcpconnlat", "netsize", "skblife"]
 
+# - hosts:
+#   - az_trex
+#   - az_sut
+#   tasks:
+#     - name: Collect results
+#       include: plays/oai.yml
+#       vars:
+#         user: ubuntu
+#         duration: 25
+#         aduration: 35 # duration before the app is forcefully stopped. Should include the 5 seconds wait time for gNB to set up
+#         ues: "{{ item[0] }}"
+#         tool: "{{ item[1] }}"
+#         interval: 0
+#       with_nested:
+#         - [50, 100, 150, 200, 300 ]
+#         - [ "syscount", "sysprocess", "oncpudist", "offcpudist", "profile", "offcputime", "sys_enter_brk", "page_fault_user", 
+#             "page_fault_kernel", "drsnoop", "ext4dist", "filetop", "cachestat", "cachetop", "biolatency", "biotop", "bitesize",
+#             "iosched", "softirqs_count", "softirqs_dist", "hardirqs_count", "hardirqs_dist", "tcplife", "tcpconnlat", "netsize", "skblife"]
+
 - hosts:
   - az_trex
   - az_sut
   tasks:
     - name: Collect results
-      include: plays/oai.yml
+      include: plays/free5gc.yml
       vars:
         user: ubuntu
         duration: 25

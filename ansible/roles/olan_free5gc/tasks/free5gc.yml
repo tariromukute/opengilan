@@ -52,6 +52,7 @@
   ansible.builtin.git:
     repo: 'https://github.com/free5gc/free5gc'
     dest: /home/{{ user }}/free5gc
+    force: true
     version: v3.2.0
 
 - name: Run make on free5GC
