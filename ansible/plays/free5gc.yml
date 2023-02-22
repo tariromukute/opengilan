@@ -1,12 +1,12 @@
-- name: Stop 5g core (Ensure previous tested is not running)
-  ansible.builtin.shell: systemctl restart free5gc
-  register: output
-  become: yes
-  when:
-    - inventory_hostname in groups["az_sut"]
+# - name: Stop 5g core (Ensure previous tested is not running)
+#   ansible.builtin.shell: systemctl restart free5gc
+#   register: output
+#   become: yes
+#   when:
+#     - inventory_hostname in groups["az_sut"]
 
-- ansible.builtin.debug:
-    var: output
+# - ansible.builtin.debug:
+#     var: output
 
 - name: Wait 1 minutes for all services to be down
   ansible.builtin.pause:

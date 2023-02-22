@@ -33,11 +33,6 @@
   args:
     chdir: /home/{{ user }}/bpftrace/build
 
-- name: Build bpftrace
-  ansible.builtin.command: cmake -DCMAKE_BUILD_TYPE=Release ..
-  args:
-    chdir: /home/{{ user }}/bpftrace/build
-
 - name: make -j8
   ansible.builtin.command: make -j8
   args:
@@ -48,8 +43,3 @@
     chdir: /home/{{ user }}/bpftrace/build
     target: install
   become: yes
-
-- name: Get tpstat source code from git
-  ansible.builtin.git:
-    repo: 'https://github.com/tariromukute/tpstat.git'
-    dest: /home/{{ user }}/tpstat
