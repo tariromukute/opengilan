@@ -166,9 +166,54 @@ scp -i /home/tariro/snap/microstack/common/.ssh/id_microstack ubuntu@10.20.20.11
 
 ## Notes
 
-Create VM on microstack
+**Download and create images**
 
 ```bash
+# Download and create fedora image
+wget https://download.fedoraproject.org/pub/fedora/linux/releases/37/Cloud/x86_64/images/Fedora-Cloud-Base-37-1.7.x86_64.qcow2
+sudo cp Fedora-Cloud-Base-37-1.7.x86_64.qcow2 /var/snap/microstack/common/images/
+
+# Download and create debian image
+wget http://cdimage.debian.org/cdimage/openstack/current-10/debian-10-openstack-amd64.qcow2
+sudo cp debian-10-openstack-amd64.qcow2 /var/snap/microstack/common/images/
+
+# Download and create CentOS image
+wget https://cloud.centos.org/centos/8/x86_64/images/CentOS-8-GenericCloud-8.4.2105-20210603.0.x86_64.qcow2
+sudo cp CentOS-8-GenericCloud-8.4.2105-20210603.0.x86_64.qcow2 /var/snap/microstack/common/images/
+
+# Create Fedora image
+microstack.openstack image create \
+    --container-format bare \
+    --disk-format qcow2 \
+    --min-disk 8 --min-ram 512 \
+    --file /var/snap/microstack/common/images/Fedora-Cloud-Base-37-1.7.x86_64.qcow2 \
+    --public fedora_37
+
+# Create Debian image
+microstack.openstack image create \
+    --container-format bare \
+    --disk-format qcow2 \
+    --min-disk 8 --min-ram 512 \
+    --file /var/snap/microstack/common/images/debian-10-openstack-amd64.qcow2 \
+    --public debian_10
+
+# Create CentOS image
+microstack.openstack image create \
+    --container-format bare \
+    --disk-format qcow2 \
+    --min-disk 8 --min-ram 512 \
+    --file /var/snap/microstack/common/images/CentOS-8-GenericCloud-8.4.2105-20210603.0.x86_64.qcow2 \
+    --public centos_8
+```
+
+**Create VM on microstack**
+
+```bash
+# Install micorstack
+sudo snap install microstack --devmode --edge
+
+sudo microstack init --auto --control --setup-loop-based-cinder-lvm-backend
+
 # Get Open stack credentials
 sudo snap get microstack config.credentials.keystone-password
 
@@ -185,11 +230,36 @@ cd ~/Downloads
 sudo cp focal-server-cloudimg-amd64.img /var/snap/microstack/common/images/
 microstack.openstack --insecure image create --disk-format qcow2 --min-disk 8 --min-ram 512 --file /var/snap/microstack/common/images/focal-server-cloudimg-amd64.img --public 20.04
 
+# Create flavor
+microstack.openstack flavor create --public m2.medium --id auto \
+    --ram 4096 --disk 50 --vcpus 2 --rxtx-factor 1
+
 # Launch instance
-microstack launch -f m2.medium -n oai 20.04
+microstack launch -f m2.medium -n oai cirros
 
-microstack launch -f m1.small -n ue 20.04
+microstack launch -f m1.small -n ue debian_10
 
+microstack.openstack server create --flavor m1.small \
+    --image debian_10 \
+    --key-name  microstack \
+    --security-group default \
+    --nic net-id=c8fd56cc-41a1-487a-aec5-453ccbe95433 \
+    my-debian
+
+microstack.openstack server create --flavor m1.small \
+    --image 20.04 \
+    --key-name  microstack \
+    --security-group default \
+    --nic net-id=c8fd56cc-41a1-487a-aec5-453ccbe95433 \
+    my-ubuntu
+
+microstack.openstack server create --key-name microstack --flavor m1.small --image 20.04 my-vm
+
+microstack.openstack floating ip create --project admin --subnet external-subnet external
+
+microstack.openstack server add floating ip my-ubuntu 10.20.20.152
+
+(gocubsgo)
 router="test-router"
 oai_ip="192.168.222.53"
 oai_port_id="024381a3-f74f-4786-a10a-b0873cfb0630"
@@ -199,6 +269,61 @@ microstack.openstack router set ${router} \
     
 # (2) Add Allowed Address Pairs under the instance interface (48.0.0.0/16 in our case)
 microstack.openstack port set ${oai_port_id} --allowed-address ip-address=48.0.0.0/16
+```
+
+If you face the error `Permission denied (publickey).` disable and re-enable microstack. See thread [here](https://serverfault.com/questions/1089057/openstack-ubuntuvm-ssh-public-key-permission-denied-on-first-boot)
+
+This doesn't seem to work everytime. The details of the issue are described [here](https://askubuntu.com/questions/1321968/ubuntu-server-20-04-2-lts-hangs-after-bootup-cloud-init-1781-yyyy-mm-dd-h)
+
+**Remove microstack**
+
+```bash
+sudo snap disable microstack
+
+sudo snap remove --purge microstack
+```
+
+**Installing devstack**
+
+```bash
+# Add user
+sudo useradd -s /bin/bash -d /opt/stack -m stack
+
+# 
+sudo chmod +x /opt/stack
+
+#
+echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
+sudo -u stack -i
+
+git clone https://opendev.org/openstack/devstack
+cd devstack
+
+git checkout stable/zed
+```
+
+Need to create credentials config file (`local.conf`) before installing the stack inside folder devstack. See example below.
+
+```
+[[local|localrc]]
+ADMIN_PASSWORD=secret
+DATABASE_PASSWORD=$ADMIN_PASSWORD
+RABBIT_PASSWORD=$ADMIN_PASSWORD
+SERVICE_PASSWORD=$ADMIN_PASSWORD
+```
+
+When installing on ubuntu 22.04 got an error of `repository/PPA does not have a Release file` for some of the packages. Implemented the workaround from [here](https://github.com/unetbootin/unetbootin/issues/305), which is to use PPA release files for ubuntu 20.04.
+
+```bash
+# Change PPA configuration
+sudo sed -i 's/jammy/focal/g' /etc/apt/sources.list.d/gezakovacs-ubuntu-ppa-jammy.list
+sudo sed -i 's/jammy/focal/g' /etc/apt/sources.list.d/system76-ubuntu-pop-jammy.list
+```
+
+Install Devstack
+
+```bash
+./stack.sh
 ```
 
 - Tried running the OAI on Ubuntu 20.04 VM on microstack. The oai-amf container failed with socket error. Realised that this was due to the SCTP module missing on the kernel `lsmod | grep sctp`. I tried locating the module with `modinfo sctp` but it was not found. I ran `sudo apt install linux-generic` to get the extra modules. I could now find the module and tried loading with `insmod <path_to_module>`. This failed. Turns out I was using the `focal-server-cloudimg-amd64-disk-kvm.img` as recommended or pointed to on one of the Microstack blogs. I switched to creating a VM from image `focal-server-cloudimg-amd64.img`. This also didn't have the SCTP module load but I could find it on the system. I loaded the module `modprobe sctp` and then ran the OAI and this time it worked.
