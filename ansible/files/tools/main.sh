@@ -4,7 +4,8 @@ TOOL_NAME="${1}"
 INTERVAL="${2}"
 COUNT="${3}"
 DURATION="${4}"
-
+TOOL_BASE_PATH="${5}"
+TOOL_BASE_PATH="${TOOL_BASE_PATH:-/home/ubuntu/bcc/tools}"
 
 function run_tool {
     echo "Run tool called"
@@ -13,13 +14,13 @@ function run_tool {
         tool="syscount"
         echo "Running syscount -> time spent by tasks on the CPU before being descheduled"
         mkdir -p results/tool=${tool}
-        python3 syscount.py -L -j -i ${INTERVAL} -d ${DURATION} > "results/tool=${tool}/${tool}.json"
+        python3 {TOOL_BASE_PATH}/syscount.py -L -j -i ${INTERVAL} -d ${DURATION} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "sysprocess" ]; then
         tool="sysprocess"
         echo "Running sysprocess -> time spent by tasks on the CPU before being descheduled"
         mkdir -p results/tool=${tool}
-        python3 syscount.py -L -P -j -i ${INTERVAL} -d ${DURATION} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/syscount.py -L -P -j -i ${INTERVAL} -d ${DURATION} > "results/tool=${tool}/${tool}.json"
     fi
 
     # CPU
@@ -27,25 +28,25 @@ function run_tool {
         tool="oncpudist"
         echo "Running oncpudist -> time spent by tasks on the CPU before being descheduled"
         mkdir -p results/tool=${tool}
-        python3 cpudist.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/cpudist.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "offcpudist" ]; then
         tool="offcpudist"
         echo "Running offcpudist -> time spent by tasks waiting for their turn to run on-CPU"
         mkdir -p results/tool=${tool}
-        python3 cpudist.py -O -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/cpudist.py -O -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi  
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "profile" ]; then
         tool="profile"
         echo "Running profile -> code paths that are consuming CPU resources"
         mkdir -p "results/tool=${tool}"
-        python3 profile.py -adf ${DURATION} > "results/tool=${tool}/${tool}.txt"
+        python3 ${TOOL_BASE_PATH}/profile.py -adf ${DURATION} > "results/tool=${tool}/${tool}.txt"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "offcputime" ]; then
         tool="offcputime"
         echo "Running offcputime ->  code path resulting in the process being off-CPU"
         mkdir -p results/tool=${tool}
-        python3 offcputime.py -fKu ${DURATION} > "results/tool=${tool}/${tool}.txt"
+        python3 ${TOOL_BASE_PATH}/offcputime.py -fKu ${DURATION} > "results/tool=${tool}/${tool}.txt"
     fi 
 
     # Memory
@@ -54,7 +55,7 @@ function run_tool {
     #     echo "Running mmapsnoop -> requests for mappings"
     #     mkdir -p results/tool=${tool}
     #     # not on repo
-    #     # python3 mmapsnoop.py ${INTERVAL} ${DURATION} > "results/tool=${tool}/${tool}.json"
+    #     # python3 ${TOOL_BASE_PATH}/mmapsnoop.py ${INTERVAL} ${DURATION} > "results/tool=${tool}/${tool}.json"
     # fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "sys_enter_brk" ]; then
         tool="sys_enter_brk"
@@ -68,20 +69,20 @@ function run_tool {
         tool="page_fault_user"
         echo "Running t:exceptions:page_fault_user ->  code path responsible for page faults"
         mkdir -p results/tool=${tool}
-        python3 stackcount.py -f -PU -D ${DURATION} t:exceptions:page_fault_user > "results/tool=${tool}/${tool}.txt"
+        python3 ${TOOL_BASE_PATH}/stackcount.py -f -PU -D ${DURATION} t:exceptions:page_fault_user > "results/tool=${tool}/${tool}.txt"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "page_fault_kernel" ]; then
         tool="page_fault_kernel"
         echo "Running t:exceptions:page_fault_kernel ->  code path responsible for page faults"
         mkdir -p results/tool=${tool}
-        python3 stackcount.py -P -df -D ${DURATION} t:exceptions:page_fault_kernel > "results/tool=${tool}/${tool}.txt"
+        python3 ${TOOL_BASE_PATH}/stackcount.py -P -df -D ${DURATION} t:exceptions:page_fault_kernel > "results/tool=${tool}/${tool}.txt"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "drsnoop" ]; then
         tool="drsnoop"
         echo "Running drsnoop -> process affected and the latency: the time taken for the reclaim"
         mkdir -p results/tool=${tool}
         # duration not working
-        python3 drsnoop.py -j -d ${DURATION} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/drsnoop.py -j -d ${DURATION} > "results/tool=${tool}/${tool}.json"
     fi
 
     # Filesystem
@@ -90,27 +91,27 @@ function run_tool {
         echo "Running ext4dist -> traces ext4 reads, writes, opens, and fsyncs, and summarizes their latency.
                 also includes data presented by vfsstat tool."
         mkdir -p results/tool=${tool}
-        python3 ext4dist.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/ext4dist.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "filetop" ]; then
         tool="filetop"
         echo "Running filetop -> filenames with the most frequent read and writes (includes sockets -a)
                 inlcude information from vfssize.bt"
         mkdir -p results/tool=${tool}
-        python3 filetop.py -C -a -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/filetop.py -C -a -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "cachestat" ]; then
         tool="cachestat"
         echo "Running cachestat -> the page cache hit ratio over time"
         mkdir -p results/tool=${tool}
-        python3 cachestat.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/cachestat.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "cachetop" ]; then
         tool="cachetop"
         echo "Running cachetop -> the page cache hit ratio over time"
         echo "Shows Linux page cache hit/miss statistics including read and write hit % per process."
         mkdir -p results/tool=${tool}
-        python3 cachetop.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/cachetop.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
 
     # Disk I/O
@@ -125,7 +126,7 @@ function run_tool {
                 The -F option prints a separate histogram for each unique set of request"
         
         mkdir -p results/tool=${tool}
-        python3 biolatency.py -Q -F -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/biolatency.py -Q -F -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "biotop" ]; then
         tool="biotop"
@@ -137,13 +138,13 @@ function run_tool {
                 The -C option can be used to prevent the screen from clearing"
         
         mkdir -p results/tool=${tool}
-        python3 biotop.py -C -j -r 20 ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/biotop.py -C -j -r 20 ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "bitesize" ]; then
         tool="bitesize"
         echo "Running bitesize -> processes performing I/O on disk and the bite-size"
         mkdir -p results/tool=${tool}
-        python3 bitesize.py -j -d ${DURATION}  > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/bitesize.py -j -d ${DURATION}  > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "iosched" ]; then
         tool="iosched"
@@ -187,25 +188,25 @@ function run_tool {
         tool="softirqs_count"
         echo "Running softirqs_count"
         mkdir -p "results/tool=${tool}"
-        python3 softirqs.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/softirqs.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "softirqs_dist" ]; then
         tool="softirqs_dist"
         echo "Running softirqs_dist"
         mkdir -p "results/tool=${tool}"
-        python3 softirqs.py -d -j  ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/softirqs.py -d -j  ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "hardirqs_count" ]; then
         tool="hardirqs_count"
         echo "Running hardirqs_count"
         mkdir -p "results/tool=${tool}"
-        python3 hardirqs.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/hardirqs.py -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "hardirqs_dist" ]; then
         tool="hardirqs_dist"
         echo "Running hardirqs_dist"
         mkdir -p "results/tool=${tool}"
-        python3 hardirqs.py -d -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/hardirqs.py -d -j ${INTERVAL} ${COUNT} > "results/tool=${tool}/${tool}.json"
     fi
 
     # TCP 
@@ -213,13 +214,13 @@ function run_tool {
         tool="tcplife"
         echo "Running tcplife -> lifespan of the tcp connections"
         mkdir -p results/tool=${tool}
-        python3 tcplife.py -j -d ${DURATION}  > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/tcplife.py -j -d ${DURATION}  > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "tcpconnlat" ]; then
         tool="tcpconnlat"
         echo "Running tcpconnlat -> latency of tcp connections"
         mkdir -p results/tool=${tool}
-        python3 tcpconnlat.py -j -d ${DURATION}  > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/tcpconnlat.py -j -d ${DURATION}  > "results/tool=${tool}/${tool}.json"
     fi
 
     # Collect network traffic

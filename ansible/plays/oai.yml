@@ -31,7 +31,7 @@
 - name: Start the eBPF scripts to collect results
   ansible.builtin.shell: ./main.sh {{ tool }} {{ duration }} 1 {{ duration }}
   args:
-    chdir: /home/{{ user }}/tools/bcc/tools
+    chdir: /home/{{ user }}/tools
     executable: /bin/bash
   async: "{{ duration }}"
   poll: 0
@@ -69,14 +69,14 @@
   ignore_errors: yes
 
 - name: Fetch stuff from the remote and save to local
-  synchronize:  src=/home/{{ user }}/tools/bcc/tools/results/ dest=.results/kpps={{ ues }} mode=pull
+  synchronize:  src=/home/{{ user }}/tools/results/ dest=.results/kpps={{ ues }} mode=pull
   when:
     - inventory_hostname in groups["az_sut"]
 
 - name: Delete content & directory
   file:
     state: absent
-    path: /home/{{ user }}/tools/bcc/tools/results/
+    path: /home/{{ user }}/tools/results/
   become: yes
   when:
     - inventory_hostname in groups["az_sut"]

@@ -19,9 +19,9 @@
 
 - name: Get bpftrace source code from git and checkout to v0.140
   ansible.builtin.git:
-    repo: 'https://github.com/iovisor/bcc.git'
+    repo: 'https://github.com/tariromukute/bcc.git'
     dest: /home/{{ user }}/bcc
-    version: v0.24.0
+    version: json_output
 
 - name: Create a directory if it does not exist
   ansible.builtin.file:

@@ -515,7 +515,54 @@ source .venv/bin/activate
 # -f : file to write logs to
 # -u : config file for UE
 # -g : config file for GNB
-src/app.py -t 20 -i 0 -n 1 -f /tmp/core-tg -u src/config/oai-cn5g-ue.yaml -g src/config/oai-cn5g-gnb.yaml
+python3 src/app.py -t 20 -i 0 -n 1 -f /tmp/core-tg -u src/config/oai-cn5g-ue.yaml -g src/config/oai-cn5g-gnb.yaml
+```
+Based on the logs you can check if the traffic is flowing and there has been registration.
+1. Check the OAI logs for each service `docker compose -f docker-compose-basic-nrf-1.yaml logs --tail 100`
+2. Check the logs from the traffic generator `cat /tmp/core-tg/core-tg.log`
+
+**Set up bcc tools to collect system performance results**
+
+We will install bcc from source because we want to print the results in json format for easier visualisation. We raised a PR for this to be part of the bcc project [here](), but it's not yet merged, still under consideration. The source is a fork repo.
+
+To install we are going to use an ansible role. One downside of the ansisble ad-hoc cli commands that we are using is they don't have access to the ansible_facts which the role. A workaround is to cache them and then use them in the next command. This is recommanded on a comment on [this](https://stackoverflow.com/questions/38350674/ansible-can-i-execute-role-from-command-line#) thread. 
+
+```bash
+# Cache the ansible_facts
+ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache \
+ansible all -i '172.24.4.3,' -u ubuntu -m setup
+
+# Run the ansible role for OAI. Replace 172.24.4.3 with the IP of the OAI VM
+ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache \
+ansible all -i '172.24.4.3,' -u ubuntu -m include_role --args "name=olan_bcc" -e user=ubuntu
 ```
 
+**Set up bpftrace to collect system performance results**
 
+We will build from source because the version of bpftrace on ubuntu packages doesn't allow printing of output in json format. Json output format is important for graphing the results.
+
+We will use an ansible role for this.
+
+**Copy bash script to collect results partitioned by variables**
+
+```bash
+# Copy tools file
+ansible all -i '172.24.4.3,' -u ubuntu -m ansible.builtin.copy -a "src=files/tools dest=/home/ubuntu"
+
+# Make main script executable
+ansible all -i '172.24.4.3,' -u ubuntu -m ansible.builtin.file -a "dest=/home/ubuntu/tools/main.sh mode=a+x"
+```
+
+**Start collecting results**
+
+```bash
+# Create results folder
+mkdir .results
+
+# Start Core Network and Traffic generator
+ansible all -i inventory.ini -u ubuntu -m include_tasks -a file=plays/oai.yml \
+    -e user=ubuntu -e duration=20 -e aduration=35 -e interval=0 \
+    -e tool=syscount -e ues=50
+
+```
+## Colle

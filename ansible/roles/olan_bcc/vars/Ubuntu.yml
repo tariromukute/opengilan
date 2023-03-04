@@ -7,12 +7,12 @@ bcc_build_packages:
   - libelf-dev
   - zlib1g-dev
   - libfl-dev
-  - llvm-7-dev
-  - libclang-7-dev
+  - llvm-12-dev
+  - libclang-12-dev
   - python
   - python3-distutils
   - build-essential
-  - libllvm7
+  - libllvm12
   - luajit
   - libluajit-5.1-dev
   - iperf3

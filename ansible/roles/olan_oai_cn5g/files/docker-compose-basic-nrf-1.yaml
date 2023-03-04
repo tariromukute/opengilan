@@ -216,6 +216,7 @@ services:
             - UDM_FQDN=oai-udm
             - INT_ALGO_LIST=["NIA1"]
             - CIPH_ALGO_LIST=["NEA1"]
+        command: "/openair-amf/bin/oai_amf -c /openair-amf/etc/amf.conf"
         depends_on:
             - mysql
             - oai-nrf
