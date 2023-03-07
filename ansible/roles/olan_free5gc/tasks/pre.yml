@@ -108,7 +108,7 @@
   register: func_result
   environment: 
     PATH: /sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin
-    GOPATH: /home/{{ user }}/go
+    GOPATH: '{{ ansible_user_dir }}/go'
 
 - name: check result
   debug:

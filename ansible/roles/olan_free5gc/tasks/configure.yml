@@ -1,46 +1,43 @@
 # Set up the config files (Optionally copy from files/)
-- name: check result
-  debug:
-    var: "{{ eth1_gw }}"
 
 - name: Copy file with owner and permissions
   ansible.builtin.copy:
     src: "{{ role_path }}/files/amfcfg.yaml"
-    dest: /home/{{ user }}/free5gc/config/
+    dest: "{{ ansible_user_dir }}/free5gc/config/"
 
 - name: Copy file with owner and permissions
   ansible.builtin.copy:
     src: "{{ role_path }}/files/smfcfg.yaml"
-    dest: /home/{{ user }}/free5gc/config/
+    dest: "{{ ansible_user_dir }}/free5gc/config/"
 
 - name: Copy file with owner and permissions
   ansible.builtin.copy:
     src: "{{ role_path }}/files/upfcfg.yaml"
-    dest: /home/{{ user }}/free5gc/config/
+    dest: "{{ ansible_user_dir }}/free5gc/config/"
 
 - name: "change ~/free5gc/config/amfcfg.yaml"
   become_user: root
   replace: 
-    path: /home/{{ user }}/free5gc/config/amfcfg.yaml
+    path: "{{ ansible_user_dir }}/free5gc/config/amfcfg.yaml"
     regexp: '__NGAP_IP_LIST__'
-    replace: '{{ eth1_gw }}'
+    replace: '{{ ansible_default_ipv4.address }}'
     backup: yes
   become: yes
 
 - name: "change ~/free5gc/config/smfcfg.yaml"
   become_user: root
   replace: 
-    path: /home/{{ user }}/free5gc/config/smfcfg.yaml
+    path: "{{ ansible_user_dir }}/free5gc/config/smfcfg.yaml"
     regexp: '__N3_IP__'
-    replace: '{{ eth1_gw }}'
+    replace: '{{ ansible_default_ipv4.address }}'
     backup: yes
   become: yes
 
 - name: "change ~/free5gc/config/upfcfg.yaml"
   become_user: root
   replace: 
-    path: /home/{{ user }}/free5gc/config/upfcfg.yaml
+    path: "{{ ansible_user_dir }}/free5gc/config/upfcfg.yaml"
     regexp: '__N3_IP_LIST__'
-    replace: '{{ eth1_gw }}'
+    replace: '{{ ansible_default_ipv4.address }}'
     backup: yes
   become: yes

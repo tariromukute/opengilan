@@ -82,12 +82,12 @@
 
 - name: Install webconsole
   community.general.make:
-    chdir: /home/{{ user }}/free5gc
+    chdir: '{{ ansible_user_dir }}/free5gc'
     target: webconsole
   ignore_errors: yes
   environment: 
     PATH: /sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin
-    GOPATH: /home/{{ user }}/go
+    GOPATH: '{{ ansible_user_dir }}/go'
 
 - name: Copy file with owner and permissions
   ansible.builtin.copy:

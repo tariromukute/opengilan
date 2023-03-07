@@ -424,8 +424,6 @@ To set up OAI you can follow the instruction on the offical site. Created an ans
 
 # Run the ansible role for OAI. Replace 172.24.4.3 with the IP of the OAI VM
 ansible all -i '172.24.4.3,' -u ubuntu -m include_role --args "name=olan_oai_cn5g" -e docker_username=<username> -e docker_password=<password> -e user=ubuntu
-
-# one caveat is that ad-hoc cli commands don't have access to the ansible_facts which the role might need. To work around it, you can use caching: ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache ansible -m setup yourHostname and then ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache ansible -m include_role 
 ```
 
 **Set up running the commands from OAI repo**
@@ -563,6 +561,79 @@ mkdir .results
 ansible all -i inventory.ini -u ubuntu -m include_tasks -a file=plays/oai.yml \
     -e user=ubuntu -e duration=20 -e aduration=35 -e interval=0 \
     -e tool=syscount -e ues=50
+```
+
+Visualise the results by running the notebook under the notebooks folder.
+
+## Collect results for free5gc
+
+### Set up the UE VM
+
+If you haven't set this up from the previous expriment, run the commands below to set up the testbed.
+
+```bash
+sudo apt update
+git clone https://github.com/tariromukute/core-tg.git
+cd core-tg/
+git submodule init
+git submodule update
+
+sudo apt-get install python3-dev
+sudo apt install python3.8-venv
+python3 -m venv .venv
+source .venv/bin/activate
+
+pip install pycrate
+pip install pysctp
+
+pip install cryptography
+
+sudo apt-get install build-essential
+
+cd CryptoMobile && python3 setup.py install
+
+pip install pyyaml
 
 ```
-## Colle
+
+### Set up Free5gc VM
+
+**Create servers for testing (Documented instructions from [here](https://docs.openstack.org/networking-ovn/latest/contributor/testing.html))**
+
+```bash
+# Get net id for private network
+PRIVATE_NET_ID=$(openstack network show private -c id -f value)
+
+# Create server (core network)
+openstack server create --flavor m2.medium \
+    --image 20.04 \
+    --key-name  stack \
+    --nic net-id=${PRIVATE_NET_ID} \
+    <server-name>
+
+openstack floating ip create --project demo --subnet public-subnet public
+
+openstack server add floating ip <server-name> <float-ip>
+# Confirm
+openstack server list
+
+# Test ping
+ping -c 4 <ip-address>
+
+# Confirm SSH into instance
+ssh ubuntu@<float-ip>
+```
+
+**Install Free5gc**
+
+```bash
+# Firstly install ansible
+
+# Cache the ansible_facts
+ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache \
+ansible all -i '172.24.4.223,' -u ubuntu -m setup
+
+# Run the ansible role for OAI. Replace 172.24.4.3 with the IP of the OAI VM
+ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache \
+ansible all -i '172.24.4.223,' -u ubuntu -m include_role --args "name=olan_free5gc" -e user=ubuntu
+```

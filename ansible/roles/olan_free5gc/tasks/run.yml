@@ -1,13 +1,13 @@
 - name: Copy file with owner and permissions
   ansible.builtin.copy:
     src: "{{ role_path }}/files/dump"
-    dest: /home/{{ user }}/free5gc/dump
+    dest: '{{ ansible_user_dir }}/free5gc/dump'
   become: yes
 
 - name: Run mongorestore
   ansible.builtin.command: mongorestore
   args:
-    chdir: /home/{{ user }}/free5gc/dump
+    chdir: '{{ ansible_user_dir }}/free5gc/dump'
 
 - name: Copy file with owner and permissions
   ansible.builtin.copy:
