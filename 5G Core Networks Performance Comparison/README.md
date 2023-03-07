@@ -1,245 +1,27 @@
-# OAI Installation
+# Performance study of Open Source 5G Core networks
 
-## The file documents how to set up oai-cn5g on Ubuntu 20.04 virtual machine
+This gives a tutorial on the performance study of open source 5g networks. We use this 5G traffic generator to generate and perform registration procedures for multiple UEs. We will use [bcc tools](https://github.com/iovisor/bcc) and [bpftrace tools](https://github.com/iovisor/bpftrace) to do a granular performance analysis of the underlying resources whilst load testing the 5G core networks.
 
-- Install dependencies `apt-transport-https ca-certificates curl software-properties-common python3-pip virtualenv python3-setuptools`
-- Add apt keys `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
-- Add repository `sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"`
-- Update cache `apt-cache policy docker-ce`
-- Install docker `sudo apt install docker-ce`
-- Install docker compose plugin `sudo apt install docker-compose-plugin`
-- Add docker group `sudo usermod -aG docker ${USER}`
-- End session and start a new one for group changes to take effect. `exit`, then ssh  back in
-- Login to docker `docker login`
-- Pull the following images
+We look at the following 5G core networks
+1. [Open Air Interface - 5G CORE NETWORK](https://openairinterface.org/oai-5g-core-network-project/)
+2. [free5gc](https://www.free5gc.org/)
+3. [Open5gs](https://open5gs.org/)
 
+In the study we configure the 5G core networks to use a single and the same ciphering and encryption NIA1 and NEA1.
 
-```bash
-docker pull ubuntu:bionic
-docker pull mysql:5.7
-```
+We set up the environment on openstack. In our case we install openstack locally on our workstation. We then set up the traffic generator and the core networks on VM on openstack and configure for communication. To make it easier to set up and run the performance analysis we make use of [Ansible](https://www.ansible.com/). Ansible helps in making the study easy to reproduce and the results easier to collect. We author the ansible roles and plays necessary for this study on [this](https://github.com/tariromukute/opengilan) repository.
 
-*** To run OAI in debug mode pull the images from docker, else skip to manually building the images ***
-```bash
-# OAI images
-docker pull oaisoftwarealliance/oai-amf:v1.4.0
-docker pull oaisoftwarealliance/oai-nrf:v1.4.0
-docker pull oaisoftwarealliance/oai-spgwu-tiny:v1.4.0
-docker pull oaisoftwarealliance/oai-smf:v1.4.0
-docker pull oaisoftwarealliance/oai-udr:v1.4.0
-docker pull oaisoftwarealliance/oai-udm:v1.4.0
-docker pull oaisoftwarealliance/oai-ausf:v1.4.0
-docker pull oaisoftwarealliance/oai-upf-vpp:v1.4.0
-docker pull oaisoftwarealliance/oai-nssf:v1.4.0
-# Utility image to generate traffic
-docker pull oaisoftwarealliance/trf-gen-cn5g:latest
+This study will:
+1. [Install and set up openstack on a workstation](#install-and-set-up-openstack-on-a-workstation)
+2. [Set up and install the traffic generator on a VM on openstack](#set-up-and-install-the-traffic-generator-on-a-vm-on-openstack)
+3. [Detail how to set up performance analysis tools](#how-to-set-up-performance-analysis-tools)
+3. [Install, set up OAI CN and collect performance analysis logs](#install-set-up-oai-cn-and-collect-performance-analysis-logs)
+4. [Install, set up free5gc and collect performance analysis logs](#install-set-up-free5gc-and-collect-performance-analysis-logs)
+5. [Install, set up Open5gs and collect performance analysis logs](#install-set-up-open5gs-and-collect-performance-analysis-logs)
 
-# Re tag images
-docker image tag oaisoftwarealliance/oai-amf:v1.4.0 oai-amf:v1.4.0
-docker image tag oaisoftwarealliance/oai-nrf:v1.4.0 oai-nrf:v1.4.0
-docker image tag oaisoftwarealliance/oai-smf:v1.4.0 oai-smf:v1.4.0
-docker image tag oaisoftwarealliance/oai-spgwu-tiny:v1.4.0 oai-spgwu-tiny:v1.4.0
-docker image tag oaisoftwarealliance/oai-udr:v1.4.0 oai-udr:v1.4.0
-docker image tag oaisoftwarealliance/oai-udm:v1.4.0 oai-udm:v1.4.0
-docker image tag oaisoftwarealliance/oai-ausf:v1.4.0 oai-ausf:v1.4.0
-docker image tag oaisoftwarealliance/oai-upf-vpp:v1.4.0 oai-upf-vpp:v1.4.0
-docker image tag oaisoftwarealliance/oai-nssf:v1.4.0 oai-nssf:v1.4.0
-docker image tag oaisoftwarealliance/trf-gen-cn5g:latest trf-gen-cn5g:latest
+## Install and set up openstack on a workstation
 
-```
-
-```bash
-# Clone directly on the latest release tag
-git clone --branch v1.4.0 https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed.git
-cd oai-cn5g-fed
-# If you forgot to clone directly to the latest release tag
-git checkout -f v1.4.0
-
-
-# Synchronize all git submodules
-./scripts/syncComponents.sh 
-
-```
-
-## Reducing the logs for the file
-
-Although the documentation (at the time of writing) states that the network functions produce info level logs see [docs](https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed/-/blob/master/docs/DEBUG_5G_CORE.md#1-building-images-in-debug-mode). The docker containers from oaisoftwarealliance tags v1.4.0 and v1.5.0 produce debug logs. When doing load testing this affects the performance of the core network. To produce info logs going to build the images from source. See below. 
-
-```bash
-# Build AMF
-cd ~/
-
-docker build --target oai-amf --tag tariromukute/oai-amf:v1.4.0 \
-               --file component/oai-amf/docker/Dockerfile.amf.ubuntu \
-               --build-arg BASE_IMAGE=ubuntu:bionic \
-               component/oai-amf
-docker image push tariromukute/oai-amf:v1.4.0
-docker image tag tariromukute/oai-amf:v1.4.0 oai-amf:v1.4.0
-
-# Build SMF
-docker build --target oai-smf --tag tariromukute/oai-smf:v1.4.0 \
-               --file component/oai-smf/docker/Dockerfile.smf.ubuntu \
-               --build-arg BASE_IMAGE=ubuntu:bionic \
-               component/oai-smf
-docker image push tariromukute/oai-smf:v1.4.0
-docker image tag tariromukute/oai-smf:v1.4.0 oai-smf:v1.4.0
-
-# Build NRF
-docker build --target oai-nrf --tag tariromukute/oai-nrf:v1.4.0 \
-               --file component/oai-nrf/docker/Dockerfile.nrf.ubuntu \
-               --build-arg BASE_IMAGE=ubuntu:jammy \
-               component/oai-nrf
-docker image push tariromukute/oai-nrf:v1.4.0
-docker image tag tariromukute/oai-nrf:v1.4.0 oai-nrf:v1.4.0
-
-# Build SPGW-U
-docker build --target oai-spgwu-tiny --tag tariromukute/oai-spgwu-tiny:v1.4.0 \
-               --file component/oai-upf-equivalent/docker/Dockerfile.ubuntu \
-               --build-arg BASE_IMAGE=ubuntu:20.04 \
-               component/oai-upf-equivalent
-docker image push tariromukute/oai-spgwu-tiny:v1.4.0
-docker image tag tariromukute/oai-spgwu-tiny:v1.4.0 oai-spgwu-tiny:v1.4.0
-
-# Build ausf (failed)
-docker build --target oai-ausf --tag tariromukute/oai-ausf:v1.4.0 \
-               --file component/oai-ausf/docker/Dockerfile.ausf.ubuntu \
-               component/oai-ausf
-docker image push tariromukute/oai-ausf:v1.4.0
-docker image tag tariromukute/oai-ausf:v1.4.0 oai-ausf:v1.4.0
-
-# Build UDM
-docker build --target oai-udm --tag tariromukute/oai-udm:v1.4.0 \
-               --file component/oai-udm/docker/Dockerfile.udm.ubuntu \
-               component/oai-udm
-docker image push tariromukute/oai-udm:v1.4.0
-docker image tag tariromukute/oai-udm:v1.4.0 oai-udm:v1.4.0
-
-# Build UDR (failed)
-docker build --target oai-udr --tag tariromukute/oai-udr:v1.4.0 \
-               --file component/oai-udr/docker/Dockerfile.udr.ubuntu \
-               component/oai-udr
-docker image push tariromukute/oai-udr:v1.4.0
-docker image tag tariromukute/oai-udr:v1.4.0 oai-udr:v1.4.0
-
-# Build VPP (skipped)
-docker build --target oai-upf-vpp --tag tariromukute/oai-upf-vpp:v1.4.0 \
-               --file component/oai-upf-vpp/docker/Dockerfile.upf-vpp.ubuntu \
-               component/oai-upf-vpp
-docker image push tariromukute/oai-upf-vpp:v1.4.0
-docker image tag tariromukute/oai-upf-vpp:v1.4.0 oai-upf-vpp:v1.4.0
-
-# Build NSSF
-docker build --target oai-nssf --tag tariromukute/oai-nssf:v1.4.0 \
-               --file component/oai-nssf/docker/Dockerfile.nssf.ubuntu \
-               component/oai-nssf
-docker image push tariromukute/oai-nssf:v1.4.0
-docker image tag tariromukute/oai-nssf:v1.4.0 oai-nssf:v1.4.0
-```
-
-```bash
-sudo sysctl net.ipv4.conf.all.forwarding=1
-sudo iptables -P FORWARD ACCEPT
-```
-
-### Install UERANSIM on another VM
-
-```bash
-ip route add 48.0.0.0/16 via 192.168.222.222
-
-# On terminal 1
-build/nr-gnb -c config/oai-cn5g-gnb.yaml
-
-# On terminal 2
-sudo build/nr-ue -c config/oai-cn5g-ue.yaml
-
-# Or run multiple processes
-seq 208950000000031 10 208950000000111 | parallel -I{} sudo timeout 10 build/nr-ue -c config/oai-cn5g-ue.yaml -i imsi-{} -n 10
-
-# On terminal 3
-ping -I uesimtun0 google.com
-
-sudo tcpdump -i ens3 host <ueransim-ip> -A -w ueransim.pcap
-
-# On OAI
-scp -i /home/tariro/snap/microstack/common/.ssh/id_microstack ubuntu@10.20.20.112:/home/ubuntu/ueransim.pcap ./tmp
-```
-
-## Setting up local openstack cloud (testbed)
-
-There are two options for setting up the local cloud (testbed), [using Microstack](#using-microstack) snd [using Devstack](#using-devstack). Microstack worked fine for a start but there we couple of issues I had to workaround. You can see this under the [Microstack Gotchas](#microstack-gotchas) section. One of the issues ended up reoccuring and could resolve it so had to switch to Devstack. It is possible that one might not face the issue on their environment.
-
-### Using Microstack
-
-**Install microstack**
-
-```bash
-sudo snap install microstack --devmode --edge
-
-sudo microstack init --auto --control
-
-# Get Open stack credentials
-sudo snap get microstack config.credentials.keystone-password
-
-# Confirm: Login on https://10.20.20.1 with above password
-```
-
-**Set up rules to enable networking**
-
-```bash
-
-# Enable microstack VM to access the internet
-sudo iptables -t nat -A POSTROUTING -s 10.20.20.1/24 ! -d 10.20.20.1/24 -j MASQUERADE
-sudo sysctl -w net.ipv4.ip_forward=1
-
-# If you have docker rules
-sudo iptables -I FORWARD -d 10.20.20.1/24 -j ACCEPT
-sudo iptables -I FORWARD -s 10.20.20.1/24 -j ACCEPT
-```
-
-**Download and create images**
-
-```bash
-# Downloan and create Ubuntu image
-wget https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
-
-# Copy image to a folder microstack has access to avoid permission issues
-sudo cp focal-server-cloudimg-amd64.img /var/snap/microstack/common/images/
-
-# Create Ubuntu image
-microstack.openstack image create \
-    --container-format bare \
-    --disk-format qcow2 \
-    --min-disk 8 --min-ram 512 \
-    --file focal-server-cloudimg-amd64.img \
-    --public 20.04
-
-# Create flavor
-microstack.openstack flavor create --public m2.medium --id auto \
-    --ram 4096 --disk 50 --vcpus 2 --rxtx-factor 1
-```
-
-**Create VM on microstack**
-
-```bash
-# Launch instance
-microstack launch -f m2.medium -n oai 20.04
-```
-
-**Remove microstack**
-
-```bash
-sudo snap disable microstack
-
-sudo snap remove --purge microstack
-```
-
-#### Microstack Gotchas
-
-If you face the error `Permission denied (publickey).` disable and re-enable microstack. See thread [here](https://serverfault.com/questions/1089057/openstack-ubuntuvm-ssh-public-key-permission-denied-on-first-boot)
-
-This doesn't seem to work everytime. The details of the issue are described [here](https://askubuntu.com/questions/1321968/ubuntu-server-20-04-2-lts-hangs-after-bootup-cloud-init-1781-yyyy-mm-dd-h)
-
-### Using Devstack
+There are two options for setting up the local cloud (testbed), [using Microstack](#using-microstack) snd [using Devstack](#using-devstack). Microstack worked fine for a start but there we couple of issues I had to workaround. You can see this under the [Microstack Gotchas](#microstack-gotchas) section. One of the issues ended up reoccuring and could resolve it so had to switch to Devstack. It is possible that one might not face the issue on their environment. Based on this we recommend using Devstack for replicaing the study. Aside from the issues encountered with Microstack, with Devstack you can use the latest stable version of openstack `zed` where as Microstack will install `ussuri` (at the time of writing).
 
 **Installing devstack**
 
@@ -265,7 +47,7 @@ git checkout stable/zed
 
 Need to create credentials config file (`local.conf`) before installing the stack inside folder devstack. See example below.
 
-`Note: putting HOST_IP=0.0.0.0 will ensure that openstack doesn't bind to you network interface IP address. This is helpful when you are on WIFI and you IP is dynamically allocated or changes depending on the network`
+> Note: putting HOST_IP=0.0.0.0 will ensure that openstack doesn't bind to you network interface IP address. This is helpful when you are on WIFI and you IP is dynamically allocated or changes depending on the network
 
 ```
 [[local|localrc]]
@@ -276,7 +58,7 @@ SERVICE_PASSWORD=$ADMIN_PASSWORD
 HOST_IP=0.0.0.0
 ```
 
-`Note: When installing on ubuntu 22.04 got an error of repository/PPA does not have a Release file for some of the packages. Implemented the workaround from [here](https://github.com/unetbootin/unetbootin/issues/305), which is to use PPA release files for ubuntu 20.04.`
+> Note: When installing on ubuntu 22.04 got an error of repository/PPA does not have a Release file for some of the packages. Implemented the workaround from [here](https://github.com/unetbootin/unetbootin/issues/305), which is to use PPA release files for ubuntu 20.04.
 
 ```bash
 # Change PPA configuration
@@ -402,13 +184,85 @@ ssh ubuntu@<float-ip>
 ./unstack.sh
 ```
 
-## Setting up testbed
+#### Microstack Gotchas
 
-From the above instruction you should create a VM for the OAI (oai) and for the traffic generator (ue).
+> Encountered a recurring error `Permission denied (publickey)`. Initially disabling and re-enabling microstack worked. See thread [here](https://serverfault.com/questions/1089057/openstack-ubuntuvm-ssh-public-key-permission-denied-on-first-boot). However this doesn't seem to work everytime. It ended up disrupting the study. The details of the issue are described [here](https://askubuntu.com/questions/1321968/ubuntu-server-20-04-2-lts-hangs-after-bootup-cloud-init-1781-yyyy-mm-dd-h)
 
-### Set up the OAI VM
+> Microstack during installation binds to the IP address of the primary interface. When restarting the workstation sometimes microstack would become unavailable. You are able to get the login page but ultimately you can't see the dashboard. Running `sudo snap logs microstack` showed one of the error to be `Can't connect to MySQL server on '192.168.100.11' ([Errno 113] No route to host`. In general all the error logs had to do with connection. Turns out that microstack hardcoded the external ip address during installation. On an laptop environment, a laptop using wifi and dynamic ip allocation, the external ip address changes on reboot. This is bug is also discussed on [here](https://bugs.launchpad.net/microstack/+bug/1942741). The resolution was to set the wifi interface to a static ip address. I after this I had to reboot my machine, disable then enable microstack. Maybe one of those steps might not be necessary. These steps resolved my issue.
 
-We can set up OAI by running the steps from the offical site. However, created an ansible role that can set up OAI. The ansible role should make it easier. Below are the details of the two options.
+## How to set up performance analysis tools
+
+To set up the tools you will need to create a VM to run them on. In this study you will need to set up the tools on the VMs for the core networks. The section is to be referenced after setting up the VMs.
+
+### Set up bcc tools to collect system performance results
+
+We will install bcc from source because we want to print the results in json format for easier visualisation. We raised a PR for this to be part of the bcc project [here](), but it's not yet merged, still under consideration. The source is a fork repo.
+
+To install we are going to use an ansible role. One downside of the ansisble ad-hoc cli commands that we are using is they don't have access to the ansible_facts which the role. A workaround is to cache them and then use them in the next command. This is recommanded on a comment on [this](https://stackoverflow.com/questions/38350674/ansible-can-i-execute-role-from-command-line#) thread. 
+
+```bash
+# Cache the ansible_facts
+ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache \
+ansible all -i '172.24.4.3,' -u ubuntu -m setup
+
+# Run the ansible role for OAI. Replace 172.24.4.3 with the IP of the OAI VM
+ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache \
+ansible all -i '172.24.4.3,' -u ubuntu -m include_role --args "name=olan_bcc" -e user=ubuntu
+```
+
+### Set up bpftrace to collect system performance results
+
+We will build from source because the version of bpftrace on ubuntu packages doesn't allow printing of output in json format. Json output format is important for graphing the results.
+
+We will use an ansible role for this.
+
+### Copy bash script to collect results partitioned by variables
+
+```bash
+# Copy tools file
+ansible all -i '172.24.4.3,' -u ubuntu -m ansible.builtin.copy -a "src=files/tools dest=/home/ubuntu"
+
+# Make main script executable
+ansible all -i '172.24.4.3,' -u ubuntu -m ansible.builtin.file -a "dest=/home/ubuntu/tools/main.sh mode=a+x"
+```
+
+## Set up and install the traffic generator on a VM on openstack
+
+Start by creating a VM for the traffic generator as detailed in the [earlier section](#install-and-set-up-openstack-on-a-workstation). Now ssh into the VM and run the commands below.
+
+```bash
+sudo apt update
+
+# Download the traffic generator
+git clone https://github.com/tariromukute/core-tg.git
+
+# Install dependecies
+cd core-tg/
+git submodule init
+git submodule update
+
+sudo apt-get install python3-dev
+sudo apt-get install build-essential
+sudo apt install python3.8-venv
+
+# Create virtual environment for the app and install requirements
+python3 -m venv .venv
+source .venv/bin/activate
+
+pip install pycrate
+pip install pysctp
+pip install cryptography
+pip install pyyaml
+
+# Set up the CryptoMobile module
+cd CryptoMobile && python3 setup.py install
+```
+
+## Install, set up OAI CN and collect performance analysis logs
+
+We can set up OAI by running the steps from the [GitLab repository](https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed/-/blob/master/docs/DEPLOY_HOME.md). However, created an ansible role that can set up OAI. The ansible role should make it easier. If you prefere you can create the VM and install following the instructions from OAI repository.
+
+Create a VM for OAI as describe under in [previous section](#install-and-set-up-openstack-on-a-workstation)
 
 **Set up using an ansible role**
 
@@ -417,7 +271,7 @@ To set up OAI you can follow the instruction on the offical site. Created an ans
 2. Pulls and runs the OAI docker images
 3. Sets up the networking rules to allow traffic forward on VM to the docker containers
 4. Add an sql dump to initialise OAI with UEs for testing 208950000000031 - 208950000100031
-5. Copies docker-compose file to run OAI on network 48.0.0.0/16. This is for NRF.
+5. Copies docker-compose file to run OAI on network 48.0.0.0/16.
 
 ```bash
 # Firstly install ansible
@@ -426,16 +280,14 @@ To set up OAI you can follow the instruction on the offical site. Created an ans
 ansible all -i '172.24.4.3,' -u ubuntu -m include_role --args "name=olan_oai_cn5g" -e docker_username=<username> -e docker_password=<password> -e user=ubuntu
 ```
 
-**Set up running the commands from OAI repo**
-
 **Set up connection between OAI and 5G traffic generator**
 
-`Note: on Microstack use microstack.openstack`
+On the OAI VM
 
 ```bash
 router="router1"
 oai_ip="10.0.0.47" # from private subnet
-oai_port_id="d97cbf58-a17f-492f-a568-6a01ab4e769d"
+oai_port_id="d97cbf58-a17f-492f-a568-6a01ab4e769d" # run 'openstack port list' and check for the port with ip above
 
 # (1) Add a static route to the Router (with 48.0.0.0/16 in our case - the subnet of the OAI docker container in docker compose)
 openstack router set ${router} \
@@ -445,52 +297,12 @@ openstack router set ${router} \
 openstack port set ${oai_port_id} --allowed-address ip-address=48.0.0.0/16
 ```
 
-#### OAI Gotchas
-
-- Tried running the OAI on Ubuntu 20.04 VM on microstack. The oai-amf container failed with socket error. Realised that this was due to the SCTP module missing on the kernel `lsmod | grep sctp`. I tried locating the module with `modinfo sctp` but it was not found. I ran `sudo apt install linux-generic` to get the extra modules. I could now find the module and tried loading with `insmod <path_to_module>`. This failed. Turns out I was using the `focal-server-cloudimg-amd64-disk-kvm.img` as recommended or pointed to on one of the Microstack blogs. I switched to creating a VM from image `focal-server-cloudimg-amd64.img`. This also didn't have the SCTP module load but I could find it on the system. I loaded the module `modprobe sctp` and then ran the OAI and this time it worked.
-
-- When I restarted my machine sometimes microstack would become unavailable. You are able to get the login page but ultimately you can't see the dashboard. Running `sudo snap logs microstack` showed one of the error to be `Can't connect to MySQL server on '192.168.100.11' ([Errno 113] No route to host`. In general all the error logs had to do with connection. Turns out that microstack hardcoded the external ip address during installation. On my environment, a laptop using wifi and dynamic ip allocation, the external ip address changes on reboot. This is bug is also discussed on https://bugs.launchpad.net/microstack/+bug/1942741. The resolution was to set the wifi interface to a static ip address. I after this I had to reboot my machine, disable then enable microstack. Maybe one of those steps might not be necessary. These steps resolved my issue.
-
-
-
-```
-(208950000000132, 5G_AKA, 0C0A34601D4F07677303652C0462535B, 0C0A34601D4F07677303652C0462535B,{"sqn": "000000000020", "sqnScheme": "NON_TIME_BASED", "lastIndexes": {"ausf": 0}}, 8000, milenage, 63bfa50ee6523365ff14c1f45f88737d, NULL, NULL,NULL,NULL,208950000000132);
-```
+On the traffic generator VM
 
 ```bash
-#Login to mysql container once the container is running
-(docker-compose-host)$ docker exec -it mysql /bin/bash
-(mysql-container)$ mysql -uroot -plinux -D oai_db
+# Set route for the OAI traffic. Substitute 10.0.0.89 with the private IP of the traffic generator
+ip route add 48.0.0.0/16 via 10.0.0.89
 ```
-
-### Set up the UE VM
-
-```bash
-sudo apt update
-git clone https://github.com/tariromukute/core-tg.git
-cd core-tg/
-git submodule init
-git submodule update
-
-sudo apt-get install python3-dev
-sudo apt install python3.8-venv
-python3 -m venv .venv
-source .venv/bin/activate
-
-pip install pycrate
-pip install pysctp
-
-pip install cryptography
-
-sudo apt-get install build-essential
-
-cd CryptoMobile && python3 setup.py install
-
-pip install pyyaml
-
-```
-
-### Start expriement
 
 **Start the 5G Core**
 
@@ -519,39 +331,26 @@ Based on the logs you can check if the traffic is flowing and there has been reg
 1. Check the OAI logs for each service `docker compose -f docker-compose-basic-nrf-1.yaml logs --tail 100`
 2. Check the logs from the traffic generator `cat /tmp/core-tg/core-tg.log`
 
-**Set up bcc tools to collect system performance results**
 
-We will install bcc from source because we want to print the results in json format for easier visualisation. We raised a PR for this to be part of the bcc project [here](), but it's not yet merged, still under consideration. The source is a fork repo.
+### Collect performance analysis results
 
-To install we are going to use an ansible role. One downside of the ansisble ad-hoc cli commands that we are using is they don't have access to the ansible_facts which the role. A workaround is to cache them and then use them in the next command. This is recommanded on a comment on [this](https://stackoverflow.com/questions/38350674/ansible-can-i-execute-role-from-command-line#) thread. 
+First you need to install the tools for performance analysis as explaned in [this section](#how-to-set-up-performance-analysis-tools). We will make use of an ansible play on [this repo](https://github.com/tariromukute/opengilan/blob/main/ansible/plays/oai.yml) to collect the results. The play will:
+1. Restart the core network
+2. Start the specified performance analysis tool
+3. Start the traffic generator
+4. After the specified duration pull the performance results and traffic generator logs
+5. Save the logs in the `.results folder`
 
-```bash
-# Cache the ansible_facts
-ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache \
-ansible all -i '172.24.4.3,' -u ubuntu -m setup
+Before running you will need to create an inventory file `inventory.ini` for the VMs. Paste the contents below in the file. client1 should be the ip of the traffic generator and server1 should be the ip of the core network.
 
-# Run the ansible role for OAI. Replace 172.24.4.3 with the IP of the OAI VM
-ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache \
-ansible all -i '172.24.4.3,' -u ubuntu -m include_role --args "name=olan_bcc" -e user=ubuntu
+```
+[az_trex]
+client1 ansible_host=172.24.4.49 ansible_user=ubuntu ansible_ssh_private_key_file=/opt/stack/.ssh/id_rsa
+[az_sut]
+server1 ansible_host=172.24.4.3 ansible_user=ubuntu ansible_ssh_private_key_file=/opt/stack/.ssh/id_rsa
 ```
 
-**Set up bpftrace to collect system performance results**
-
-We will build from source because the version of bpftrace on ubuntu packages doesn't allow printing of output in json format. Json output format is important for graphing the results.
-
-We will use an ansible role for this.
-
-**Copy bash script to collect results partitioned by variables**
-
-```bash
-# Copy tools file
-ansible all -i '172.24.4.3,' -u ubuntu -m ansible.builtin.copy -a "src=files/tools dest=/home/ubuntu"
-
-# Make main script executable
-ansible all -i '172.24.4.3,' -u ubuntu -m ansible.builtin.file -a "dest=/home/ubuntu/tools/main.sh mode=a+x"
-```
-
-**Start collecting results**
+Afterwards run the play to collect logs.
 
 ```bash
 # Create results folder
@@ -563,77 +362,133 @@ ansible all -i inventory.ini -u ubuntu -m include_tasks -a file=plays/oai.yml \
     -e tool=syscount -e ues=50
 ```
 
-Visualise the results by running the notebook under the notebooks folder.
+Visualise the results by using [this notebook](https://github.com/tariromukute/opengilan/blob/main/notebooks/Report%20-%205G%20Core%20Networks%20copy.ipynb) 
 
-## Collect results for free5gc
+#### OAI Gotchas
 
-### Set up the UE VM
+> Tried running the OAI on Ubuntu 20.04 VM on microstack. The oai-amf container failed with socket error. Realised that this was due to the SCTP module missing on the kernel `lsmod | grep sctp`. I tried locating the module with `modinfo sctp` but it was not found. I ran `sudo apt install linux-generic` to get the extra modules. I could now find the module and tried loading with `insmod <path_to_module>`. This failed. Turns out I was using the `focal-server-cloudimg-amd64-disk-kvm.img` as recommended or pointed to on one of the Microstack blogs. I switched to creating a VM from image `focal-server-cloudimg-amd64.img`. This also didn't have the SCTP module load but I could find it on the system. I loaded the module `modprobe sctp` and then ran the OAI and this time it worked. I assume this would be the case for all the core networks. Used the same image for the rest of the core networks.
 
-If you haven't set this up from the previous expriment, run the commands below to set up the testbed.
+> The OAI CN generates a lot of debug logs. Although the documentation (at the time of writing) states that the network functions produce info level logs see [docs](https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed/-/blob/master/docs/DEBUG_5G_CORE.md#1-building-images-in-debug-mode). The docker containers from oaisoftwarealliance tags v1.4.0 and v1.5.0 produce debug logs. When doing load testing this affects the performance of the core network.
 
-```bash
-sudo apt update
-git clone https://github.com/tariromukute/core-tg.git
-cd core-tg/
-git submodule init
-git submodule update
+## Install, set up free5gc and collect performance analysis logs
 
-sudo apt-get install python3-dev
-sudo apt install python3.8-venv
-python3 -m venv .venv
-source .venv/bin/activate
+Start by creating a VM for OAI as describe under in [previous section](#install-and-set-up-openstack-on-a-workstation)
 
-pip install pycrate
-pip install pysctp
-
-pip install cryptography
-
-sudo apt-get install build-essential
-
-cd CryptoMobile && python3 setup.py install
-
-pip install pyyaml
-
-```
-
-### Set up Free5gc VM
-
-**Create servers for testing (Documented instructions from [here](https://docs.openstack.org/networking-ovn/latest/contributor/testing.html))**
-
-```bash
-# Get net id for private network
-PRIVATE_NET_ID=$(openstack network show private -c id -f value)
-
-# Create server (core network)
-openstack server create --flavor m2.medium \
-    --image 20.04 \
-    --key-name  stack \
-    --nic net-id=${PRIVATE_NET_ID} \
-    <server-name>
-
-openstack floating ip create --project demo --subnet public-subnet public
-
-openstack server add floating ip <server-name> <float-ip>
-# Confirm
-openstack server list
-
-# Test ping
-ping -c 4 <ip-address>
-
-# Confirm SSH into instance
-ssh ubuntu@<float-ip>
-```
+We can set up freegc by following the instruction from the [free5gc repository](https://github.com/free5gc/free5gc/wiki/Installation). We created an ansible role that can set up free5gc. The ansible role should make it easier. If you prefere you can create the VM and install following the instructions from free5gc repository.
 
 **Install Free5gc**
 
 ```bash
-# Firstly install ansible
+# Run the ansible role for free5gc. Replace 172.24.4.223 with the IP of the free5gc VM
 
 # Cache the ansible_facts
 ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache \
 ansible all -i '172.24.4.223,' -u ubuntu -m setup
 
-# Run the ansible role for OAI. Replace 172.24.4.3 with the IP of the OAI VM
 ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache \
 ansible all -i '172.24.4.223,' -u ubuntu -m include_role --args "name=olan_free5gc" -e user=ubuntu
+```
+
+**Start the 5G Core**
+
+```bash
+systemctl restart free5gc
+# the anisble role creates a unit service for free5gc. If you set up from the repo, run below commands
+cd ~/free5gc
+./run.sh
+```
+
+**Start the 5G core traffic generator**
+
+You will need to update the ip address in the files `src/config/free5gc-ue.yaml` and  `src/config/free5gc-gnb.yaml` on the core network VM.
+
+```bash
+cd ~/core-tg/
+source .venv/bin/activate
+
+# -t : duration of the traffic generator should run for>
+# -n : number of UE to register, starting with the UE is IMSI in the ai-cn5g-ue.yaml
+# -f : file to write logs to
+# -u : config file for UE
+# -g : config file for GNB
+python3 src/app.py -t 20 -i 0 -n 1 -f /tmp/core-tg -u src/config/free5gc-ue.yaml -g src/config/free5gc-gnb.yaml
+```
+Based on the logs you can check if the traffic is flowing and there has been registration.
+1. Check the OAI logs for each service `journalctl -u free5gc -n 200`
+2. Check the logs from the traffic generator `cat /tmp/core-tg/core-tg.log`
+
+**Collect performance analysis results**
+
+To setup for collection the tools follow instructions [here](#collect-performance-analysis-results), to start the collection run the commands below. Notice that we use a different play from the same repository [here](https://github.com/tariromukute/opengilan/blob/main/ansible/plays/free5gc.yml)
+
+```bash
+# Create results folder
+mkdir .results
+
+# Start Core Network and Traffic generator
+ansible all -i inventory.ini -u ubuntu -m include_tasks -a file=plays/free5gc.yml \
+    -e user=ubuntu -e duration=20 -e aduration=35 -e interval=0 \
+    -e tool=syscount -e ues=50
+```
+
+Visualise the results by using [this notebook](https://github.com/tariromukute/opengilan/blob/main/notebooks/Report%20-%205G%20Core%20Networks%20copy.ipynb) 
+
+## Install, set up Open5gs and collect performance analysis logs
+
+Start by creating a VM for OAI as describe under in [previous section](#install-and-set-up-openstack-on-a-workstation)
+
+We can set up freegc by following the instruction from the [open5gs installation guide](https://open5gs.org/open5gs/docs/guide/01-quickstart/). We created an ansible role that can set up open5gs. The ansible role should make it easier. If you prefere you can create the VM and install following the instructions from open5gs installation guide.
+
+**Install Open5gs**
+
+```bash
+# Firstly install ansible
+
+# Replace 172.24.4.163 with the IP of the Open5gs VM
+# Cache the ansible_facts
+ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache \
+ansible all -i '172.24.4.163,' -u ubuntu -m setup
+
+ANSIBLE_CACHE_PLUGIN=jsonfile ANSIBLE_CACHE_PLUGIN_CONNECTION=/tmp/ansible-cache \
+ansible all -i '172.24.4.163,' -u ubuntu -m include_role --args "name=olan_open5gs" -e user=ubuntu
+```
+
+**Start the 5G Core**
+
+```bash
+# systemctl restart open5gs-* had issues because systemctl restart open5gs-dbctl was missing
+systemctl restart open5gs-amfd open5gs-upfd open5gs-scpd open5gs-nrfd open5gs-mmed open5gs-udrd open5gs-sgwud open5gs-sgwcd open5gs-ausfd open5gs-pcrfd open5gs-pcfd open5gs-bsfd open5gs-hssd open5gs-nssfd open5gs-udmd open5gs-smfd
+```
+
+**Start the 5G core traffic generator**
+
+You will need to update the ip address in the files `src/config/open5gs-ue.yaml` and  `src/config/open5gs-gnb.yaml` on the core network VM.
+
+```bash
+cd ~/core-tg/
+source .venv/bin/activate
+
+# -t : duration of the traffic generator should run for>
+# -n : number of UE to register, starting with the UE is IMSI in the ai-cn5g-ue.yaml
+# -f : file to write logs to
+# -u : config file for UE
+# -g : config file for GNB
+python3 src/app.py -t 20 -i 0 -n 1 -f /tmp/core-tg -u src/config/open5gs-ue.yaml -g src/config/open5gs-gnb.yaml
+```
+Based on the logs you can check if the traffic is flowing and there has been registration.
+1. Check the OAI logs for each service `journalctl -u open5gs-* -n 200`
+2. Check the logs from the traffic generator `cat /tmp/core-tg/core-tg.log`
+
+**Collect performance analysis results**
+
+To setup for collection the tools follow instructions [here](#collect-performance-analysis-results), to start the collection run the commands below. Notice that we use a different play from the same repository [here](https://github.com/tariromukute/opengilan/blob/main/ansible/plays/open5gs.yml)
+
+```bash
+# Create results folder
+mkdir .results
+
+# Start Core Network and Traffic generator
+ansible all -i inventory.ini -u ubuntu -m include_tasks -a file=plays/open5gs.yml \
+    -e user=ubuntu -e duration=20 -e aduration=35 -e interval=0 \
+    -e tool=syscount -e ues=50
 ```
