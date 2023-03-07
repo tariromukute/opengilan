@@ -1,8 +1,4 @@
 # Set up the config files (Optionally copy from files/)
-- name: check result
-  debug:
-    var: "{{ eth1_gw }}"
-
 - name: Copy amf.yaml file with owner and permissions
   ansible.builtin.copy:
     src: "{{ role_path }}/files/amf.yaml"
@@ -19,7 +15,7 @@
   replace: 
     path: /etc/open5gs/amf.yaml
     regexp: '__NGAP_IP__'
-    replace: '{{ eth1_gw }}'
+    replace: '{{ ansible_default_ipv4.interface }}'
     backup: yes
   become: yes
 
@@ -27,6 +23,6 @@
   replace: 
     path: /etc/open5gs/upf.yaml
     regexp: '__GTPU_IP__'
-    replace: '{{ eth1_gw }}'
+    replace: '{{ ansible_default_ipv4.interface }}'
     backup: yes
   become: yes

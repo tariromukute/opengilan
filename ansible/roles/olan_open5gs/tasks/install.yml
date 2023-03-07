@@ -45,5 +45,5 @@
 - name: download open5gs-dbctl script
   get_url:
     url: https://raw.githubusercontent.com/open5gs/open5gs/main/misc/db/open5gs-dbctl
-    dest: /home/{{ user }}/
+    dest: '{{ ansible_user_dir }}/'
     mode: 0755
