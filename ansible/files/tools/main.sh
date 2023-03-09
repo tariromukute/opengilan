@@ -14,7 +14,7 @@ function run_tool {
         tool="syscount"
         echo "Running syscount -> time spent by tasks on the CPU before being descheduled"
         mkdir -p results/tool=${tool}
-        python3 {TOOL_BASE_PATH}/syscount.py -L -j -i ${INTERVAL} -d ${DURATION} > "results/tool=${tool}/${tool}.json"
+        python3 ${TOOL_BASE_PATH}/syscount.py -L -j -i ${INTERVAL} -d ${DURATION} > "results/tool=${tool}/${tool}.json"
     fi
     if  [ "${TOOL_NAME}" = "all" ] || [ "${TOOL_NAME}" = "sysprocess" ]; then
         tool="sysprocess"
