@@ -13,9 +13,9 @@
     minutes: 2
 
 - name: Start the eBPF scripts to collect results
-  ansible.builtin.shell: ./main.sh {{ tool }} {{ duration }} 1 {{ duration }}
+  ansible.builtin.shell: python3 {{ tool_cmd }} > "results/tool={{ tool }}/{{ tool }}.json"
   args:
-    chdir: /home/{{ user }}/tools/bcc/tools
+    chdir: '{{ ansible_user_dir }}/bcc/tools'
     executable: /bin/bash
   async: "{{ aduration }}"
   poll: 0
@@ -31,7 +31,7 @@
 - name: Start 5G core traffic generator
   ansible.builtin.command:
     cmd: ./.venv/bin/python3 src/app.py -t {{ duration }} -i {{ interval }} -n {{ ues }} -f /tmp/core-tg
-    chdir: /home/{{ user }}/core-tg
+    chdir: '{{ ansible_user_dir }}/core-tg'
   when:
     - inventory_hostname in groups["az_trex"]
   register: trex_command
@@ -53,14 +53,14 @@
   ignore_errors: yes
 
 - name: Fetch stuff from the remote and save to local
-  synchronize:  src=/home/{{ user }}/tools/bcc/tools/results/ dest=.results/kpps={{ ues }} mode=pull
+  synchronize:  src='{{ ansible_user_dir }}/tools/bcc/tools/results/' dest=.results/kpps={{ ues }} mode=pull
   when:
     - inventory_hostname in groups["az_sut"]
 
 - name: Delete content & directory
   file:
     state: absent
-    path: /home/{{ user }}/tools/bcc/tools/results/
+    path: '{{ ansible_user_dir }}/bcc/tools/results/'
   become: yes
   when:
     - inventory_hostname in groups["az_sut"]
