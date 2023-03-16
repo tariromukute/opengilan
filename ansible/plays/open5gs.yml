@@ -36,7 +36,7 @@
 
 - name: Start 5G core traffic generator
   ansible.builtin.command:
-    cmd: ./.venv/bin/python3 src/app.py -t {{ duration }} -i {{ interval }} -n {{ ues }} -f /tmp/core-tg
+    cmd: ./.venv/bin/python3 src/app.py -t {{ duration }} -i {{ interval }} -n {{ ues }} -f /tmp/core-tg/{{ inventory_hostname }}
     chdir: '/home/{{ user }}/core-tg'
   when:
     - inventory_hostname in groups["az_trex"]
