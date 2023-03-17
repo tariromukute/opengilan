@@ -5,17 +5,23 @@
   when:
     - inventory_hostname in groups["az_sut"]
 
-- ansible.builtin.debug:
-    var: output
-
 - name: Wait 2 minutes for all services to be down
   ansible.builtin.pause:
     minutes: 2
 
+- name: Create folder for results on remote servers
+  file:
+    path: "/tmp/results/tool={{ tool }}/"
+    state: directory
+  become: yes
+
+- debug:
+    msg: Command is {{ tool_cmd }}
+
 - name: Start the eBPF scripts to collect results
-  ansible.builtin.shell: python3 {{ tool_cmd }} > "results/tool={{ tool }}/{{ tool }}.json"
+  ansible.builtin.shell: python3 {{ tool_cmd }} > /tmp/results/tool={{ tool }}/{{ tool }}.json
   args:
-    chdir: '{{ ansible_user_dir }}/bcc/tools'
+    chdir: '/home/{{ user }}/bcc/tools'
     executable: /bin/bash
   async: "{{ aduration }}"
   poll: 0
@@ -30,8 +36,8 @@
 
 - name: Start 5G core traffic generator
   ansible.builtin.command:
-    cmd: ./.venv/bin/python3 src/app.py -t {{ duration }} -i {{ interval }} -n {{ ues }} -f /tmp/core-tg
-    chdir: '{{ ansible_user_dir }}/core-tg'
+    cmd: ./.venv/bin/python3 src/app.py -t {{ duration }} -i {{ interval }} -n {{ ues }} -f /tmp/core-tg/{{ inventory_hostname }}
+    chdir: '/home/{{ user }}/core-tg'
   when:
     - inventory_hostname in groups["az_trex"]
   register: trex_command
@@ -52,15 +58,18 @@
   # become: yes
   ignore_errors: yes
 
+- name: Create folder for results on host machine
+  local_action:
+    module: file
+    path: ".results/kpps={{ ues }}/tool={{ tool }}"
+    state: directory
+
 - name: Fetch stuff from the remote and save to local
-  synchronize:  src='{{ ansible_user_dir }}/tools/bcc/tools/results/' dest=.results/kpps={{ ues }} mode=pull
+  synchronize:  src='/tmp/results/' dest=.results/kpps={{ ues }} mode=pull
   when:
     - inventory_hostname in groups["az_sut"]
 
-- name: Delete content & directory
-  file:
-    state: absent
-    path: '{{ ansible_user_dir }}/bcc/tools/results/'
+- file: path=/tmp/results state=absent
   become: yes
   when:
     - inventory_hostname in groups["az_sut"]
