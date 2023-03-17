@@ -126,21 +126,21 @@
 #         - [20]
 #         - [ "runqlat", "profile", "offcputime", "llcstat", "sys_enter_brk", "page_fault_user", "page_fault_kernel", "vfsstat", "vfssize", "filetop", "cachestat", "biolatency", "netsize", "nettxlat-dev", "soconnect", "skblife", "sormem", "softirqs_count", "softirqs_dist", "hardirqs", "tcpdump" ]
 
-# - hosts:
-#   - az_trex
-#   - az_sut
-#   tasks:
-#     - name: Collect results
-#       include: plays/open5gs.yml
-#       vars:
-#         user: ubuntu
-#         duration: 25
-#         aduration: 35 # duration before the app is forcefully stopped. Should include the 5 seconds wait time for gNB to set up
-#         ues: "{{ item[0] }}"
-#         tool: "{{ item[1] }}"
-#         interval: 0
-#       with_nested:
-#         - [50, 100, 150, 200, 300 ]
+- hosts:
+  - az_trex
+  - az_sut
+  tasks:
+    - name: Collect results
+      include: plays/open5gs.yml
+      vars:
+        user: ubuntu
+        duration: 25
+        aduration: 35 # duration before the app is forcefully stopped. Should include the 5 seconds wait time for gNB to set up
+        ues: "{{ item[0] }}"
+        tool: "{{ item[1] }}"
+        interval: 0
+      with_nested:
+        - [50, 100, 150, 200, 300 ]
 #         - [ "syscount", "sysprocess", "oncpudist", "offcpudist", "profile", "offcputime", "sys_enter_brk", "page_fault_user", 
 #             "page_fault_kernel", "drsnoop", "ext4dist", "filetop", "cachestat", "cachetop", "biolatency", "biotop", "bitesize",
 #             "iosched", "softirqs_count", "softirqs_dist", "hardirqs_count", "hardirqs_dist", "tcplife", "tcpconnlat", "netsize", "skblife"]
