@@ -13,9 +13,9 @@
     minutes: 1
 
 - name: Start the eBPF scripts to collect results
-  ansible.builtin.shell: ./main.sh {{ tool }} {{ duration }} 1 {{ duration }}
+  ansible.builtin.shell: python3 {{ tool_cmd }} > /tmp/results/tool={{ tool }}/{{ tool }}.json
   args:
-    chdir: /home/{{ user }}/tools/bcc/tools
+    chdir: /home/{{ user }}/bcc/tools
     executable: /bin/bash
   async: "{{ aduration }}"
   poll: 0
@@ -52,15 +52,18 @@
   # become: yes
   ignore_errors: yes
 
+- name: Create folder for results on host machine
+  local_action:
+    module: file
+    path: ".results/ues={{ ues }}/tool={{ tool }}"
+    state: directory
+
 - name: Fetch stuff from the remote and save to local
-  synchronize:  src=/home/{{ user }}/tools/bcc/tools/results/ dest=.results/kpps={{ ues }} mode=pull
+  synchronize:  src=/home/{{ user }}/tools/bcc/tools/results/ dest=.results/ues={{ ues }} mode=pull
   when:
     - inventory_hostname in groups["az_sut"]
 
-- name: Delete content & directory
-  file:
-    state: absent
-    path: /home/{{ user }}/tools/bcc/tools/results/
+- file: path=/tmp/results state=absent
   become: yes
   when:
     - inventory_hostname in groups["az_sut"]
@@ -71,12 +74,12 @@
   when:
     - inventory_hostname in groups["az_sut"]
 
-- local_action: copy content="{{ tool_command_results.stdout }}" dest=.results/kpps={{ ues }}/tool={{ tool }}/docker.log
+- local_action: copy content="{{ tool_command_results.stdout }}" dest=.results/ues={{ ues }}/tool={{ tool }}/docker.log
   when:
     - inventory_hostname in groups["az_sut"]
 
 - name: Fetch 5G Core traffic generator logs
-  synchronize:  src=/tmp/core-tg/ dest=.results/kpps={{ ues }}/tool={{ tool }} mode=pull
+  synchronize:  src=/tmp/core-tg/ dest=.results/ues={{ ues }}/tool={{ tool }} mode=pull
   when:
     - inventory_hostname in groups["az_trex"]
 
