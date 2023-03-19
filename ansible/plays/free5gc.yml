@@ -12,6 +12,12 @@
   ansible.builtin.pause:
     minutes: 1
 
+- name: Create folder for results on remote servers
+  file:
+    path: "/tmp/results/tool={{ tool }}/"
+    state: directory
+  become: yes
+
 - name: Start the eBPF scripts to collect results
   ansible.builtin.shell: python3 {{ tool_cmd }} > /tmp/results/tool={{ tool }}/{{ tool }}.json
   args:
@@ -59,7 +65,7 @@
     state: directory
 
 - name: Fetch stuff from the remote and save to local
-  synchronize:  src=/home/{{ user }}/tools/bcc/tools/results/ dest=.results/ues={{ ues }} mode=pull
+  synchronize:  src=/tmp/results/ dest=.results/ues={{ ues }} mode=pull
   when:
     - inventory_hostname in groups["az_sut"]
 
