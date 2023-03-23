@@ -45,10 +45,10 @@ configuration:
   nrfUri: http://127.0.0.10:8000 # a valid URI of NRF
   security:  # NAS security parameters
     integrityOrder: # the priority of integrity algorithms
-      - NIA2
+      - NIA1
       # - NIA0
     cipheringOrder: # the priority of ciphering algorithms
-      - NEA0
+      - NEA1
       # - NEA2
   networkName:  # the name of this core network
     full: free5GC
