@@ -70,7 +70,7 @@ Although the documentation (at the time of writing) states that the network func
 cd ~/
 
 docker build --target oai-amf --tag tariromukute/oai-amf:v1.4.0 \
-               --file component/oai-amf/docker/Dockerfile.amf.ubuntu \
+               --file component/oai-amf/docker/Dockerfile.amf.ubuntu18 \
                --build-arg BASE_IMAGE=ubuntu:bionic \
                component/oai-amf
 docker image push tariromukute/oai-amf:v1.4.0
@@ -78,7 +78,7 @@ docker image tag tariromukute/oai-amf:v1.4.0 oai-amf:v1.4.0
 
 # Build SMF
 docker build --target oai-smf --tag tariromukute/oai-smf:v1.4.0 \
-               --file component/oai-smf/docker/Dockerfile.smf.ubuntu \
+               --file component/oai-smf/docker/Dockerfile.smf.ubuntu18 \
                --build-arg BASE_IMAGE=ubuntu:bionic \
                component/oai-smf
 docker image push tariromukute/oai-smf:v1.4.0
@@ -86,37 +86,39 @@ docker image tag tariromukute/oai-smf:v1.4.0 oai-smf:v1.4.0
 
 # Build NRF
 docker build --target oai-nrf --tag tariromukute/oai-nrf:v1.4.0 \
-               --file component/oai-nrf/docker/Dockerfile.nrf.ubuntu \
-               --build-arg BASE_IMAGE=ubuntu:jammy \
+               --file component/oai-nrf/docker/Dockerfile.nrf.ubuntu18 \
+               --build-arg BASE_IMAGE=ubuntu:bionic \
                component/oai-nrf
 docker image push tariromukute/oai-nrf:v1.4.0
 docker image tag tariromukute/oai-nrf:v1.4.0 oai-nrf:v1.4.0
 
 # Build SPGW-U
 docker build --target oai-spgwu-tiny --tag tariromukute/oai-spgwu-tiny:v1.4.0 \
-               --file component/oai-upf-equivalent/docker/Dockerfile.ubuntu \
-               --build-arg BASE_IMAGE=ubuntu:20.04 \
+               --file component/oai-upf-equivalent/docker/Dockerfile.ubuntu18.04 \
+               --build-arg BASE_IMAGE=ubuntu:bionic \
                component/oai-upf-equivalent
 docker image push tariromukute/oai-spgwu-tiny:v1.4.0
 docker image tag tariromukute/oai-spgwu-tiny:v1.4.0 oai-spgwu-tiny:v1.4.0
 
 # Build ausf (failed)
 docker build --target oai-ausf --tag tariromukute/oai-ausf:v1.4.0 \
-               --file component/oai-ausf/docker/Dockerfile.ausf.ubuntu \
+               --file component/oai-ausf/docker/Dockerfile.ausf.ubuntu18 \
+               --build-arg BASE_IMAGE=ubuntu:bionic \
                component/oai-ausf
 docker image push tariromukute/oai-ausf:v1.4.0
 docker image tag tariromukute/oai-ausf:v1.4.0 oai-ausf:v1.4.0
 
 # Build UDM
 docker build --target oai-udm --tag tariromukute/oai-udm:v1.4.0 \
-               --file component/oai-udm/docker/Dockerfile.udm.ubuntu \
+               --file component/oai-udm/docker/Dockerfile.udm.ubuntu18 \
+               --build-arg BASE_IMAGE=ubuntu:bionic \
                component/oai-udm
 docker image push tariromukute/oai-udm:v1.4.0
 docker image tag tariromukute/oai-udm:v1.4.0 oai-udm:v1.4.0
 
-# Build UDR (failed)
+# Build UDR
 docker build --target oai-udr --tag tariromukute/oai-udr:v1.4.0 \
-               --file component/oai-udr/docker/Dockerfile.udr.ubuntu \
+               --file component/oai-udr/docker/Dockerfile.udr.ubuntu18 \
                component/oai-udr
 docker image push tariromukute/oai-udr:v1.4.0
 docker image tag tariromukute/oai-udr:v1.4.0 oai-udr:v1.4.0
@@ -130,7 +132,8 @@ docker image tag tariromukute/oai-upf-vpp:v1.4.0 oai-upf-vpp:v1.4.0
 
 # Build NSSF
 docker build --target oai-nssf --tag tariromukute/oai-nssf:v1.4.0 \
-               --file component/oai-nssf/docker/Dockerfile.nssf.ubuntu \
+               --file component/oai-nssf/docker/Dockerfile.nssf.ubuntu18 \
+               --build-arg BASE_IMAGE=ubuntu:bionic \
                component/oai-nssf
 docker image push tariromukute/oai-nssf:v1.4.0
 docker image tag tariromukute/oai-nssf:v1.4.0 oai-nssf:v1.4.0

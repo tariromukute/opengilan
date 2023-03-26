@@ -32,12 +32,12 @@
   ansible.builtin.command: systemctl stop ufw
   become: yes
 
-- name: Clone the free5GC repository and checkout to v3.2.0
+- name: Clone the free5GC repository and checkout to v3.2.1
   ansible.builtin.git:
     repo: 'https://github.com/free5gc/free5gc'
     dest: '{{ ansible_user_dir }}/free5gc'
     force: true
-    version: v3.2.0
+    version: v3.2.1
 
 - name: Run make on free5GC
   ansible.builtin.command: make
@@ -47,11 +47,11 @@
     PATH: /sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin
     GOPATH: '{{ ansible_user_dir }}/go'
 
-- name: Retrieve the 5G GTP-U kernel module and checkout to v0.6.2
+- name: Retrieve the 5G GTP-U kernel module and checkout to v0.6.8
   ansible.builtin.git:
     repo: 'https://github.com/free5gc/gtp5g'
     dest: '{{ ansible_user_dir }}/free5gc/gtp5g'
-    version: v0.6.2
+    version: v0.6.8
 
 - name: Run make on gtp5g
   ansible.builtin.command: make
