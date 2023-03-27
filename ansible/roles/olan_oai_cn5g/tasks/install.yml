@@ -23,15 +23,15 @@
     pull:
       platform: amd64
   loop:
-    - { name: oaisoftwarealliance/oai-amf:v1.4.0, tag: oai-amf:v1.4.0 }
-    - { name: oaisoftwarealliance/oai-nrf:v1.4.0, tag: oai-nrf:v1.4.0 }
-    - { name: oaisoftwarealliance/oai-spgwu-tiny:v1.4.0, tag: oai-spgwu-tiny:v1.4.0 }
-    - { name: oaisoftwarealliance/oai-smf:v1.4.0, tag: oai-smf:v1.4.0 }
-    - { name: oaisoftwarealliance/oai-udr:v1.4.0, tag: oai-udr:v1.4.0 }
-    - { name: oaisoftwarealliance/oai-udm:v1.4.0, tag: oai-udm:v1.4.0 }
+    - { name: tariromukute/oai-amf:v1.4.0, tag: oai-amf:v1.4.0 }
+    - { name: tariromukute/oai-nrf:v1.4.0, tag: oai-nrf:v1.4.0 }
+    - { name: tariromukute/oai-spgwu-tiny:v1.4.0, tag: oai-spgwu-tiny:v1.4.0 }
+    - { name: tariromukute/oai-smf:v1.4.0, tag: oai-smf:v1.4.0 }
+    - { name: tariromukute/oai-udr:v1.4.0, tag: oai-udr:v1.4.0 }
+    - { name: tariromukute/oai-udm:v1.4.0, tag: oai-udm:v1.4.0 }
     - { name: oaisoftwarealliance/oai-ausf:v1.4.0, tag: oai-ausf:v1.4.0 }
-    - { name: oaisoftwarealliance/oai-upf-vpp:v1.4.0, tag: oai-upf-vpp:v1.4.0 }
-    - { name: oaisoftwarealliance/oai-nssf:v1.4.0, tag: oai-nssf:v1.4.0 }
+    - { name: tariromukute/oai-upf-vpp:v1.4.0, tag: oai-upf-vpp:v1.4.0 }
+    - { name: tariromukute/oai-nssf:v1.4.0, tag: oai-nssf:v1.4.0 }
     - { name: oaisoftwarealliance/trf-gen-cn5g:latest, tag: trf-gen-cn5g:latest }
 
 - name: Clone the OAI cn5g repository and checkout to v3.2.0
