@@ -74,15 +74,15 @@
   when:
     - inventory_hostname in groups["az_sut"]
 
-- name: Get results from tracing (bpftrace)
-  ansible.builtin.command: journalctl -u free5gc -n 200
-  register: tool_command_results
-  when:
-    - inventory_hostname in groups["az_sut"]
+# - name: Get results from tracing (bpftrace)
+#   ansible.builtin.command: journalctl -u free5gc -n 200
+#   register: tool_command_results
+#   when:
+#     - inventory_hostname in groups["az_sut"]
 
-- local_action: copy content="{{ tool_command_results.stdout }}" dest=.results/ues={{ ues }}/tool={{ tool }}/docker.log
-  when:
-    - inventory_hostname in groups["az_sut"]
+# - local_action: copy content="{{ tool_command_results.stdout }}" dest=.results/ues={{ ues }}/tool={{ tool }}/docker.log
+#   when:
+#     - inventory_hostname in groups["az_sut"]
 
 - name: Fetch 5G Core traffic generator logs
   synchronize:  src=/tmp/core-tg/ dest=.results/ues={{ ues }}/tool={{ tool }} mode=pull
