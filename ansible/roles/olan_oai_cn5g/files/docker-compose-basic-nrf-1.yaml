@@ -47,6 +47,7 @@ services:
             - NRF_PORT=80
             - NRF_API_VERSION=v1
             - NRF_FQDN=oai-nrf
+            - LOG_LEVEL=error
         depends_on:
             - mysql
             - oai-nrf
@@ -83,6 +84,7 @@ services:
             - NRF_PORT=80
             - NRF_API_VERSION=v1
             - NRF_FQDN=oai-nrf
+            - LOG_LEVEL=error
         depends_on:
             - oai-udr
         networks:
@@ -117,6 +119,7 @@ services:
             - NRF_PORT=80
             - NRF_API_VERSION=v1
             - NRF_FQDN=oai-nrf
+            - LOG_LEVEL=error
         depends_on:
             - oai-udm
         networks:
@@ -140,6 +143,7 @@ services:
             - NRF_API_VERSION=v1
             - INSTANCE=0
             - PID_DIRECTORY=/var/run
+            - LOG_LEVEL=error
         networks:
             public_net:
                 ipv4_address: 48.0.70.130
@@ -216,6 +220,7 @@ services:
             - UDM_FQDN=oai-udm
             - INT_ALGO_LIST=["NIA1"]
             - CIPH_ALGO_LIST=["NEA1"]
+            - LOG_LEVEL=error
         command: "/openair-amf/bin/oai_amf -c /openair-amf/etc/amf.conf"
         depends_on:
             - mysql
@@ -292,6 +297,7 @@ services:
             - DNN_RANGE3=14.1.1.2 - 14.1.1.253
             - DEFAULT_CSCF_IPV4_ADDRESS=127.0.0.1  # only needed when ims is being used
             - ENABLE_USAGE_REPORTING=no # Set yes if UE USAGE REPORTING is to be done at UPF
+            - LOG_LEVEL=error
         depends_on:
             - oai-nrf
             - oai-amf
@@ -347,6 +353,7 @@ services:
             - NSSAI_SST_2=222
             - NSSAI_SD_2=123
             - DNN_2=default
+            - LOG_LEVEL=error
         depends_on:
             - oai-nrf
             - oai-smf

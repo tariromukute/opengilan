@@ -23,15 +23,15 @@
     pull:
       platform: amd64
   loop:
-    - { name: tariromukute/oai-amf:v1.4.0, tag: oai-amf:v1.4.0 }
-    - { name: tariromukute/oai-nrf:v1.4.0, tag: oai-nrf:v1.4.0 }
-    - { name: tariromukute/oai-spgwu-tiny:v1.4.0, tag: oai-spgwu-tiny:v1.4.0 }
-    - { name: tariromukute/oai-smf:v1.4.0, tag: oai-smf:v1.4.0 }
-    - { name: tariromukute/oai-udr:v1.4.0, tag: oai-udr:v1.4.0 }
-    - { name: tariromukute/oai-udm:v1.4.0, tag: oai-udm:v1.4.0 }
-    - { name: oaisoftwarealliance/oai-ausf:v1.4.0, tag: oai-ausf:v1.4.0 }
-    - { name: tariromukute/oai-upf-vpp:v1.4.0, tag: oai-upf-vpp:v1.4.0 }
-    - { name: tariromukute/oai-nssf:v1.4.0, tag: oai-nssf:v1.4.0 }
+    - { name: oaisoftwarealliance/oai-amf:develop, tag: oai-amf:develop }
+    - { name: oaisoftwarealliance/oai-nrf:develop, tag: oai-nrf:develop }
+    - { name: oaisoftwarealliance/oai-spgwu-tiny:develop, tag: oai-spgwu-tiny:develop }
+    - { name: oaisoftwarealliance/oai-smf:develop, tag: oai-smf:develop }
+    - { name: oaisoftwarealliance/oai-udr:develop, tag: oai-udr:develop }
+    - { name: oaisoftwarealliance/oai-udm:develop, tag: oai-udm:develop }
+    - { name: oaisoftwarealliance/oai-ausf:develop, tag: oai-ausf:develop }
+    - { name: oaisoftwarealliance/oai-upf-vpp:develop, tag: oai-upf-vpp:develop }
+    - { name: oaisoftwarealliance/oai-nssf:develop, tag: oai-nssf:develop }
     - { name: oaisoftwarealliance/trf-gen-cn5g:latest, tag: trf-gen-cn5g:latest }
 
 - name: Clone the OAI cn5g repository and checkout to v3.2.0
@@ -40,7 +40,7 @@
     dest: /home/{{ user }}/oai-cn5g-fed
     recursive: no
     force: yes
-    version: v1.4.0
+    version: 2023.w12
 
 - name: Run installation script
   ansible.builtin.shell: ./scripts/syncComponents.sh
