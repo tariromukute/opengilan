@@ -152,11 +152,77 @@ insmod <path_to_module>
 **Developing bpf tool**
 
 - list all kprobes and tracepoints associated with sctp either using bpftrace `sudo bpftrace -l | grep sctp` or with bcc tools `sudo python3 tplist.py | grep sctp`, the bcc one list tracepoints only.
+- To see the arguments for kprobe or tracepoint `bpftrace -lv tracepoint:syscalls:sys_enter_open`
+
+```bash
+# bpftrace -lv "struct path"
+struct path {
+        struct vfsmount *mnt;
+        struct dentry *dentry;
+};
+```
 - Check out [this](https://blog.quarkslab.com/defeating-ebpf-uprobe-monitoring.html) article on how to leverage uprobes. This can be using to inspect sctp performance from user space.
 
 When the kernel module for sctp is not installed, only a few security kprobes for SCTP are present. To get more kprobes and tracepoints for SCTP install the kernel modules for SCTP. See the guide above on how to load the kernel modules.
 
 - Kernel injects the sctp_probe tracepoint https://github.com/torvalds/linux/blob/4d6d4c7f541d7027beed4fb86eb2c451bd8d6fff/net/sctp/sm_statefuns.c#L3360 and sctp_probe_path https://github.com/torvalds/linux/blob/4d6d4c7f541d7027beed4fb86eb2c451bd8d6fff/net/sctp/outqueue.c#L1243
 
+- Linux defines 30 seconds HEARTBEAT interval https://elixir.bootlin.com/linux/v5.4/source/include/net/sctp/constants.h#L245. It then defines a HB interval for each transport (remote address) https://elixir.bootlin.com/linux/v5.4/source/include/net/sctp/structs.h#L773. It also defines it in the association struct https://elixir.bootlin.com/linux/v5.4/source/include/net/sctp/structs.h#L1551
+- The Linux sctp_sock struct has a parameter to change the heartbeat interval https://elixir.bootlin.com/linux/v5.4/source/include/net/sctp/constants.h#L245
+- Handles the notification of the SCTP app (ULP) on HB, there are different conditions to it though https://elixir.bootlin.com/linux/v5.4/source/net/sctp/associola.c#L779
+- https://elixir.bootlin.com/linux/v5.4/source/net/sctp/outqueue.c#L824 sends the HB to transport
+- Linux has a kprobe for creating the heartbeat and heartbeat_ack chuck https://elixir.bootlin.com/linux/v5.4/source/net/sctp/sm_make_chunk.c#L1142 and https://elixir.bootlin.com/linux/v5.4/source/net/sctp/sm_make_chunk.c#L1171
+- Linux has a kprobe for generating heartbeat, it delays sending heartbeak if the socket it busy `if (sock_owned_by_user(sk)) {` https://elixir.bootlin.com/linux/v5.4/source/net/sctp/sm_sideeffect.c#L362
+- The kprobe `sctp_do_8_2_transport_strike` https://elixir.bootlin.com/linux/v5.4/source/net/sctp/sm_sideeffect.c#L525 handles expiration of T3-rtx timer which is also happens for heartbeat
+- Helper function to handle the reception of an HEARTBEAT ACK https://elixir.bootlin.com/linux/v5.4/source/net/sctp/sm_sideeffect.c#L717
+- Linux has a helper function Update transport's RTO based on the newly calculated RTT `sctp_transport_update_rto`. https://elixir.bootlin.com/linux/v5.4/source/net/sctp/transport.c#L330. Can use this to check the changes in the HB. However this is called from two different points
+1. When handling a HB https://elixir.bootlin.com/linux/v5.4/source/net/sctp/sm_sideeffect.c#L778
+2. When chunk is being used for RTT https://elixir.bootlin.com/linux/v5.4/source/net/sctp/outqueue.c#L1466 
+
+```bash
+# BCC
+# Throws error could not determine address of symbol sctp_transport_update_rto in /lib/x86_64-linux-gnu/libc.so.6
+sudo python3 argdist.py -C 'p:c:sctp_transport_update_rto(struct sctp_transport *tp, __u32 rtt):u32:rtt'
+
+# bpftrace
+
+# List arguments.
+# This is not supported, didn't produce results
+bpftrace -l 'kprobe:sctp_transport_update_rto' -v 
+
+# Check if we can get the rtt values
+bpftrace -e 'kprobe:sctp_transport_update_rto { printf("%-6d %-16s %d\n", pid, comm, arg1); }'
+
+# Check the struct, only works when BTF is enabled.
+# This is not enable on the system currently
+bpftrace -lv "struct sctp_transport"
+
+# Count the number of occurance for a rtt difference
+bpftrace -e 'kprobe:sctp_transport_update_rto { @[arg1] = count(); }'
+
+# Show the histogram for the calculated rtt
+bpftrace -e 'kprobe:sctp_transport_update_rto { @rtt = hist(arg1); }'
+
+# Get the rtt per transport. This will print per memory address of the transport
+bpftrace -e '#include <net/sctp/sctp.h>
+kprobe:sctp_transport_update_rto { 
+    $tp = (struct sctp_transport *)arg0;
+    @rtt[$tp] = hist(arg1); }'
+
+# Print the address for the rtt
+bpftrace -e '#include <net/sctp/sctp.h>
+$tp = (struct sctp_transport *)arg0;
+kprobe:sctp_transport_update_rto { printf("%s\n", ntop(AF_INET, ((struct sctp_transport *)arg0)->ipaddr->v4.sa_data));}'
+```
+
+```bt
+#include <net/sctp/sctp.h>
+
+kprobe:sctp_transport_update_rto 
+{ 
+    ipaddr;
+    printf("%-6d %-16s %-6d %s\n", pid, comm, arg1, ntop(((struct sctp_transport *)arg0)->ipaddr->v4.sa_data)); 
+}
+```
 ## Gotchas
 - Seems like there is no way to reset the stats from netstat either than reboot the machine and possibly putting the interface down and up. It will always show cummulative stats and not delta values. An alternative tool nstat can show delta values, see [thread](https://superuser.com/questions/1590901/reset-netstat-statistics)
