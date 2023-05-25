@@ -179,6 +179,8 @@ When the kernel module for sctp is not installed, only a few security kprobes fo
 1. When handling a HB https://elixir.bootlin.com/linux/v5.4/source/net/sctp/sm_sideeffect.c#L778
 2. When chunk is being used for RTT https://elixir.bootlin.com/linux/v5.4/source/net/sctp/outqueue.c#L1466 
 
+We can use iperf to test the tool. On the server `iperf3 -s` and on the client either `iperf3 -c 10.0.0.21 --sctp`.
+
 ```bash
 # BCC
 # Throws error could not determine address of symbol sctp_transport_update_rto in /lib/x86_64-linux-gnu/libc.so.6
@@ -204,25 +206,54 @@ bpftrace -e 'kprobe:sctp_transport_update_rto { @[arg1] = count(); }'
 bpftrace -e 'kprobe:sctp_transport_update_rto { @rtt = hist(arg1); }'
 
 # Get the rtt per transport. This will print per memory address of the transport
-bpftrace -e '#include <net/sctp/sctp.h>
+bpftrace -e '
+#include <net/sctp/structs.h>
+#include <linux/socket.h>
+#include <net/sctp/sctp.h>
 kprobe:sctp_transport_update_rto { 
     $tp = (struct sctp_transport *)arg0;
-    @rtt[$tp] = hist(arg1); }'
+    $sk = $tp->ipaddr.v4;
+    $saddr = ntop(0);
+    $saddr = ntop(AF_INET, $sk.sin_addr.s_addr);
+    @rtt[$saddr] = hist(arg1); }'
 
-# Print the address for the rtt
-bpftrace -e '#include <net/sctp/sctp.h>
-$tp = (struct sctp_transport *)arg0;
-kprobe:sctp_transport_update_rto { printf("%s\n", ntop(AF_INET, ((struct sctp_transport *)arg0)->ipaddr->v4.sa_data));}'
+bpftrace -e '
+#include <net/sctp/structs.h>
+#include <net/sctp/sctp.h>
+#ifndef BPFTRACE_HAVE_BTF
+#include <linux/socket.h>
+#include <net/sock.h>
+#else
+#include <sys/socket.h>
+#endif
+kprobe:sctp_transport_update_rto { 
+    $tp = (struct sctp_transport *)arg0;
+    $saddr = ntop(0);
+    if ($tp->ipaddr.sa.sa_family == AF_INET) {
+        $sk = $tp->ipaddr.v4;
+        $saddr = ntop(AF_INET, $sk.sin_addr.s_addr);
+    } else {
+        // AF_INET6
+        $sk6 = $tp->ipaddr.v6;
+        $saddr = ntop(AF_INET6, $sk6.sin6_addr.in6_u.u6_addr8);
+    }
+    @rtt[$saddr] = hist(arg1); }'
 ```
 
-```bt
-#include <net/sctp/sctp.h>
+Test rtt using iperf and the cn-tg. With OAI the amf is running inside a container. We need to run the iperf server inside the container. The default iperf installed from apt on the container has issue with SCTP connections see [issue](https://github.com/esnet/iperf/issues/620#issuecomment-385615317). Installed a version X from source
 
-kprobe:sctp_transport_update_rto 
-{ 
-    ipaddr;
-    printf("%-6d %-16s %-6d %s\n", pid, comm, arg1, ntop(((struct sctp_transport *)arg0)->ipaddr->v4.sa_data)); 
-}
+```bash
+wget https://downloads.es.net/pub/iperf/iperf-3.7.tar.gz
+
+tar -xf iperf-3.7.tar.gz
+
+cd iperf-3.7
+apt install -y libtool
+apt install -y make
+./configure --disable-dependency-tracking
+make
+make install
+
 ```
 ## Gotchas
 - Seems like there is no way to reset the stats from netstat either than reboot the machine and possibly putting the interface down and up. It will always show cummulative stats and not delta values. An alternative tool nstat can show delta values, see [thread](https://superuser.com/questions/1590901/reset-netstat-statistics)
