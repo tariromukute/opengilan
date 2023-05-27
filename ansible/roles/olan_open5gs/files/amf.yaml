@@ -249,8 +249,8 @@ amf:
         s_nssai:
           - sst: 1
     security:
-        integrity_order : [ NIA2, NIA1, NIA0 ]
-        ciphering_order : [ NEA0, NEA1, NEA2 ]
+        integrity_order : [ NIA1 ]
+        ciphering_order : [ NEA1 ]
     network_name:
         full: Open5GS
     amf_name: open5gs-amf0
