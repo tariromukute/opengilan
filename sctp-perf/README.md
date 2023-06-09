@@ -167,6 +167,7 @@ When the kernel module for sctp is not installed, only a few security kprobes fo
 
 - Kernel injects the sctp_probe tracepoint https://github.com/torvalds/linux/blob/4d6d4c7f541d7027beed4fb86eb2c451bd8d6fff/net/sctp/sm_statefuns.c#L3360 and sctp_probe_path https://github.com/torvalds/linux/blob/4d6d4c7f541d7027beed4fb86eb2c451bd8d6fff/net/sctp/outqueue.c#L1243
 
+**Getting SCTP RTT**
 - Linux defines 30 seconds HEARTBEAT interval https://elixir.bootlin.com/linux/v5.4/source/include/net/sctp/constants.h#L245. It then defines a HB interval for each transport (remote address) https://elixir.bootlin.com/linux/v5.4/source/include/net/sctp/structs.h#L773. It also defines it in the association struct https://elixir.bootlin.com/linux/v5.4/source/include/net/sctp/structs.h#L1551
 - The Linux sctp_sock struct has a parameter to change the heartbeat interval https://elixir.bootlin.com/linux/v5.4/source/include/net/sctp/constants.h#L245
 - Handles the notification of the SCTP app (ULP) on HB, there are different conditions to it though https://elixir.bootlin.com/linux/v5.4/source/net/sctp/associola.c#L779
@@ -180,6 +181,8 @@ When the kernel module for sctp is not installed, only a few security kprobes fo
 2. When chunk is being used for RTT https://elixir.bootlin.com/linux/v5.4/source/net/sctp/outqueue.c#L1466 
 
 We can use iperf to test the tool. On the server `iperf3 -s` and on the client either `iperf3 -c 10.0.0.21 --sctp`.
+
+`Note: An SCTP program needs to be running in order for the sctp kprobe to attach`
 
 ```bash
 # BCC
@@ -240,7 +243,99 @@ kprobe:sctp_transport_update_rto {
     @rtt[$saddr] = hist(arg1); }'
 ```
 
-Test rtt using iperf and the cn-tg. With OAI the amf is running inside a container. We need to run the iperf server inside the container. The default iperf installed from apt on the container has issue with SCTP connections see [issue](https://github.com/esnet/iperf/issues/620#issuecomment-385615317). Installed a version X from source
+The kprobe sctp_transport_update_rto is called a lot of times mainly by chunk is being used for RTT https://elixir.bootlin.com/linux/v5.4/source/net/sctp/outqueue.c#L1466. The frequency provides granular results by will have high overhead. To reduce the overhead we need a tool that calculates the RTT from HB packates only. These are sent every 30 seconds be default see [code](https://elixir.bootlin.com/linux/v5.4/source/include/net/sctp/constants.h#L245). This can be changed when setting up the connection. The kprobe `sctp_cmd_transport_on`  handles the reception of HEARTBEAT ACK and calculates the RTT. Since the RTT is calculated internally and not exposed through arguments or return values, the bpftrace script has to calculate the RTT like the kprobe does.
+
+```bash
+# List arguments.
+# This is not supported, didn't produce results
+bpftrace -l 'kprobe:sctp_cmd_transport_on' -v
+
+# Get struct with details to calculate rtt (sctp_sender_hb_info)
+# Getting error: ERROR: Unknown identifier: 'jiffies'
+bpftrace -e '
+#include <net/sctp/structs.h>
+#include <linux/jiffies.h>
+kprobe:sctp_cmd_transport_on {
+    $hbinfo = (struct sctp_sender_hb_info *)arg3->skb->data;
+    $rtt = jiffies - $hbinfo->sent_at;
+    @[$rtt] = count();
+    }'
+
+```
+
+**Getting the SCTP cwnd and rcwmd overtime**
+
+- The tracepoint `sctp_probe_path` https://elixir.bootlin.com/linux/v5.4/source/include/trace/events/sctp.h#L11 has an argument that gives cwnd
+- The tracepoint `sctp_probe` https://elixir.bootlin.com/linux/v5.4/source/include/trace/events/sctp.h#L50 has an argument that gives rwnd
+- Initialises the cwnd for an association https://elixir.bootlin.com/linux/v5.4/source/net/sctp/associola.c#L680, this seem to be done also on https://elixir.bootlin.com/linux/v5.4/source/net/sctp/socket.c#L524
+- Applications can retrive the SCTP stats by calling https://elixir.bootlin.com/linux/v5.4/source/net/sctp/socket.c#L5423. The app will need to supply the above details
+- Applications can retrive information about SCTP peer https://elixir.bootlin.com/linux/v5.4/source/net/sctp/socket.c#L5503
+- [] Can bpftrace call kernel functions, e.g., the one above?
+- `sctp_transport_raise_cwnd` increase the cwnd and partial_bytes acknowledged https://elixir.bootlin.com/linux/v5.4/source/net/sctp/transport.c#L397. However it's always that the cwnd will be increased. If certain conditions are not met the function returns without increasing the transport cwnd
+    - This called from `sctp_check_transmitted`
+        - This called in `sctp_outq_sack` when the SACK are being processed. https://elixir.bootlin.com/linux/v5.4/source/net/sctp/outqueue.c#L1221
+- `sctp_transport_lower_cwnd` descreases the cwnd and partial_bytes acknowledged https://elixir.bootlin.com/linux/v5.4/source/net/sctp/transport.c#L495. The kprobe also takes the reason for lowering the cwnd. When the reason is `SCTP_LOWER_CWND_FAST_RTX` it is possible that the function returns without updating cwnd due to some conditions not being met.
+    - Called from `sctp_retransmit`
+- `sctp_transport_burst_limited` updates the cwnd depending, not always that it's updated
+    - Called from `sctp_outq_select_transport` and `sctp_outq_flush_data`
+- `sctp_transport_burst_reset` resets the cwnd
+    - Called from `sctp_outq_flush_transports`
+- `sctp_transport_reset` resets the variables to initial values.
+    - Called from `sctp_assoc_update`
+- We can inspect on extry and exit to compute whether there is change in cwnd
+
+```bash
+# List arguments.
+# This is not supported, didn't produce results
+bpftrace -lv t:sctp:sctp_probe_path
+
+# Check is we get the cwnd argument
+# This returns error: ERROR: tracepoint not found: sctp:sctp_probe_path
+# The tracepoint seems to be implement in the source code but it doesn't show on the list of tracepoints
+bpftrace -e 'tracepoint:sctp:sctp_probe_path { printf("%s %s\n", comm, str(args.cwnd)); }'
+
+# Use the probe for raising cwnd
+# This is not supported, didn't produce results
+bpftrace -lv kprobe:sctp_transport_raise_cwnd
+
+# Check for the value of cwnd when system is asking for it to be raised
+bpftrace -e '
+#include <net/sctp/structs.h>
+kprobe:sctp_transport_raise_cwnd { 
+    $tp = (struct sctp_transport *)arg0;
+    $saddr = ntop(0);
+    if ($tp->ipaddr.sa.sa_family == AF_INET) {
+        $sk = $tp->ipaddr.v4;
+        $saddr = ntop(AF_INET, $sk.sin_addr.s_addr);
+    } else {
+        // AF_INET6
+        $sk6 = $tp->ipaddr.v6;
+        $saddr = ntop(AF_INET6, $sk6.sin6_addr.in6_u.u6_addr8);
+    }
+    @cwnd[$saddr] = hist($tp->cwnd);
+    }'
+
+# Check for the value of cwnd when system is asking for it to be lowered
+bpftrace -e '
+#include <net/sctp/structs.h>
+kprobe:sctp_transport_lower_cwnd { 
+    $tp = (struct sctp_transport *)arg0;
+    $saddr = ntop(0);
+    if ($tp->ipaddr.sa.sa_family == AF_INET) {
+        $sk = $tp->ipaddr.v4;
+        $saddr = ntop(AF_INET, $sk.sin_addr.s_addr);
+    } else {
+        // AF_INET6
+        $sk6 = $tp->ipaddr.v6;
+        $saddr = ntop(AF_INET6, $sk6.sin6_addr.in6_u.u6_addr8);
+    }
+    @cwnd[$saddr, arg1] = hist($tp->cwnd);
+    }'
+```
+
+
+
+Test rtt using iperf and the cn-tg. With OAI the amf is running inside a container. We need to run the iperf server inside the container. The default iperf installed from apt on the container has issue with SCTP connections see [issue](https://github.com/esnet/iperf/issues/620#issuecomment-385615317). Installed a version X from source. The installation from source on a container didn't work. It always seemed to install the wrong version to the one downloaded.
 
 ```bash
 wget https://downloads.es.net/pub/iperf/iperf-3.7.tar.gz
