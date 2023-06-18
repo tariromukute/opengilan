@@ -18,14 +18,23 @@
     state: directory
   become: yes
 
-- name: Start the eBPF scripts to collect results
-  ansible.builtin.shell: python3 {{ tool_cmd }} > /tmp/results/tool={{ tool }}/{{ tool }}.json
-  args:
-    chdir: /home/{{ user }}/bcc/tools
-    executable: /bin/bash
+# - name: Start the eBPF scripts to collect results
+#   ansible.builtin.shell: python3 {{ tool_cmd }} > /tmp/results/tool={{ tool }}/{{ tool }}.json
+#   args:
+#     chdir: /home/{{ user }}/bcc/tools
+#     executable: /bin/bash
+#   async: "{{ aduration }}"
+#   poll: 0
+#   become: yes
+#   when:
+#     - inventory_hostname in groups["az_sut"]
+
+- name: Start bpftrace program
+  command: nohup {{ tool_cmd }} > /tmp/results/tool={{ tool }}/{{ tool }}.json &
   async: "{{ aduration }}"
   poll: 0
   become: yes
+  register: bpftrace_output
   when:
     - inventory_hostname in groups["az_sut"]
 
@@ -57,6 +66,12 @@
   delay: 10
   # become: yes
   ignore_errors: yes
+
+- name: Kill bpftrace program
+  shell: "kill -SIGINT {{ bpftrace_output.pid }}"
+  become: yes
+  when:
+    - inventory_hostname in groups["az_sut"]
 
 - name: Create folder for results on host machine
   local_action:
