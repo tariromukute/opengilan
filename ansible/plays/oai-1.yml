@@ -1,17 +1,17 @@
-- name: Stop 5g core (Ensure previous tested is not running)
-  ansible.builtin.shell: docker compose -f docker-compose-basic-nrf.yaml down
-  args:
-    chdir: /home/{{ user }}/oai-cn5g-fed/docker-compose
-  register: output
-  when:
-    - inventory_hostname in groups["az_sut"]
+# - name: Stop 5g core (Ensure previous tested is not running)
+#   ansible.builtin.shell: docker compose -f docker-compose-basic-nrf.yaml down
+#   args:
+#     chdir: /home/{{ user }}/oai-cn5g-fed/docker-compose
+#   register: output
+#   when:
+#     - inventory_hostname in groups["az_sut"]
 
-- ansible.builtin.debug:
-    var: output
+# - ansible.builtin.debug:
+#     var: output
 
-- name: Wait 2 minutes for all services to be down
+- name: Wait 1 minutes for all services to be down
   ansible.builtin.pause:
-    minutes: 2
+    minutes: 1
 
 - name: Start 5G Core
   ansible.builtin.shell: docker compose -f docker-compose-basic-nrf.yaml up -d
@@ -80,11 +80,11 @@
 - name: Create folder for results on host machine
   local_action:
     module: file
-    path: ".results/kpps={{ ues }}/tool={{ tool }}"
+    path: ".results/ues={{ ues }}/tool={{ tool }}"
     state: directory
 
 - name: Fetch stuff from the remote and save to local
-  synchronize:  src='/tmp/results/' dest=.results/kpps={{ ues }} mode=pull
+  synchronize:  src='/tmp/results/' dest=.results/ues={{ ues }} mode=pull
   when:
     - inventory_hostname in groups["az_sut"]
 
@@ -129,7 +129,7 @@
     - inventory_hostname in groups["az_sut"]
 
 
-- local_action: copy content="{{ tool_command_results.stdout }}" dest=.results/kpps={{ ues }}/tool={{ tool }}/docker.log
+- local_action: copy content="{{ tool_command_results.stdout }}" dest=.results/ues={{ ues }}/tool={{ tool }}/docker.log
   when:
     - inventory_hostname in groups["az_sut"]
 
@@ -160,7 +160,7 @@
 # ------------------------------
 
 - name: Fetch 5G Core traffic generator logs
-  synchronize:  src=/tmp/core-tg/ dest=.results/kpps={{ ues }}/tool={{ tool }} mode=pull
+  synchronize:  src=/tmp/core-tg/ dest=.results/ues={{ ues }}/tool={{ tool }} mode=pull
   when:
     - inventory_hostname in groups["az_trex"]
 
