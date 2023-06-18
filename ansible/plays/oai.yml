@@ -28,12 +28,21 @@
   ansible.builtin.pause:
     minutes: 2
 
+- name: Create folder for results on remote servers
+  file:
+    path: "/tmp/results/tool={{ tool }}/"
+    state: directory
+  become: yes
+
+- debug:
+    msg: Command is {{ tool_cmd }}
+
 - name: Start the eBPF scripts to collect results
-  ansible.builtin.shell: ./main.sh {{ tool }} {{ duration }} 1 {{ duration }}
+  ansible.builtin.shell: python3 {{ tool_cmd }} > /tmp/results/tool={{ tool }}/{{ tool }}.json
   args:
-    chdir: /home/{{ user }}/tools
+    chdir: '/home/{{ user }}/bcc/tools'
     executable: /bin/bash
-  async: "{{ duration }}"
+  async: "{{ aduration }}"
   poll: 0
   become: yes
   when:
@@ -68,15 +77,18 @@
   # become: yes
   ignore_errors: yes
 
+- name: Create folder for results on host machine
+  local_action:
+    module: file
+    path: ".results/kpps={{ ues }}/tool={{ tool }}"
+    state: directory
+
 - name: Fetch stuff from the remote and save to local
-  synchronize:  src=/home/{{ user }}/tools/results/ dest=.results/kpps={{ ues }} mode=pull
+  synchronize:  src='/tmp/results/' dest=.results/kpps={{ ues }} mode=pull
   when:
     - inventory_hostname in groups["az_sut"]
 
-- name: Delete content & directory
-  file:
-    state: absent
-    path: /home/{{ user }}/tools/results/
+- file: path=/tmp/results state=absent
   become: yes
   when:
     - inventory_hostname in groups["az_sut"]
