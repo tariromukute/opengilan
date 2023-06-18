@@ -161,3 +161,154 @@ END
 '
 ```
 
+## recv, recvfrom, recvmsg, recvmmsg
+`sudo python3 tplist.py | grep recv`
+
+For recvfrom
+```bash
+# Check args for read syscall
+sudo python3 tplist.py -v syscalls:sys_enter_recvfrom
+sudo python3 tplist.py -v syscalls:sys_exit_recvfrom
+
+# Get stats on the bytes written
+bpftrace -e 't:syscalls:sys_exit_recvfrom { @pid[comm, pid, args->ret] = count(); }'
+
+# Get using argdist, but it doesn't give the process name
+argdist.py -c -C 't:syscalls:sys_exit_recvfrom():int,long:$PID,args->ret'
+```
+
+For recvmsg
+
+```bash
+# Check args for read syscall
+sudo python3 tplist.py -v syscalls:sys_enter_recvmsg
+sudo python3 tplist.py -v syscalls:sys_exit_recvmsg
+
+# Get stats on the bytes written
+bpftrace -e 't:syscalls:sys_exit_recvmsg { @pid[comm, pid, args->ret] = count(); }'
+
+# Get using argdist, but it doesn't give the process name
+argdist.py -c -C 't:syscalls:sys_exit_recvmsg():int,long:$PID,args->ret'
+```
+
+For recvmmsg
+
+```bash
+# Check args for read syscall
+sudo python3 tplist.py -v syscalls:sys_enter_recvmmsg
+sudo python3 tplist.py -v syscalls:sys_exit_recvmmsg
+
+# Get stats on the bytes written
+bpftrace -e 't:syscalls:sys_exit_recvmmsg { @pid[comm, pid, args->ret] = count(); }'
+
+# Get using argdist, but it doesn't give the process name
+argdist.py -c -C 't:syscalls:sys_exit_recvmmsg():int,long:$PID,args->ret'
+```
+
+**Check if sockets are set to non-blocking**
+`sudo python3 tplist.py | grep socket` and `sudo python3 tplist.py | grep accept`
+
+For socket, client side
+```bash
+# Check args for read syscall
+sudo python3 tplist.py -v syscalls:sys_enter_socket
+sudo python3 tplist.py -v syscalls:sys_enter_socketpair
+
+# On socket family contains the flags
+# Check if set to non-blocking with argdist
+argdist.py -c -C 't:syscalls:sys_enter_socket():int,int,int:$PID,args->protocol,args->family&00004000'
+```
+
+For accept4, server side
+```bash
+# Check args for read syscall
+sudo python3 tplist.py -v syscalls:sys_enter_accept4
+
+# Check if set to non-blocking with argdist
+argdist.py -c -C 't:syscalls:sys_enter_accept4():int,int,int:$PID,args->fd,args->flags&00004000'
+```
+## send, sendto, sendmsg, sendmmsg
+
+`sudo python3 tplist.py | grep send`
+
+For sendto
+```bash
+# Check args for read syscall
+sudo python3 tplist.py -v syscalls:sys_enter_sendto
+sudo python3 tplist.py -v syscalls:sys_exit_sendto
+
+# Get stats on the bytes written
+bpftrace -e 't:syscalls:sys_exit_sendto { @pid[comm, pid, args->ret] = count(); }'
+
+# Get using argdist, but it doesn't give the process name
+argdist.py -c -C 't:syscalls:sys_exit_sendto():int,long:$PID,args->ret'
+```
+
+For sendmsg
+```bash
+# Check args for read syscall
+sudo python3 tplist.py -v syscalls:sys_enter_sendmsg
+sudo python3 tplist.py -v syscalls:sys_exit_sendmsg
+
+# Get stats on the bytes written
+bpftrace -e 't:syscalls:sys_exit_sendmsg { @pid[comm, pid, args->ret] = count(); }'
+
+# Get using argdist, but it doesn't give the process name
+argdist.py -c -C 't:syscalls:sys_exit_sendmsg():int,long:$PID,args->ret'
+```
+
+For sendmmsg
+```bash
+# Check args for read syscall
+sudo python3 tplist.py -v syscalls:sys_enter_sendmmsg
+sudo python3 tplist.py -v syscalls:sys_exit_sendmmsg
+
+# Get stats on the bytes written
+bpftrace -e 't:syscalls:sys_exit_sendmmsg { @pid[comm, pid, args->ret] = count(); }'
+
+# Get using argdist, but it doesn't give the process name
+argdist.py -c -C 't:syscalls:sys_exit_sendmmsg():int,long:$PID,args->ret'
+```
+
+## open, openat
+
+`sudo python3 tplist.py | grep open`
+
+For open
+```bash
+# Check args for read syscall
+sudo python3 tplist.py -v syscalls:sys_enter_open
+sudo python3 tplist.py -v syscalls:sys_exit_open
+
+# Check if it is set to non-blocking
+bpftrace -e 't:syscalls:sys_enter_open { @pid[comm, pid, args->flags] = count(); }'
+
+# Check if set to non-blocking with argdist
+argdist.py -c -C 't:syscalls:sys_enter_open():int,char*,int:$PID,args->filename,args->flags&00004000'
+
+# Get stats on the bytes written
+bpftrace -e 't:syscalls:sys_exit_open { @pid[comm, pid, args->ret] = count(); }'
+
+# Get using argdist, but it doesn't give the process name
+argdist.py -c -C 't:syscalls:sys_exit_open():int,long:$PID,args->ret'
+```
+
+For openat
+
+```bash
+# Check args for read syscall
+sudo python3 tplist.py -v syscalls:sys_enter_open
+sudo python3 tplist.py -v syscalls:sys_exit_open
+
+# Check if it is set to non-blocking
+bpftrace -e 't:syscalls:sys_enter_open { @pid[comm, pid, args->flags] = count(); }'
+
+# Check if set to non-blocking with argdist O_NONBLOCK = 00004000
+argdist.py -c -C 't:syscalls:sys_enter_openat():int,char*,int:$PID,args->filename,args->flags&00004000'
+
+# Get stats on the bytes written
+bpftrace -e 't:syscalls:sys_exit_open { @pid[comm, pid, args->ret] = count(); }'
+
+# Get using argdist, but it doesn't give the process name
+argdist.py -c -C 't:syscalls:sys_exit_open():int,long:$PID,args->ret'
+```
