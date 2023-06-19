@@ -3,7 +3,7 @@
 # and playbooks.
 
 # List of syscalls to inspect
-NX="0 100 200 300 400 500 600 900"
+NX="0 200 400"
 for N_UES in $NX; do
 # SYSCALLS="futex epoll_wait recvmsg clock_nanosleep poll select ppoll read openat sendto sched_yield recvfrom fdatasync write nanosleep io_getevents epoll_pwait rt_sigtimedwait"
 SYSCALLS="io_getevents epoll_pwait rt_sigtimedwait"
