@@ -2,6 +2,10 @@
 # This script is used to execute the commands in to run ansible ad hoc commands
 # and playbooks.
 
+# Set $COMM and $PID string
+COMM='$COMM'
+PID='$PID'
+
 # List of syscalls to inspect
 NX="0 200 400"
 for N_UES in $NX; do
@@ -38,11 +42,10 @@ ansible all -i inventory.ini -u ubuntu -m include_tasks -a file=plays/open5gs.ym
     -e "{ user: ubuntu,  duration: 20, aduration: 35, interval: 0, tool_cmd: \"klockstat.py -d 20\", tool: sys_exit_clock_nanosleep, ues: "$N_UES" }"
 
 ansible all -i inventory.ini -u ubuntu -m include_tasks -a file=plays/open5gs.yml \
-    -e "{ user: ubuntu,  duration: 20, aduration: 35, interval: 0, tool_cmd: \"argdist.py -c -C 't:syscalls:sys_enter_socket():int,int,int:$PID,args->protocol,args->family&00004000' -i 20 -d 20\", tool: sys_enter_socket, ues: "$N_UES" }"
+    -e "{ user: ubuntu,  duration: 20, aduration: 35, interval: 0, tool_cmd: \"argdist.py -c -C 't:syscalls:sys_enter_socket():char*,int,int:$COMM,args->protocol,args->family&00004000' -i 20 -d 20\", tool: sys_enter_socket, ues: "$N_UES" }"
 
-PID='$PID'
 ansible all -i inventory.ini -u ubuntu -m include_tasks -a file=plays/open5gs.yml \
-    -e "{ user: ubuntu,  duration: 20, aduration: 35, interval: 0, tool_cmd: \"argdist.py -c -C 't:syscalls:sys_enter_accept4():int,int,int:$PID,args->fd,args->flags&00004000' -i 20 -d 20\", tool: sys_enter_accept4, ues: "$N_UES" }"
+    -e "{ user: ubuntu,  duration: 20, aduration: 35, interval: 0, tool_cmd: \"argdist.py -c -C 't:syscalls:sys_enter_accept4():char*,int,int:$COMM,args->fd,args->flags&00004000' -i 20 -d 20\", tool: sys_enter_accept4, ues: "$N_UES" }"
 # ansible all -i inventory.ini -u ubuntu -m include_tasks -a file=plays/oai-1.yml \
 #     -e "{ user: ubuntu,  duration: 20, aduration: 35, interval: 0, tool_cmd: \"argdist.py -C 't:syscalls:sys_exit_epoll_wait():u16:args->ret' -i 20 -d 20\", tool: sysprocess_exit_epoll_wait, ues: "$N_UES" }"
 done
