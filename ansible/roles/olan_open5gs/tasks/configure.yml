@@ -1,28 +1,28 @@
 # Set up the config files (Optionally copy from files/)
-- name: Copy amf.yaml file with owner and permissions
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/amf.yaml"
-    dest: /etc/open5gs/amf.yaml
-  become: yes
+# - name: Copy amf.yaml file with owner and permissions
+#   ansible.builtin.copy:
+#     src: "{{ role_path }}/files/amf.yaml"
+#     dest: /etc/open5gs/amf.yaml
+#   become: yes
 
-- name: Copy upf.yml file with owner and permissions
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/upf.yaml"
-    dest: /etc/open5gs/upf.yaml
-  become: yes
+# - name: Copy upf.yml file with owner and permissions
+#   ansible.builtin.copy:
+#     src: "{{ role_path }}/files/upf.yaml"
+#     dest: /etc/open5gs/upf.yaml
+#   become: yes
 
-- name: "change /etc/open5gs/amf.yaml"
-  replace: 
-    path: /etc/open5gs/amf.yaml
-    regexp: '__NGAP_IP__'
-    replace: '{{ ansible_default_ipv4.address }}'
-    backup: yes
-  become: yes
+# - name: "change /etc/open5gs/amf.yaml"
+#   replace: 
+#     path: /etc/open5gs/amf.yaml
+#     regexp: '__NGAP_IP__'
+#     replace: '{{ ansible_default_ipv4.address }}'
+#     backup: yes
+#   become: yes
 
-- name: "change /etc/open5gs/upf.yaml"
-  replace: 
-    path: /etc/open5gs/upf.yaml
-    regexp: '__GTPU_IP__'
-    replace: '{{ ansible_default_ipv4.address }}'
-    backup: yes
-  become: yes
+# - name: "change /etc/open5gs/upf.yaml"
+#   replace: 
+#     path: /etc/open5gs/upf.yaml
+#     regexp: '__GTPU_IP__'
+#     replace: '{{ ansible_default_ipv4.address }}'
+#     backup: yes
+#   become: yes
