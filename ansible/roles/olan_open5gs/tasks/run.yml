@@ -1,3 +1,4 @@
+# TODO: install from source since ppa can change version which won't be compatible to the configs under files
 # This works with the master UERANSIM
 - name: Restart service open5gs-amfd
   ansible.builtin.service:
@@ -16,3 +17,9 @@
     name: open5gs-webui
     state: restarted
   become: yes
+
+- name: Initialise users
+  shell: ./init.sh
+  args:
+    chdir: '{{ ansible_user_dir }}'
+  ignore_errors: yes
