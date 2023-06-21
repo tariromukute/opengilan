@@ -5,8 +5,8 @@
 # Set $COMM and $PID string
 COMM='$COMM'
 PID='$PID'
-$entry='$entry'
-$retval='$retval'
+entry='$entry'
+retval='$retval'
 
 
 # List of syscalls to inspect
