@@ -35,6 +35,13 @@ END
 '
 ```
 
+bpftrace tools are not quit portable. For a bcc tools work around we use kprobe instead of tracepoints. This is because the tool `argdist` allows access to entry arguments and return values only for kprobes. We use `sudo bpftrace -l | grep epoll_wait` to look for the kprobes available for epoll_wait. We find `kprobe:do_epoll_wait` which from the source code comments is the kernel part of the user space epoll_wait(2).
+
+```bash
+# One-liner argdist command to compare the return values
+sudo python3 argdist.py -C 'r::do_epoll_wait(int epfd, struct epoll_event __user *events,int maxevents, int timeout):char*,int,int:$COMM,$entry(maxevents),$retval'
+```
+
 **timeout value is small or maybe too large**
 
 This means that the intervals for timeout are too small such that in most cases there won't be data available. We can check the values against the number of events returned.
@@ -62,6 +69,12 @@ END
     clear(@epoll_timeout);
 }
 '
+```
+
+Use bcc tools
+
+```bash
+sudo python3 argdist.py -C 'r::do_epoll_wait(int epfd, struct epoll_event __user *events,int maxevents, int timeout):char*,int,int:$COMM,$entry(timeout),$retval'
 ```
 
 **Need to run in ET**
@@ -174,7 +187,7 @@ sudo python3 tplist.py -v syscalls:sys_exit_recvfrom
 bpftrace -e 't:syscalls:sys_exit_recvfrom { @pid[comm, pid, args->ret] = count(); }'
 
 # Get using argdist, but it doesn't give the process name
-argdist.py -c -C 't:syscalls:sys_exit_recvfrom():int,long:$PID,args->ret'
+argdist.py -C 't:syscalls:sys_exit_recvfrom():char*,long:$COMM,args->ret'
 ```
 
 For recvmsg
@@ -188,7 +201,7 @@ sudo python3 tplist.py -v syscalls:sys_exit_recvmsg
 bpftrace -e 't:syscalls:sys_exit_recvmsg { @pid[comm, pid, args->ret] = count(); }'
 
 # Get using argdist, but it doesn't give the process name
-argdist.py -c -C 't:syscalls:sys_exit_recvmsg():int,long:$PID,args->ret'
+argdist.py -C 't:syscalls:sys_exit_recvmsg():char*,long:$COMM,args->ret'
 ```
 
 For recvmmsg
@@ -202,7 +215,7 @@ sudo python3 tplist.py -v syscalls:sys_exit_recvmmsg
 bpftrace -e 't:syscalls:sys_exit_recvmmsg { @pid[comm, pid, args->ret] = count(); }'
 
 # Get using argdist, but it doesn't give the process name
-argdist.py -c -C 't:syscalls:sys_exit_recvmmsg():int,long:$PID,args->ret'
+argdist.py -C 't:syscalls:sys_exit_recvmmsg():char*,long:$COMM,args->ret'
 ```
 
 **Check if sockets are set to non-blocking**
@@ -241,7 +254,7 @@ sudo python3 tplist.py -v syscalls:sys_exit_sendto
 bpftrace -e 't:syscalls:sys_exit_sendto { @pid[comm, pid, args->ret] = count(); }'
 
 # Get using argdist, but it doesn't give the process name
-argdist.py -c -C 't:syscalls:sys_exit_sendto():int,long:$PID,args->ret'
+argdist.py -C 't:syscalls:sys_exit_sendto():char*,long:$COMM,args->ret'
 ```
 
 For sendmsg
@@ -254,7 +267,7 @@ sudo python3 tplist.py -v syscalls:sys_exit_sendmsg
 bpftrace -e 't:syscalls:sys_exit_sendmsg { @pid[comm, pid, args->ret] = count(); }'
 
 # Get using argdist, but it doesn't give the process name
-argdist.py -c -C 't:syscalls:sys_exit_sendmsg():int,long:$PID,args->ret'
+argdist.py -C 't:syscalls:sys_exit_sendmsg():char*,long:$COMM,args->ret'
 ```
 
 For sendmmsg
@@ -267,7 +280,7 @@ sudo python3 tplist.py -v syscalls:sys_exit_sendmmsg
 bpftrace -e 't:syscalls:sys_exit_sendmmsg { @pid[comm, pid, args->ret] = count(); }'
 
 # Get using argdist, but it doesn't give the process name
-argdist.py -c -C 't:syscalls:sys_exit_sendmmsg():int,long:$PID,args->ret'
+argdist.py -C 't:syscalls:sys_exit_sendmmsg():int,char*:$COMM,args->ret'
 ```
 
 ## open, openat
@@ -284,7 +297,7 @@ sudo python3 tplist.py -v syscalls:sys_exit_open
 bpftrace -e 't:syscalls:sys_enter_open { @pid[comm, pid, args->flags] = count(); }'
 
 # Check if set to non-blocking with argdist
-argdist.py -c -C 't:syscalls:sys_enter_open():int,char*,int:$PID,args->filename,args->flags&00004000'
+argdist.py -C 't:syscalls:sys_enter_open():char*,char*,int:$COMM,args->filename,args->flags&00004000'
 
 # Get stats on the bytes written
 bpftrace -e 't:syscalls:sys_exit_open { @pid[comm, pid, args->ret] = count(); }'
