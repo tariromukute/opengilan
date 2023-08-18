@@ -263,7 +263,7 @@ kprobe:sctp_cmd_transport_on {
 
 ```
 
-**Getting the SCTP cwnd and rcwmd overtime**
+**Getting the SCTP cwnd and rwnd overtime**
 
 - The tracepoint `sctp_probe_path` https://elixir.bootlin.com/linux/v5.4/source/include/trace/events/sctp.h#L11 has an argument that gives cwnd
 - The tracepoint `sctp_probe` https://elixir.bootlin.com/linux/v5.4/source/include/trace/events/sctp.h#L50 has an argument that gives rwnd
@@ -273,7 +273,7 @@ kprobe:sctp_cmd_transport_on {
 - [] Can bpftrace call kernel functions, e.g., the one above?
 - `sctp_transport_raise_cwnd` increase the cwnd and partial_bytes acknowledged https://elixir.bootlin.com/linux/v5.4/source/net/sctp/transport.c#L397. However it's always that the cwnd will be increased. If certain conditions are not met the function returns without increasing the transport cwnd
     - This called from `sctp_check_transmitted`
-        - This called in `sctp_outq_sack` when the SACK are being processed. https://elixir.bootlin.com/linux/v5.4/source/net/sctp/outqueue.c#L1221
+        - This called in `sctp_outq_sack` when the SACK are being processed. https://elixir.bootlin.com/linux/v5.4/source/net/sctp/outqueue.c#L1221. We can get the rwnd from this probe
 - `sctp_transport_lower_cwnd` descreases the cwnd and partial_bytes acknowledged https://elixir.bootlin.com/linux/v5.4/source/net/sctp/transport.c#L495. The kprobe also takes the reason for lowering the cwnd. When the reason is `SCTP_LOWER_CWND_FAST_RTX` it is possible that the function returns without updating cwnd due to some conditions not being met.
     - Called from `sctp_retransmit`
 - `sctp_transport_burst_limited` updates the cwnd depending, not always that it's updated
@@ -283,16 +283,25 @@ kprobe:sctp_cmd_transport_on {
 - `sctp_transport_reset` resets the variables to initial values.
     - Called from `sctp_assoc_update`
 - We can inspect on extry and exit to compute whether there is change in cwnd
+- The `sctp_gen_sack` sets the advertised window when sending a SACK https://elixir.bootlin.com/linux/v5.4/source/net/sctp/sm_sideeffect.c#L138
+- The `sctp_cmd_interpreter` also show the rwnd https://elixir.bootlin.com/linux/v5.4/source/net/sctp/sm_sideeffect.c#L1252
+- `sctp_packet_append_data` does management when adding DATA chunk which includes updating the rwnd
+- `sctp_assoc_rwnd_increase` updates the receive window https://elixir.bootlin.com/linux/v5.4/source/net/sctp/associola.c#L1467
+- `sctp_assoc_rwnd_decrease` updates the receive window https://elixir.bootlin.com/linux/v5.4/source/net/sctp/associola.c#L1526
+- 
 
+**Build for cwnd**
 ```bash
 # List arguments.
 # This is not supported, didn't produce results
 bpftrace -lv t:sctp:sctp_probe_path
 
 # Check is we get the cwnd argument
-# This returns error: ERROR: tracepoint not found: sctp:sctp_probe_path
+# This returns error: ERROR: tracepoint not found: sctp:sctp_probe_path, need to make sure the sctp lib is loaded (run the application making use of SCTP)
 # The tracepoint seems to be implement in the source code but it doesn't show on the list of tracepoints
-bpftrace -e 'tracepoint:sctp:sctp_probe_path { printf("%s %s\n", comm, str(args.cwnd)); }'
+bpftrace -e '
+#include <net/sctp/structs.h>
+tracepoint:sctp:sctp_probe_path { printf("%s %d\n", comm, args->cwnd); }'
 
 # Use the probe for raising cwnd
 # This is not supported, didn't produce results
@@ -330,9 +339,63 @@ kprobe:sctp_transport_lower_cwnd {
         $saddr = ntop(AF_INET6, $sk6.sin6_addr.in6_u.u6_addr8);
     }
     @cwnd[$saddr, arg1] = hist($tp->cwnd);
+    printf("%s %d\n", comm, $tp->cwnd);
     }'
+
+# Record when the cwnd only when changes
+bpftrace -e '
+#include <net/sctp/structs.h>
+BEGIN { 
+    @cwnd = (uint32) 0;
+}
+
+tracepoint:sctp:sctp_probe_path /@cwnd != args->cwnd / {
+    $addr = (union sctp_addr *)args->ipaddr; 
+    $saddr = ntop(0);
+    if ($addr->sa.sa_family == AF_INET) {
+        $sk = $addr->v4;
+        $saddr = ntop(AF_INET, $sk.sin_addr.s_addr);
+    } else {
+        // AF_INET6
+        $sk6 = $addr->v6;
+        $saddr = ntop(AF_INET6, $sk6.sin6_addr.in6_u.u6_addr8);
+    }
+    @cwnd = args->cwnd;
+    @delta[$saddr, strftime("%H:%M:%S:%f", nsecs)] = args->cwnd;
+}
+
+END {
+    clear(@cwnd)
+}'
 ```
 
+**Build for rwnd**
+
+```bash
+# List arguments.
+bpftrace -lv t:sctp:sctp_probe
+
+# Check is we get the rwnd argument
+bpftrace -e '
+#include <net/sctp/structs.h>
+tracepoint:sctp:sctp_probe { printf("%s rwnd %d asoc %d bind_port %d peer_port %d unack_data %d \n", comm, args->rwnd, args->asoc, args->bind_port, args->peer_port, args->unack_data); }'
+
+# Record when the rwnd only when changes
+bpftrace -d -e '
+#include <net/sctp/structs.h>
+BEGIN { 
+    @rwnd = (uint32) 0;
+}
+
+tracepoint:sctp:sctp_probe /@rwnd != args->rwnd / {
+    @rwnd = args->rwnd;
+    @delta[nsecs] = args->rwnd;
+}
+
+END {
+    clear(@rwnd)
+}'
+```
 
 
 Test rtt using iperf and the cn-tg. With OAI the amf is running inside a container. We need to run the iperf server inside the container. The default iperf installed from apt on the container has issue with SCTP connections see [issue](https://github.com/esnet/iperf/issues/620#issuecomment-385615317). Installed a version X from source. The installation from source on a container didn't work. It always seemed to install the wrong version to the one downloaded.

@@ -1,0 +1,36 @@
+[12:52:48]
+t:syscalls:sys_exit_recvmsg():char*,long:$COMM,args->ret
+	COUNT      EVENT
+	1          $COMM = b'dbus-daemon', args->ret = 128
+	1          $COMM = b'conn188', args->ret = 16
+	1          $COMM = b'conn184', args->ret = 16
+	1          $COMM = b'conn187', args->ret = 49
+	1          $COMM = b'conn184', args->ret = 49
+	1          $COMM = b'amf', args->ret = 72
+	1          $COMM = b'conn188', args->ret = 49
+	1          $COMM = b'conn191', args->ret = 435
+	1          $COMM = b'conn191', args->ret = 436
+	1          $COMM = b'dbus-daemon', args->ret = -11
+	1          $COMM = b'conn185', args->ret = 16
+	1          $COMM = b'conn187', args->ret = 16
+	1          $COMM = b'conn189', args->ret = 49
+	1          $COMM = b'conn190', args->ret = 16
+	1          $COMM = b'conn189', args->ret = 16
+	1          $COMM = b'conn190', args->ret = 49
+	1          $COMM = b'conn185', args->ret = 49
+	2          $COMM = b'systemd', args->ret = 10
+	2          $COMM = b'systemd-journal', args->ret = 70
+	2          $COMM = b'in:imuxsock', args->ret = 70
+	2          $COMM = b'amf', args->ret = -11
+	4          $COMM = b'systemd-network', args->ret = 76
+	11         $COMM = b'conn191', args->ret = 437
+	135        $COMM = b'conn191', args->ret = 438
+	148        $COMM = b'amf', args->ret = 69
+	148        $COMM = b'conn191', args->ret = 203
+	200        $COMM = b'conn186', args->ret = 340
+	200        $COMM = b'amf', args->ret = 76
+	200        $COMM = b'conn186', args->ret = 221
+	200        $COMM = b'conn191', args->ret = 687
+	400        $COMM = b'conn186', args->ret = 16
+	800        $COMM = b'conn191', args->ret = 209
+	1296       $COMM = b'conn191', args->ret = 16

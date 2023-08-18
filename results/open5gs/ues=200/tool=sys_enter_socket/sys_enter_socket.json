@@ -1,0 +1,8 @@
+[15:21:14]
+t:syscalls:sys_enter_socket():char*,int,int:$COMM,args->protocol,args->family&00004000
+	COUNT      EVENT
+	1          $COMM = b'snapd', args->protocol = 0, args->family&00004000 = 0
+	2          $COMM = b'open5gs-udmd', args->protocol = 0, args->family&00004000 = 0
+	3          $COMM = b'open5gs-ausfd', args->protocol = 0, args->family&00004000 = 0
+	4          $COMM = b'open5gs-amfd', args->protocol = 0, args->family&00004000 = 0
+	18         $COMM = b'open5gs-scpd', args->protocol = 0, args->family&00004000 = 0

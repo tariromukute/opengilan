@@ -1,0 +1,201 @@
+-- Logs begin at Sun 2023-08-13 19:59:13 UTC, end at Tue 2023-08-15 13:17:50 UTC. --
+Aug 15 13:10:41 open5gs systemd[1]: Stopped Open5GS HSS Daemon.
+Aug 15 13:10:41 open5gs systemd[1]: Started Open5GS HSS Daemon.
+Aug 15 13:10:41 open5gs systemd[1]: open5gs-smfd.service: Succeeded.
+Aug 15 13:10:41 open5gs systemd[1]: Stopped Open5GS SMF Daemon.
+Aug 15 13:10:41 open5gs systemd[1]: Started Open5GS SMF Daemon.
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.971: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:116: DROPPED 'Received while peer state machine was in state STATE_OPEN.'
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.975: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:      'Capabilities-Exchange-Answer'
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.976: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:        Version: 0x01
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.976: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:        Length: 340
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.976: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:        Flags: 0x00 (----)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.976: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:        Command Code: 257
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.976: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:        ApplicationId: 0
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.976: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:        Hop-by-Hop Identifier: 0x118DBFDD
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.976: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:        End-to-End Identifier: 0x951C682C
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.976: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         {internal data}: src:hss.localdomain(15) rwb:(nil) rt:2 cb:(nil),(nil)((nil)) qry:0x7f83ec000f70 asso:0 sess:(nil)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.976: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Result-Code'(268) l=12 f=-M val='ELECTION_LOST' (4003 (0xfa3))
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.977: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Error-Message'(281) l=59 f=-- val="Please answer my CER instead, you won the election."
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.977: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Origin-Host'(264) l=23 f=-M val="hss.localdomain"
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.977: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Origin-Realm'(296) l=19 f=-M val="localdomain"
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.977: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Origin-State-Id'(278) l=12 f=-M val=1692105041 (0x64db7951)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.978: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Host-IP-Address'(257) l=14 f=-M val=127.0.0.8
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.978: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Vendor-Id'(266) l=12 f=-M val=0 (0x0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.978: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Product-Name'(269) l=20 f=-- val="freediameter"
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.978: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Firmware-Revision'(267) l=12 f=-- val=10500 (0x2904)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.978: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Vendor-Specific-Application-Id'(260) l=32 f=-M val=(grouped)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.978: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:            AVP: 'Auth-Application-Id'(258) l=12 f=-M val=16777216 (0x1000000)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.978: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:            AVP: 'Vendor-Id'(266) l=12 f=-M val=10415 (0x28af)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.978: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Vendor-Specific-Application-Id'(260) l=32 f=-M val=(grouped)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.978: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:            AVP: 'Auth-Application-Id'(258) l=12 f=-M val=16777251 (0x1000023)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.979: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:            AVP: 'Vendor-Id'(266) l=12 f=-M val=10415 (0x28af)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.979: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Vendor-Specific-Application-Id'(260) l=32 f=-M val=(grouped)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.979: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:            AVP: 'Auth-Application-Id'(258) l=12 f=-M val=16777265 (0x1000031)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.979: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:            AVP: 'Vendor-Id'(266) l=12 f=-M val=10415 (0x28af)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.979: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Supported-Vendor-Id'(265) l=12 f=-M val=5535 (0x159f)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.979: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Supported-Vendor-Id'(265) l=12 f=-M val=10415 (0x28af)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]: 08/15 13:10:41.979: [diam] ERROR: pid:PSM/hss.localdomain in md_hook_cb_tree@dbg_msg_dumps.c:117:         AVP: 'Supported-Vendor-Id'(265) l=12 f=-M val=13019 (0x32db)
+Aug 15 13:10:41 open5gs open5gs-mmed[12799]:  ((null):0)
+Aug 15 13:12:32 open5gs systemd[1]: Stopping Open5GS AMF Daemon...
+Aug 15 13:12:32 open5gs systemd[1]: Stopping Open5GS UPF Daemon...
+Aug 15 13:12:32 open5gs systemd[1]: open5gs-amfd.service: Succeeded.
+Aug 15 13:12:32 open5gs systemd[1]: Stopped Open5GS AMF Daemon.
+Aug 15 13:12:32 open5gs systemd[1]: Started Open5GS AMF Daemon.
+Aug 15 13:12:32 open5gs systemd[1]: open5gs-upfd.service: Succeeded.
+Aug 15 13:12:32 open5gs systemd[1]: Stopped Open5GS UPF Daemon.
+Aug 15 13:12:32 open5gs systemd[1]: Stopping Open5GS NRF Daemon...
+Aug 15 13:12:32 open5gs systemd[1]: Started Open5GS UPF Daemon.
+Aug 15 13:12:32 open5gs systemd[1]: Stopping Open5GS NRF Daemon...
+Aug 15 13:12:32 open5gs systemd[1]: Stopping Open5GS MME Daemon...
+Aug 15 13:12:32 open5gs systemd[1]: open5gs-scpd.service: Succeeded.
+Aug 15 13:12:32 open5gs systemd[1]: Stopped Open5GS NRF Daemon.
+Aug 15 13:12:32 open5gs systemd[1]: open5gs-nrfd.service: Succeeded.
+Aug 15 13:12:32 open5gs systemd[1]: Stopped Open5GS NRF Daemon.
+Aug 15 13:12:32 open5gs systemd[1]: Stopping Open5GS AUSF Daemon...
+Aug 15 13:12:33 open5gs open5gs-pcfd[12791]: DIGEST-MD5 common mech free
+Aug 15 13:12:32 open5gs systemd[1]: Stopping Open5GS BSF Daemon...
+Aug 15 13:12:32 open5gs systemd[1]: Stopping Open5GS HSS Daemon...
+Aug 15 13:12:32 open5gs systemd[1]: Started Open5GS NRF Daemon.
+Aug 15 13:12:32 open5gs systemd[1]: Stopping Open5GS NSSF Daemon...
+Aug 15 13:12:32 open5gs systemd[1]: Stopping Open5GS PCF Daemon...
+Aug 15 13:12:32 open5gs systemd[1]: Stopping Open5GS PCRF Daemon...
+Aug 15 13:12:32 open5gs systemd[1]: Started Open5GS NRF Daemon.
+Aug 15 13:12:32 open5gs systemd[1]: Stopping Open5GS SGW-C Daemon...
+Aug 15 13:12:32 open5gs systemd[1]: Stopping Open5GS SGW-U Daemon...
+Aug 15 13:12:33 open5gs systemd[1]: Stopping Open5GS SMF Daemon...
+Aug 15 13:12:33 open5gs systemd[1]: Stopping Open5GS UDM Daemon...
+Aug 15 13:12:33 open5gs systemd[1]: Stopping Open5GS UDR Daemon...
+Aug 15 13:12:33 open5gs systemd[1]: open5gs-bsfd.service: Succeeded.
+Aug 15 13:12:33 open5gs systemd[1]: Stopped Open5GS BSF Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: open5gs-sgwcd.service: Succeeded.
+Aug 15 13:12:33 open5gs systemd[1]: Stopped Open5GS SGW-C Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: open5gs-nssfd.service: Succeeded.
+Aug 15 13:12:33 open5gs systemd[1]: Stopped Open5GS NSSF Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: open5gs-sgwud.service: Succeeded.
+Aug 15 13:12:33 open5gs systemd[1]: Stopped Open5GS SGW-U Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: open5gs-ausfd.service: Succeeded.
+Aug 15 13:12:33 open5gs systemd[1]: Stopped Open5GS AUSF Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: open5gs-udmd.service: Succeeded.
+Aug 15 13:12:33 open5gs systemd[1]: Stopped Open5GS UDM Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: open5gs-pcfd.service: Succeeded.
+Aug 15 13:12:33 open5gs systemd[1]: Stopped Open5GS PCF Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: Started Open5GS AUSF Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: Started Open5GS BSF Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: Started Open5GS NSSF Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: Started Open5GS PCF Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: Started Open5GS SGW-C Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: Started Open5GS SGW-U Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: Started Open5GS UDM Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: open5gs-udrd.service: Succeeded.
+Aug 15 13:12:33 open5gs systemd[1]: Stopped Open5GS UDR Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: Started Open5GS UDR Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: open5gs-mmed.service: Succeeded.
+Aug 15 13:12:33 open5gs systemd[1]: Stopped Open5GS MME Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: Started Open5GS MME Daemon.
+Aug 15 13:12:33 open5gs open5gs-pcrfd[12798]: DIGEST-MD5 common mech free
+Aug 15 13:12:33 open5gs open5gs-hssd[12800]: DIGEST-MD5 common mech free
+Aug 15 13:12:33 open5gs systemd[1]: open5gs-pcrfd.service: Succeeded.
+Aug 15 13:12:33 open5gs systemd[1]: Stopped Open5GS PCRF Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: open5gs-hssd.service: Succeeded.
+Aug 15 13:12:33 open5gs systemd[1]: Stopped Open5GS HSS Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: Started Open5GS HSS Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: Started Open5GS PCRF Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: open5gs-smfd.service: Succeeded.
+Aug 15 13:12:33 open5gs systemd[1]: Stopped Open5GS SMF Daemon.
+Aug 15 13:12:33 open5gs systemd[1]: Started Open5GS SMF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS AMF Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-amfd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS AMF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS AMF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS UPF Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS NRF Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS NRF Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS MME Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS UDR Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS SGW-U Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS SGW-C Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS AUSF Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS PCRF Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS PCF Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-sgwcd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS SGW-C Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS SGW-C Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS BSF Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-nrfd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS NRF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-scpd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS NRF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-ausfd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS AUSF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-sgwud.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS SGW-U Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-upfd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS UPF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-udrd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS UDR Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-pcfd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS PCF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS AUSF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS HSS Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS NRF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS NSSF Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS PCF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS NRF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS SGW-U Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS SMF Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: Stopping Open5GS UDM Daemon...
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS UDR Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS UPF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-bsfd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS BSF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-nssfd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS NSSF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-udmd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS UDM Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS BSF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS NSSF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS UDM Daemon.
+Aug 15 13:16:02 open5gs open5gs-pcrfd[13336]: DIGEST-MD5 common mech free
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-pcrfd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS PCRF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS PCRF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-mmed.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS MME Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS MME Daemon.
+Aug 15 13:16:02 open5gs open5gs-hssd[13335]: DIGEST-MD5 common mech free
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-hssd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS HSS Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS HSS Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: open5gs-smfd.service: Succeeded.
+Aug 15 13:16:02 open5gs systemd[1]: Stopped Open5GS SMF Daemon.
+Aug 15 13:16:02 open5gs systemd[1]: Started Open5GS SMF Daemon.

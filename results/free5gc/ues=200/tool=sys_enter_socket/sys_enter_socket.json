@@ -1,0 +1,7 @@
+[12:49:29]
+t:syscalls:sys_enter_socket():char*,int,int:$COMM,args->protocol,args->family&00004000
+	COUNT      EVENT
+	1          $COMM = b'systemd-network', args->protocol = 0, args->family&00004000 = 0
+	349        $COMM = b'udm', args->protocol = 0, args->family&00004000 = 0
+	510        $COMM = b'amf', args->protocol = 0, args->family&00004000 = 0
+	537        $COMM = b'ausf', args->protocol = 0, args->family&00004000 = 0

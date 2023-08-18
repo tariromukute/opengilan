@@ -1,0 +1,201 @@
+-- Logs begin at Sun 2023-08-13 19:59:13 UTC, end at Tue 2023-08-15 13:25:16 UTC. --
+Aug 15 13:19:45 open5gs open5gs-pcfd[14477]: DIGEST-MD5 common mech free
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS UDR Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-amfd.service: Succeeded.
+Aug 15 13:19:45 open5gs systemd[1]: Stopped Open5GS AMF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-sgwcd.service: Succeeded.
+Aug 15 13:19:45 open5gs systemd[1]: Stopped Open5GS SGW-C Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-sgwud.service: Succeeded.
+Aug 15 13:19:45 open5gs systemd[1]: Stopped Open5GS SGW-U Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS AMF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Stopping Open5GS AUSF Daemon...
+Aug 15 13:19:45 open5gs systemd[1]: Stopping Open5GS BSF Daemon...
+Aug 15 13:19:45 open5gs systemd[1]: Stopping Open5GS HSS Daemon...
+Aug 15 13:19:45 open5gs systemd[1]: Stopping Open5GS NSSF Daemon...
+Aug 15 13:19:45 open5gs systemd[1]: Stopping Open5GS PCF Daemon...
+Aug 15 13:19:45 open5gs systemd[1]: Stopping Open5GS PCRF Daemon...
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS SGW-C Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS SGW-U Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Stopping Open5GS SMF Daemon...
+Aug 15 13:19:45 open5gs systemd[1]: Stopping Open5GS UDM Daemon...
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-nssfd.service: Succeeded.
+Aug 15 13:19:45 open5gs systemd[1]: Stopped Open5GS NSSF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS NSSF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-bsfd.service: Succeeded.
+Aug 15 13:19:45 open5gs systemd[1]: Stopped Open5GS BSF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS BSF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-udmd.service: Succeeded.
+Aug 15 13:19:45 open5gs systemd[1]: Stopped Open5GS UDM Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS UDM Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-ausfd.service: Succeeded.
+Aug 15 13:19:45 open5gs systemd[1]: Stopped Open5GS AUSF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS AUSF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-pcfd.service: Succeeded.
+Aug 15 13:19:45 open5gs systemd[1]: Stopped Open5GS PCF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS PCF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-mmed.service: Succeeded.
+Aug 15 13:19:45 open5gs systemd[1]: Stopped Open5GS MME Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS MME Daemon.
+Aug 15 13:19:45 open5gs open5gs-hssd[14479]: DIGEST-MD5 common mech free
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-hssd.service: Succeeded.
+Aug 15 13:19:45 open5gs systemd[1]: Stopped Open5GS HSS Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS HSS Daemon.
+Aug 15 13:19:45 open5gs open5gs-pcrfd[14478]: DIGEST-MD5 common mech free
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-pcrfd.service: Succeeded.
+Aug 15 13:19:45 open5gs systemd[1]: Stopped Open5GS PCRF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS PCRF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-smfd.service: Succeeded.
+Aug 15 13:19:45 open5gs systemd[1]: Stopped Open5GS SMF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS SMF Daemon.
+Aug 15 13:19:45 open5gs open5gs-udrd[14985]: 08/15 13:19:45.590: [sbi] ERROR: [66e49bb6-3b6e-41ee-a8a6-23e09ed257df] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-nrfd.service: Main process exited, code=killed, status=6/ABRT
+Aug 15 13:19:45 open5gs systemd[1]: open5gs-nrfd.service: Failed with result 'signal'.
+Aug 15 13:19:45 open5gs systemd[1]: Stopped Open5GS NRF Daemon.
+Aug 15 13:19:45 open5gs systemd[1]: Started Open5GS NRF Daemon.
+Aug 15 13:19:45 open5gs open5gs-bsfd[14994]: 08/15 13:19:45.594: [sbi] ERROR: [66e3605c-3b6e-41ee-91f6-89fc20e7aeea] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 15 13:19:45 open5gs open5gs-amfd[14990]: 08/15 13:19:45.595: [sbi] ERROR: [66fbef6e-3b6e-41ee-970c-133bfe761485] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 15 13:19:45 open5gs open5gs-ausfd[14996]: 08/15 13:19:45.613: [sbi] ERROR: [66e7fc3e-3b6e-41ee-a742-6dc373745ede] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 15 13:19:45 open5gs open5gs-nssfd[14993]: 08/15 13:19:45.613: [sbi] ERROR: [66e7c624-3b6e-41ee-a2cd-4f5d0d223fb8] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 15 13:19:45 open5gs open5gs-udmd[14995]: 08/15 13:19:45.614: [sbi] ERROR: [66e8225e-3b6e-41ee-ac10-81d31d6e3f3d] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS AMF Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: open5gs-amfd.service: Succeeded.
+Aug 15 13:21:36 open5gs systemd[1]: Stopped Open5GS AMF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Started Open5GS AMF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS UPF Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: open5gs-upfd.service: Succeeded.
+Aug 15 13:21:36 open5gs systemd[1]: Stopped Open5GS UPF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Started Open5GS UPF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS NRF Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS NRF Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS MME Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: open5gs-nrfd.service: Succeeded.
+Aug 15 13:21:36 open5gs open5gs-pcfd[14997]: DIGEST-MD5 common mech free
+Aug 15 13:21:36 open5gs systemd[1]: Stopped Open5GS NRF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Started Open5GS NRF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS AUSF Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS BSF Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS HSS Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS NSSF Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS PCF Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS PCRF Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS SGW-C Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS SGW-U Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS SMF Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS UDM Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: Stopping Open5GS UDR Daemon...
+Aug 15 13:21:36 open5gs systemd[1]: open5gs-sgwcd.service: Succeeded.
+Aug 15 13:21:36 open5gs systemd[1]: Stopped Open5GS SGW-C Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: open5gs-sgwud.service: Succeeded.
+Aug 15 13:21:36 open5gs systemd[1]: Stopped Open5GS SGW-U Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: open5gs-udrd.service: Succeeded.
+Aug 15 13:21:36 open5gs systemd[1]: Stopped Open5GS UDR Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: open5gs-nssfd.service: Succeeded.
+Aug 15 13:21:36 open5gs systemd[1]: Stopped Open5GS NSSF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: open5gs-bsfd.service: Succeeded.
+Aug 15 13:21:36 open5gs systemd[1]: Stopped Open5GS BSF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: open5gs-ausfd.service: Succeeded.
+Aug 15 13:21:36 open5gs systemd[1]: Stopped Open5GS AUSF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: open5gs-udmd.service: Succeeded.
+Aug 15 13:21:36 open5gs systemd[1]: Stopped Open5GS UDM Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: open5gs-scpd.service: Succeeded.
+Aug 15 13:21:36 open5gs systemd[1]: Stopped Open5GS NRF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: open5gs-pcfd.service: Succeeded.
+Aug 15 13:21:36 open5gs systemd[1]: Stopped Open5GS PCF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Started Open5GS AUSF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Started Open5GS BSF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Started Open5GS NSSF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Started Open5GS PCF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Started Open5GS NRF Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Started Open5GS SGW-C Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Started Open5GS SGW-U Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Started Open5GS UDM Daemon.
+Aug 15 13:21:36 open5gs systemd[1]: Started Open5GS UDR Daemon.
+Aug 15 13:21:37 open5gs open5gs-bsfd[15539]: 08/15 13:21:37.006: [sbi] ERROR: [a96cd980-3b6e-41ee-9624-715e6d89a335] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 15 13:21:37 open5gs open5gs-nssfd[15540]: 08/15 13:21:37.007: [sbi] ERROR: [a96d02a2-3b6e-41ee-b5ff-071587a8711f] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 15 13:21:37 open5gs systemd[1]: open5gs-mmed.service: Succeeded.
+Aug 15 13:21:37 open5gs systemd[1]: Stopped Open5GS MME Daemon.
+Aug 15 13:21:37 open5gs systemd[1]: open5gs-smfd.service: Succeeded.
+Aug 15 13:21:37 open5gs systemd[1]: Stopped Open5GS SMF Daemon.
+Aug 15 13:21:37 open5gs systemd[1]: Started Open5GS MME Daemon.
+Aug 15 13:21:37 open5gs systemd[1]: Started Open5GS SMF Daemon.
+Aug 15 13:21:37 open5gs open5gs-pcrfd[15016]: DIGEST-MD5 common mech free
+Aug 15 13:21:37 open5gs systemd[1]: open5gs-pcrfd.service: Succeeded.
+Aug 15 13:21:37 open5gs systemd[1]: Stopped Open5GS PCRF Daemon.
+Aug 15 13:21:37 open5gs systemd[1]: Started Open5GS PCRF Daemon.
+Aug 15 13:21:37 open5gs systemd[1]: open5gs-hssd.service: Succeeded.
+Aug 15 13:21:37 open5gs systemd[1]: Stopped Open5GS HSS Daemon.
+Aug 15 13:21:37 open5gs systemd[1]: Started Open5GS HSS Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS AMF Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-amfd.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS AMF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS AMF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS UPF Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS NRF Daemon...
+Aug 15 13:23:28 open5gs open5gs-nrfd[15522]: 08/15 13:23:28.201: [sbi] ERROR: ogs_queue_push() failed:-4 (../lib/sbi/path.c:43)
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-upfd.service: Succeeded.
+Aug 15 13:23:28 open5gs open5gs-pcfd[15541]: DIGEST-MD5 common mech free
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS UPF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS UPF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS NRF Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS MME Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS UDR Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS SGW-U Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS SGW-C Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-sgwcd.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS SGW-C Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-sgwud.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS SGW-U Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS SGW-C Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS SGW-U Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS AUSF Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS PCRF Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS PCF Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS BSF Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS HSS Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS NSSF Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS UDM Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: Stopping Open5GS SMF Daemon...
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-bsfd.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS BSF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-nssfd.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS NSSF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-scpd.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS NRF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS BSF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS NSSF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS NRF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-ausfd.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS AUSF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS AUSF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-udmd.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS UDM Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS UDM Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-pcfd.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS PCF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS PCF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-udrd.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS UDR Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS UDR Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-mmed.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS MME Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS MME Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-hssd.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS HSS Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS HSS Daemon.
+Aug 15 13:23:28 open5gs open5gs-pcrfd[15562]: DIGEST-MD5 common mech free
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-pcrfd.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS PCRF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS PCRF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-smfd.service: Succeeded.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS SMF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS SMF Daemon.
+Aug 15 13:23:28 open5gs open5gs-pcfd[16069]: 08/15 13:23:28.551: [sbi] ERROR: [ebd707e6-3b6e-41ee-a75f-e1f83d3f77ee] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 15 13:23:28 open5gs open5gs-udmd[16068]: 08/15 13:23:28.551: [sbi] ERROR: [ebd323ce-3b6e-41ee-b573-9993b5a77ba1] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 15 13:23:28 open5gs open5gs-ausfd[16067]: 08/15 13:23:28.551: [sbi] ERROR: [ebd2cf32-3b6e-41ee-861c-c98993763d7b] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 15 13:23:28 open5gs open5gs-bsfd[16064]: 08/15 13:23:28.551: [sbi] ERROR: [ebd3f7d6-3b6e-41ee-9433-cba7ad8eff93] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-nrfd.service: Main process exited, code=killed, status=6/ABRT
+Aug 15 13:23:28 open5gs open5gs-nssfd[16065]: 08/15 13:23:28.553: [sbi] ERROR: [ebce0344-3b6e-41ee-b73e-e57895f8a037] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 15 13:23:28 open5gs systemd[1]: open5gs-nrfd.service: Failed with result 'signal'.
+Aug 15 13:23:28 open5gs systemd[1]: Stopped Open5GS NRF Daemon.
+Aug 15 13:23:28 open5gs systemd[1]: Started Open5GS NRF Daemon.
+Aug 15 13:23:28 open5gs open5gs-udrd[16072]: 08/15 13:23:28.592: [sbi] ERROR: [ebe4fa0e-3b6e-41ee-8b53-6d6c463d5ffe] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)

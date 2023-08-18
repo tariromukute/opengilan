@@ -1,0 +1,34 @@
+[09:01:07]
+r::do_epoll_wait(int epfd, struct epoll_event __user *events,int maxevents, int timeout):char*,int,int:$COMM,$entry(maxevents),$retval
+	COUNT      EVENT
+	1          $COMM = b'containerd-shim', maxevents = 128, $retval = 3
+	1          $COMM = b'oai_ausf', maxevents = 128, $retval = 0
+	1          $COMM = b'dockerd', maxevents = 128, $retval = -4
+	1          $COMM = b'containerd-shim', maxevents = 128, $retval = 4
+	1          $COMM = b'dockerd', maxevents = 128, $retval = 3
+	1          $COMM = b'runc:[2:INIT]', maxevents = 128, $retval = 0
+	2          $COMM = b'runc:[2:INIT]', maxevents = 128, $retval = 1
+	2          $COMM = b'systemd-journal', maxevents = 36, $retval = 1
+	7          $COMM = b'containerd', maxevents = 128, $retval = 3
+	8          $COMM = b'dockerd', maxevents = 128, $retval = 2
+	22         $COMM = b'dbus-daemon', maxevents = 64, $retval = 1
+	24         $COMM = b'systemd', maxevents = 97, $retval = 1
+	26         $COMM = b'containerd', maxevents = 128, $retval = 2
+	38         $COMM = b'xpl_accept-1', maxevents = 32, $retval = 0
+	56         $COMM = b'systemd-logind', maxevents = 19, $retval = 1
+	65         $COMM = b'containerd-shim', maxevents = 128, $retval = 2
+	95         $COMM = b'systemd', maxevents = 24, $retval = 1
+	160        $COMM = b'systemd', maxevents = 1, $retval = 0
+	163        $COMM = b'systemd', maxevents = 1, $retval = 1
+	181        $COMM = b'systemd-logind', maxevents = 18, $retval = 1
+	185        $COMM = b'python3', maxevents = 2, $retval = 0
+	214        $COMM = b'containerd', maxevents = 128, $retval = 1
+	226        $COMM = b'containerd', maxevents = 128, $retval = 0
+	271        $COMM = b'containerd-shim', maxevents = 128, $retval = 1
+	406        $COMM = b'containerd-shim', maxevents = 128, $retval = 0
+	566        $COMM = b'oai_udr', maxevents = 128, $retval = 1
+	760        $COMM = b'oai_udr', maxevents = 128, $retval = 0
+	763        $COMM = b'oai_udm', maxevents = 128, $retval = 1
+	767        $COMM = b'oai_udm', maxevents = 128, $retval = 0
+	1060       $COMM = b'dockerd', maxevents = 128, $retval = 0
+	1244       $COMM = b'dockerd', maxevents = 128, $retval = 1

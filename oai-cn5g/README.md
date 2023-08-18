@@ -22,17 +22,17 @@ docker pull mysql:5.7
 *** To run OAI in debug mode pull the images from docker, else skip to manually building the images ***
 ```bash
 # OAI images
-docker pull oaisoftwarealliance/oai-amf:v1.4.0
-docker pull oaisoftwarealliance/oai-nrf:v1.4.0
-docker pull oaisoftwarealliance/oai-spgwu-tiny:v1.4.0
-docker pull oaisoftwarealliance/oai-smf:v1.4.0
-docker pull oaisoftwarealliance/oai-udr:v1.4.0
-docker pull oaisoftwarealliance/oai-udm:v1.4.0
-docker pull oaisoftwarealliance/oai-ausf:v1.4.0
-docker pull oaisoftwarealliance/oai-upf-vpp:v1.4.0
-docker pull oaisoftwarealliance/oai-nssf:v1.4.0
+docker pull oaisoftwarealliance/oai-amf:develop
+docker pull oaisoftwarealliance/oai-nrf:develop
+docker pull oaisoftwarealliance/oai-spgwu-tiny:develop
+docker pull oaisoftwarealliance/oai-smf:develop
+docker pull oaisoftwarealliance/oai-udr:develop
+docker pull oaisoftwarealliance/oai-udm:develop
+docker pull oaisoftwarealliance/oai-ausf:develop
+docker pull oaisoftwarealliance/oai-upf-vpp:develop
+docker pull oaisoftwarealliance/oai-nssf:develop
 # Utility image to generate traffic
-docker pull oaisoftwarealliance/trf-gen-cn5g:latest
+c
 
 # Re tag images
 docker image tag oaisoftwarealliance/oai-amf:v1.4.0 oai-amf:v1.4.0
@@ -69,9 +69,9 @@ Although the documentation (at the time of writing) states that the network func
 # Build AMF
 cd ~/
 
-docker build --target oai-amf --tag tariromukute/oai-amf:v1.4.0 \
-               --file component/oai-amf/docker/Dockerfile.amf.ubuntu18 \
-               --build-arg BASE_IMAGE=ubuntu:bionic \
+docker build --target oai-amf --tag tariromukute/oai-amf:develop \
+               --file component/oai-amf/docker/Dockerfile.amf.ubuntu \
+            #    --build-arg BASE_IMAGE=ubuntu:bionic \
                component/oai-amf
 docker image push tariromukute/oai-amf:v1.4.0
 docker image tag tariromukute/oai-amf:v1.4.0 oai-amf:v1.4.0

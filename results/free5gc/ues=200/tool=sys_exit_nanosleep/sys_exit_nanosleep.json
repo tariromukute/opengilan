@@ -1,0 +1,9 @@
+[12:44:32]
+t:syscalls:sys_exit_nanosleep():char*,u16:$COMM,args->ret
+	COUNT      EVENT
+	68         $COMM = b'pcf', args->ret = 0
+	5936       $COMM = b'udr', args->ret = 0
+	7872       $COMM = b'nrf', args->ret = 0
+	9281       $COMM = b'ausf', args->ret = 0
+	9579       $COMM = b'amf', args->ret = 0
+	9895       $COMM = b'udm', args->ret = 0

@@ -1,0 +1,34 @@
+[15:24:57]
+t:syscalls:sys_exit_recvmsg():char*,long:$COMM,args->ret
+	COUNT      EVENT
+	1          $COMM = b'dbus-daemon', args->ret = 128
+	1          $COMM = b'dbus-daemon', args->ret = 460
+	1          $COMM = b'open5gs-amfd', args->ret = 66
+	1          $COMM = b'systemd-journal', args->ret = 123
+	1          $COMM = b'in:imuxsock', args->ret = 163
+	1          $COMM = b'open5gs-amfd', args->ret = 69
+	1          $COMM = b'conn271', args->ret = 42
+	1          $COMM = b'conn269', args->ret = 42
+	1          $COMM = b'open5gs-amfd', args->ret = 20
+	2          $COMM = b'dbus-daemon', args->ret = -11
+	4          $COMM = b'systemd-network', args->ret = 76
+	5          $COMM = b'in:imuxsock', args->ret = 70
+	5          $COMM = b'systemd-journal', args->ret = 70
+	8          $COMM = b'dbus-daemon', args->ret = 2048
+	199        $COMM = b'conn271', args->ret = 217
+	199        $COMM = b'open5gs-amfd', args->ret = 57
+	199        $COMM = b'open5gs-amfd', args->ret = 109
+	199        $COMM = b'open5gs-amfd', args->ret = 73
+	199        $COMM = b'conn271', args->ret = 207
+	199        $COMM = b'conn269', args->ret = 124
+	199        $COMM = b'open5gs-amfd', args->ret = 76
+	199        $COMM = b'conn269', args->ret = 214
+	199        $COMM = b'open5gs-amfd', args->ret = 68
+	240        $COMM = b'open5gs-smfd', args->ret = -11
+	240        $COMM = b'open5gs-hssd', args->ret = -11
+	240        $COMM = b'open5gs-mmed', args->ret = -11
+	240        $COMM = b'open5gs-pcrfd', args->ret = -11
+	398        $COMM = b'open5gs-amfd', args->ret = 19
+	399        $COMM = b'conn269', args->ret = 16
+	995        $COMM = b'conn271', args->ret = 124
+	1394       $COMM = b'conn271', args->ret = 16
