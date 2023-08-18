@@ -1,0 +1,8 @@
+[12:51:09]
+t:syscalls:sys_enter_accept4():char*,int,int:$COMM,args->fd,args->flags&00004000
+	COUNT      EVENT
+	1          $COMM = b'amf', args->fd = 7, args->flags&00004000 = 0
+	678        $COMM = b'ausf', args->fd = 9, args->flags&00004000 = 2048
+	722        $COMM = b'udm', args->fd = 9, args->flags&00004000 = 2048
+	742        $COMM = b'udr', args->fd = 11, args->flags&00004000 = 2048
+	802        $COMM = b'nrf', args->fd = 9, args->flags&00004000 = 2048

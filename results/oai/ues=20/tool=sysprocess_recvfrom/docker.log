@@ -1,0 +1,824 @@
+oai-ext-dn  | default via 192.168.70.129 dev eth0 
+oai-ext-dn  | 12.1.1.0/24 via 192.168.70.134 dev eth0 
+oai-ext-dn  | 192.168.70.128/26 dev eth0 proto kernel scope link src 192.168.70.135 
+oai-ext-dn  | default via 192.168.70.129 dev eth0 
+oai-ext-dn  | 12.1.1.0/24 via 192.168.70.134 dev eth0 
+oai-ext-dn  | 192.168.70.128/26 dev eth0 proto kernel scope link src 192.168.70.135 
+oai-ext-dn  | default via 192.168.70.129 dev eth0 
+oai-ext-dn  | 12.1.1.0/24 via 192.168.70.134 dev eth0 
+oai-ext-dn  | 192.168.70.128/26 dev eth0 proto kernel scope link src 192.168.70.135 
+oai-ext-dn  | default via 192.168.70.129 dev eth0 
+oai-ext-dn  | 12.1.1.0/24 via 192.168.70.134 dev eth0 
+oai-ext-dn  | 192.168.70.128/26 dev eth0 proto kernel scope link src 192.168.70.135 
+oai-ext-dn  | default via 192.168.70.129 dev eth0 
+oai-ext-dn  | 12.1.1.0/24 via 192.168.70.134 dev eth0 
+oai-ext-dn  | 192.168.70.128/26 dev eth0 proto kernel scope link src 192.168.70.135 
+oai-ext-dn  | default via 192.168.70.129 dev eth0 
+oai-ext-dn  | 12.1.1.0/24 via 192.168.70.134 dev eth0 
+oai-ext-dn  | 192.168.70.128/26 dev eth0 proto kernel scope link src 192.168.70.135 
+oai-ext-dn  | default via 192.168.70.129 dev eth0 
+oai-ext-dn  | 12.1.1.0/24 via 192.168.70.134 dev eth0 
+oai-ext-dn  | 192.168.70.128/26 dev eth0 proto kernel scope link src 192.168.70.135 
+oai-ext-dn  | default via 192.168.70.129 dev eth0 
+oai-ext-dn  | 12.1.1.0/24 via 192.168.70.134 dev eth0 
+oai-ext-dn  | 192.168.70.128/26 dev eth0 proto kernel scope link src 192.168.70.135 
+oai-udr     | [2023-08-07 13:34:49.019] [config ] [info]     - User.....................................: test
+oai-udr     | [2023-08-07 13:34:49.019] [config ] [info]     - Password.................................: test
+oai-udr     | [2023-08-07 13:34:49.019] [config ] [info]     - Database Name............................: oai_db
+oai-udr     | [2023-08-07 13:34:49.019] [config ] [info]     - Generate Random..........................: Yes
+oai-udr     | [2023-08-07 13:34:49.019] [config ] [info]     - Connection Timeout.......................: 300
+oai-udr     | [2023-08-07 13:34:49.019] [config ] [info] Peer NF Configuration:
+oai-udr     | [2023-08-07 13:34:49.019] [config ] [info]   NRF:
+oai-udr     | [2023-08-07 13:34:49.019] [config ] [info]     - Host.....................................: oai-nrf
+oai-udr     | [2023-08-07 13:34:49.019] [config ] [info]     - SBI
+oai-udr     | [2023-08-07 13:34:49.019] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-udr     | [2023-08-07 13:34:49.019] [config ] [info]       + API Version............................: v1
+oai-udr     | [2023-08-07 13:34:49.046] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:49.146] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:49.251] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:49.352] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:49.452] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:49.553] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:49.653] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:49.754] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:49.856] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:49.956] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:50.058] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:50.159] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:50.260] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:50.360] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:50.461] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:50.562] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:50.662] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:50.763] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:50.863] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:50.964] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:51.065] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:51.165] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:51.266] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:51.367] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:51.467] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:51.568] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-07 13:34:51.668] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:07.675] [udr_server] [start] Options parsed
+oai-udr     | [2023-08-08 20:59:07.678] [system] [debug] Parsing the configuration file, file type YAML.
+oai-udr     | [2023-08-08 20:59:07.679] [config ] [info] Reading NF configuration from /openair-udr/etc/config.yaml
+oai-udr     | [2023-08-08 20:59:07.700] [config ] [debug] Unknown NF amf in configuration. Ignored
+oai-udr     | [2023-08-08 20:59:07.700] [config ] [debug] Unknown NF smf in configuration. Ignored
+oai-udr     | [2023-08-08 20:59:07.700] [config ] [debug] Unknown NF udm in configuration. Ignored
+oai-udr     | [2023-08-08 20:59:07.700] [config ] [debug] Unknown NF ausf in configuration. Ignored
+oai-udr     | [2023-08-08 20:59:07.700] [config ] [debug] Validating configuration of Log Level
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info] ==== OPENAIRINTERFACE udr vBranch: HEAD Abrev. Hash: fbc99be Date: Tue Jun 27 09:09:42 2023 +0000 ====
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info] Basic Configuration:
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]   - Log Level..................................: error
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]   - Register NF................................: Yes
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]   - HTTP Version...............................: 2
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     UDR:
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - Host.....................................: oai-udr
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - SBI
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]       + URL....................................: http://oai-udr:8080
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]       + API Version............................: v1
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - Instance ID..............................: 0
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - PID Directory............................: 
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - UDR Name.................................: 
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - Support Features Options
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]       + Database Type..........................: 
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]   Database:
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - Host.....................................: mysql
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - User.....................................: test
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - Password.................................: test
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - Database Name............................: oai_db
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - Generate Random..........................: Yes
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - Connection Timeout.......................: 300
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info] Peer NF Configuration:
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]   NRF:
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - Host.....................................: oai-nrf
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]     - SBI
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-udr     | [2023-08-08 20:59:07.703] [config ] [info]       + API Version............................: v1
+oai-udr     | [2023-08-08 20:59:07.728] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:07.832] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:07.933] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:08.034] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:08.135] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:08.235] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:08.345] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:08.445] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:08.546] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:08.646] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:08.747] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:08.848] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:08.948] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:09.049] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:09.150] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:09.251] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:09.352] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:09.453] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:09.554] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:09.655] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:09.756] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:09.857] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:09.958] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:10.059] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:10.160] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-udr     | [2023-08-08 20:59:10.261] [udr_mysql] [error] An error occurred when connecting to MySQL DB (Can't connect to MySQL server on 'mysql:3306' (111)), retry ...
+oai-spgwu   | < location: 192.168.70.130/nnrf-nfm/v1/nf-instances/513347d8-a7ba-4032-88f2-b2393cbd8cfd
+oai-spgwu   | < 
+oai-spgwu   | * Connection #0 to host 192.168.70.130 left intact
+oai-spgwu   | [2023-08-08 22:35:30.399] [spgwu_app] [info] Response from NRF, HTTP Code: 204
+oai-spgwu   | [2023-08-08 22:35:30.399] [spgwu_app] [info] Got successful response from NRF
+oai-spgwu   | [2023-08-08 22:35:30.490] [spgwu_sx] [info] handle_receive(16 bytes)
+oai-spgwu   | [2023-08-08 22:35:30.491] [spgwu_sx] [info] Received SX HEARTBEAT REQUEST
+oai-spgwu   | *   Trying 192.168.70.130:8080...
+oai-spgwu   | * TCP_NODELAY set
+oai-spgwu   | * Connected to 192.168.70.130 (192.168.70.130) port 8080 (#0)
+oai-spgwu   | * Using HTTP2, server supports multi-use
+oai-spgwu   | * Connection state changed (HTTP/2 confirmed)
+oai-spgwu   | * Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+oai-spgwu   | * Using Stream ID: 1 (easy handle 0x7fe6dc017960)
+oai-spgwu   | > PATCH /nnrf-nfm/v1/nf-instances/513347d8-a7ba-4032-88f2-b2393cbd8cfd HTTP/2
+oai-spgwu   | Host: 192.168.70.130:8080
+oai-spgwu   | accept: */*
+oai-spgwu   | content-type: application/json
+oai-spgwu   | content-length: 58
+oai-spgwu   | 
+oai-spgwu   | * Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+oai-spgwu   | * We are completely uploaded and fine
+oai-spgwu   | < HTTP/2 204 
+oai-spgwu   | < date: Tue, 08 Aug 2023 20:35:40 GMT
+oai-spgwu   | < content-type: application/json
+oai-spgwu   | < location: 192.168.70.130/nnrf-nfm/v1/nf-instances/513347d8-a7ba-4032-88f2-b2393cbd8cfd
+oai-spgwu   | < 
+oai-spgwu   | * Connection #0 to host 192.168.70.130 left intact
+oai-spgwu   | [2023-08-08 22:35:40.397] [spgwu_app] [info] TIME-OUT event timer id 1157
+oai-spgwu   | [2023-08-08 22:35:40.397] [spgwu_app] [debug] Send Heartbeat to NRF
+oai-spgwu   | [2023-08-08 22:35:40.397] [spgwu_app] [debug] Set a timer to the next Heart-beat (10)
+oai-spgwu   | [2023-08-08 22:35:40.397] [spgwu_app] [info] Send NF Update to NRF
+oai-spgwu   | [2023-08-08 22:35:40.397] [spgwu_app] [debug] Send NF Update to NRF (Msg body [{"op":"replace","path":"/nfStatus","value":"REGISTERED"}])
+oai-spgwu   | [2023-08-08 22:35:40.397] [spgwu_app] [debug] Send NF Update to NRF (NRF URL 192.168.70.130:8080/nnrf-nfm/v1/nf-instances/513347d8-a7ba-4032-88f2-b2393cbd8cfd)
+oai-spgwu   | [2023-08-08 22:35:40.398] [spgwu_app] [info] Response from NRF, HTTP Code: 204
+oai-spgwu   | [2023-08-08 22:35:40.398] [spgwu_app] [info] Got successful response from NRF
+oai-spgwu   | [2023-08-08 22:35:40.491] [spgwu_sx] [info] handle_receive(16 bytes)
+oai-spgwu   | [2023-08-08 22:35:40.491] [spgwu_sx] [info] Received SX HEARTBEAT REQUEST
+oai-spgwu   | [2023-08-08 22:35:50.397] [spgwu_app] [info] TIME-OUT event timer id 1159
+oai-spgwu   | [2023-08-08 22:35:50.397] [spgwu_app] [debug] Send Heartbeat to NRF
+oai-spgwu   | [2023-08-08 22:35:50.397] [spgwu_app] [debug] Set a timer to the next Heart-beat (10)
+oai-spgwu   | [2023-08-08 22:35:50.397] [spgwu_app] [info] Send NF Update to NRF
+oai-spgwu   | [2023-08-08 22:35:50.397] [spgwu_app] [debug] Send NF Update to NRF (Msg body [{"op":"replace","path":"/nfStatus","value":"REGISTERED"}])
+oai-spgwu   | [2023-08-08 22:35:50.397] [spgwu_app] [debug] Send NF Update to NRF (NRF URL 192.168.70.130:8080/nnrf-nfm/v1/nf-instances/513347d8-a7ba-4032-88f2-b2393cbd8cfd)
+oai-spgwu   | *   Trying 192.168.70.130:8080...
+oai-spgwu   | * TCP_NODELAY set
+oai-spgwu   | * Connected to 192.168.70.130 (192.168.70.130) port 8080 (#0)
+oai-spgwu   | * Using HTTP2, server supports multi-use
+oai-spgwu   | * Connection state changed (HTTP/2 confirmed)
+oai-spgwu   | * Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+oai-spgwu   | * Using Stream ID: 1 (easy handle 0x7fe6dc01e3a0)
+oai-spgwu   | > PATCH /nnrf-nfm/v1/nf-instances/513347d8-a7ba-4032-88f2-b2393cbd8cfd HTTP/2
+oai-spgwu   | Host: 192.168.70.130:8080
+oai-spgwu   | accept: */*
+oai-spgwu   | content-type: application/json
+oai-spgwu   | content-length: 58
+oai-spgwu   | 
+oai-spgwu   | * We are completely uploaded and fine
+oai-spgwu   | * Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+oai-spgwu   | < HTTP/2 204 
+oai-spgwu   | < date: Tue, 08 Aug 2023 20:35:50 GMT
+oai-spgwu   | < content-type: application/json
+oai-spgwu   | < location: 192.168.70.130/nnrf-nfm/v1/nf-instances/513347d8-a7ba-4032-88f2-b2393cbd8cfd
+oai-spgwu   | < 
+oai-spgwu   | [2023-08-08 22:35:50.399] [spgwu_app] [info] Response from NRF, HTTP Code: 204
+oai-spgwu   | [2023-08-08 22:35:50.399] [spgwu_app] [info] Got successful response from NRF
+oai-spgwu   | * Connection #0 to host 192.168.70.130 left intact
+oai-spgwu   | [2023-08-08 22:35:50.493] [spgwu_sx] [info] handle_receive(16 bytes)
+oai-spgwu   | [2023-08-08 22:35:50.493] [spgwu_sx] [info] Received SX HEARTBEAT REQUEST
+oai-spgwu   | [2023-08-08 22:36:00.397] [spgwu_app] [info] TIME-OUT event timer id 1161
+oai-spgwu   | [2023-08-08 22:36:00.397] [spgwu_app] [debug] Send Heartbeat to NRF
+oai-spgwu   | [2023-08-08 22:36:00.397] [spgwu_app] [debug] Set a timer to the next Heart-beat (10)
+oai-spgwu   | [2023-08-08 22:36:00.397] [spgwu_app] [info] Send NF Update to NRF
+oai-spgwu   | [2023-08-08 22:36:00.397] [spgwu_app] [debug] Send NF Update to NRF (Msg body [{"op":"replace","path":"/nfStatus","value":"REGISTERED"}])
+oai-spgwu   | [2023-08-08 22:36:00.397] [spgwu_app] [debug] Send NF Update to NRF (NRF URL 192.168.70.130:8080/nnrf-nfm/v1/nf-instances/513347d8-a7ba-4032-88f2-b2393cbd8cfd)
+oai-spgwu   | *   Trying 192.168.70.130:8080...
+oai-spgwu   | * TCP_NODELAY set
+oai-spgwu   | * Connected to 192.168.70.130 (192.168.70.130) port 8080 (#0)
+oai-spgwu   | * Using HTTP2, server supports multi-use
+oai-spgwu   | * Connection state changed (HTTP/2 confirmed)
+oai-spgwu   | * Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+oai-spgwu   | * Using Stream ID: 1 (easy handle 0x7fe6dc017960)
+oai-spgwu   | > PATCH /nnrf-nfm/v1/nf-instances/513347d8-a7ba-4032-88f2-b2393cbd8cfd HTTP/2
+oai-spgwu   | Host: 192.168.70.130:8080
+oai-spgwu   | accept: */*
+oai-spgwu   | content-type: application/json
+oai-spgwu   | content-length: 58
+oai-spgwu   | 
+oai-spgwu   | * We are completely uploaded and fine
+oai-spgwu   | * Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+oai-spgwu   | < HTTP/2 204 
+oai-spgwu   | < date: Tue, 08 Aug 2023 20:36:00 GMT
+oai-spgwu   | < content-type: application/json
+oai-spgwu   | [2023-08-08 22:36:00.399] [spgwu_app] [info] Response from NRF, HTTP Code: 204
+oai-spgwu   | [2023-08-08 22:36:00.399] [spgwu_app] [info] Got successful response from NRF
+oai-spgwu   | < location: 192.168.70.130/nnrf-nfm/v1/nf-instances/513347d8-a7ba-4032-88f2-b2393cbd8cfd
+oai-spgwu   | < 
+oai-spgwu   | * Connection #0 to host 192.168.70.130 left intact
+oai-spgwu   | [2023-08-08 22:36:00.493] [spgwu_sx] [info] handle_receive(16 bytes)
+oai-spgwu   | [2023-08-08 22:36:00.493] [spgwu_sx] [info] Received SX HEARTBEAT REQUEST
+oai-udm     | [2023-08-04 08:49:41.796] [config ] [info]       + URL....................................: http://oai-udr:8080
+oai-udm     | [2023-08-04 08:49:41.796] [config ] [info]       + API Version............................: v1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   - Log Level..................................: error
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   - Register NF................................: Yes
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   - http_version...............................: 2
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info] SMF Config:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   - Host.......................................: oai-smf
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   - SBI
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + URL......................................: http://oai-smf:8080
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + API Version..............................: v1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + IPv4 Address ............................: 192.168.70.133
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   - N4
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + Port.....................................: 8805
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + IPv4 Address ............................: 192.168.70.133
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + MTU......................................: 1500
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + Interface name: .........................: eth0
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   Supported Features:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + Use Local Subscription Info..............: Yes
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + Use Local PCC Rules......................: Yes
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   - UE MTU.....................................: 1500
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   - Primary DNS IPv4...........................: 172.21.3.100
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   - Primary DNS IPv6...........................: 2001:4860:4860::8888
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   - Secondary DNS IPv4.........................: 8.8.8.8
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   - Secondary DNS IPv6.........................: 2001:4860:4860::8888
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   - P-CSCF IPv4................................: 127.0.0.1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   - P-CSCF IPv6................................: fe80::7915:f408:1787:db8b
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   UPF List:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     - oai-spgwu
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + Host...................................: oai-spgwu
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + Port...................................: 8805
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + Enable Usage Reporting.................: No
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + Enable DL PDR In Session Establishment.: No
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + Interface Configuration:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - NWI N3...............................: access.oai.org
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - NWI N6...............................: core.oai.org
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   Local Subscription Infos:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     - Local Subscription Info
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + DNN....................................: oai
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + SSC Mode...............................: 1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + Single NSSAI:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - SST..................................: 1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - SD...................................: 0XFFFFFF (16777215)
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + QoS Profile:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - 5QI..................................: 9
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - Priority.............................: 1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - ARP Priority.........................: 1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - ARP Preempt Vulnerability............: NOT_PREEMPTABLE
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - ARP Preempt Capability...............: NOT_PREEMPT
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - Session AMBR DL......................: 400Mbps
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - Session AMBR UL......................: 200Mbps
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     - Local Subscription Info
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + DNN....................................: oai.ipv4
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + SSC Mode...............................: 1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + Single NSSAI:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - SST..................................: 1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - SD...................................: 0X1 (1)
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + QoS Profile:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - 5QI..................................: 9
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - Priority.............................: 1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - ARP Priority.........................: 1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - ARP Preempt Vulnerability............: NOT_PREEMPTABLE
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - ARP Preempt Capability...............: NOT_PREEMPT
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - Session AMBR DL......................: 200Mbps
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - Session AMBR UL......................: 100Mbps
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     - Local Subscription Info
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + DNN....................................: default
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + SSC Mode...............................: 1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + Single NSSAI:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - SST..................................: 222
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - SD...................................: 0X7B (123)
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + QoS Profile:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - 5QI..................................: 9
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - Priority.............................: 1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - ARP Priority.........................: 1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - ARP Preempt Vulnerability............: NOT_PREEMPTABLE
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - ARP Preempt Capability...............: NOT_PREEMPT
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - Session AMBR DL......................: 100Mbps
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]         - Session AMBR UL......................: 50Mbps
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info] Peer NF Configuration:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]   nrf:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     - Host.....................................: oai-nrf
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     - SBI
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]       + API Version............................: v1
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info] DNNs:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info] - DNN:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + DNN......................................: oai
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + PDU session type.........................: IPV4
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + IPv4 pool................................: 12.1.1.151 - 12.1.1.253
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info] - DNN:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + DNN......................................: oai.ipv4
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + PDU session type.........................: IPV4
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + IPv4 pool................................: 12.1.1.51 - 12.1.1.150
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info] - DNN:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + DNN......................................: default
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + PDU session type.........................: IPV4
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + IPv4 pool................................: 12.1.1.2 - 12.1.1.50
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info] - DNN:
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + DNN......................................: ims
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + PDU session type.........................: IPV4V6
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + IPv6 prefix..............................: 
+oai-smf     | [2023-08-08 18:59:09.283] [config ] [info]     + IPv4 pool................................: 14.1.1.2 - 14.1.1.253
+oai-ausf    | [2023-08-05 20:31:51.370] [ausf_app] [error] Resource corresponding to User 208950000000983 not found
+oai-ausf    | [2023-08-05 20:31:51.373] [ausf_app] [error] Resource corresponding to User 208950000000984 not found
+oai-ausf    | [2023-08-05 20:31:51.376] [ausf_app] [error] Resource corresponding to User 208950000000985 not found
+oai-ausf    | [2023-08-05 20:31:51.379] [ausf_app] [error] Resource corresponding to User 208950000000986 not found
+oai-ausf    | [2023-08-05 20:31:51.383] [ausf_app] [error] Resource corresponding to User 208950000000987 not found
+oai-ausf    | [2023-08-05 20:31:51.386] [ausf_app] [error] Resource corresponding to User 208950000000988 not found
+oai-ausf    | [2023-08-05 20:31:51.389] [ausf_app] [error] Resource corresponding to User 208950000000989 not found
+oai-ausf    | [2023-08-05 20:31:51.393] [ausf_app] [error] Resource corresponding to User 208950000000990 not found
+oai-ausf    | [2023-08-05 20:31:51.397] [ausf_app] [error] Resource corresponding to User 208950000000991 not found
+oai-ausf    | [2023-08-05 20:31:51.400] [ausf_app] [error] Resource corresponding to User 208950000000992 not found
+oai-ausf    | [2023-08-05 20:31:51.405] [ausf_app] [error] Resource corresponding to User 208950000000993 not found
+oai-ausf    | [2023-08-05 20:31:51.409] [ausf_app] [error] Resource corresponding to User 208950000000994 not found
+oai-ausf    | [2023-08-05 20:31:51.413] [ausf_app] [error] Resource corresponding to User 208950000000995 not found
+oai-ausf    | [2023-08-05 20:31:51.417] [ausf_app] [error] Resource corresponding to User 208950000000996 not found
+oai-ausf    | [2023-08-05 20:31:51.421] [ausf_app] [error] Resource corresponding to User 208950000000997 not found
+oai-ausf    | [2023-08-05 20:31:51.425] [ausf_app] [error] Resource corresponding to User 208950000000998 not found
+oai-ausf    | [2023-08-05 20:31:51.429] [ausf_app] [error] Resource corresponding to User 208950000000999 not found
+oai-ausf    | [2023-08-05 20:31:51.432] [ausf_app] [error] Resource corresponding to User 208950000001000 not found
+oai-ausf    | [2023-08-05 20:31:51.436] [ausf_app] [error] Resource corresponding to User 208950000001001 not found
+oai-ausf    | [2023-08-05 20:31:51.440] [ausf_app] [error] Resource corresponding to User 208950000001002 not found
+oai-ausf    | [2023-08-05 20:31:51.443] [ausf_app] [error] Resource corresponding to User 208950000001003 not found
+oai-ausf    | [2023-08-05 20:31:51.447] [ausf_app] [error] Resource corresponding to User 208950000001004 not found
+oai-ausf    | [2023-08-05 20:31:51.450] [ausf_app] [error] Resource corresponding to User 208950000001005 not found
+oai-ausf    | [2023-08-05 20:31:51.454] [ausf_app] [error] Resource corresponding to User 208950000001006 not found
+oai-ausf    | [2023-08-05 20:31:51.457] [ausf_app] [error] Resource corresponding to User 208950000001007 not found
+oai-ausf    | [2023-08-05 20:31:51.460] [ausf_app] [error] Resource corresponding to User 208950000001008 not found
+oai-ausf    | [2023-08-05 20:31:51.463] [ausf_app] [error] Resource corresponding to User 208950000001009 not found
+oai-ausf    | [2023-08-05 20:31:51.467] [ausf_app] [error] Resource corresponding to User 208950000001010 not found
+oai-ausf    | [2023-08-05 20:31:51.470] [ausf_app] [error] Resource corresponding to User 208950000001011 not found
+oai-ausf    | [2023-08-05 20:31:51.473] [ausf_app] [error] Resource corresponding to User 208950000001012 not found
+oai-ausf    | [2023-08-05 20:31:51.477] [ausf_app] [error] Resource corresponding to User 208950000001013 not found
+oai-ausf    | [2023-08-05 20:31:51.481] [ausf_app] [error] Resource corresponding to User 208950000001014 not found
+oai-ausf    | [2023-08-05 20:31:51.484] [ausf_app] [error] Resource corresponding to User 208950000001015 not found
+oai-ausf    | [2023-08-05 20:31:51.487] [ausf_app] [error] Resource corresponding to User 208950000001016 not found
+oai-ausf    | [2023-08-05 20:31:51.491] [ausf_app] [error] Resource corresponding to User 208950000001017 not found
+oai-ausf    | [2023-08-05 20:31:51.494] [ausf_app] [error] Resource corresponding to User 208950000001018 not found
+oai-ausf    | [2023-08-05 20:31:51.498] [ausf_app] [error] Resource corresponding to User 208950000001019 not found
+oai-ausf    | [2023-08-05 20:31:51.501] [ausf_app] [error] Resource corresponding to User 208950000001020 not found
+oai-ausf    | [2023-08-05 20:31:51.504] [ausf_app] [error] Resource corresponding to User 208950000001021 not found
+oai-ausf    | [2023-08-05 20:31:51.507] [ausf_app] [error] Resource corresponding to User 208950000001022 not found
+oai-ausf    | [2023-08-05 20:31:51.510] [ausf_app] [error] Resource corresponding to User 208950000001023 not found
+oai-ausf    | [2023-08-05 20:31:51.513] [ausf_app] [error] Resource corresponding to User 208950000001024 not found
+oai-ausf    | [2023-08-05 20:31:51.516] [ausf_app] [error] Resource corresponding to User 208950000001025 not found
+oai-ausf    | [2023-08-05 20:31:51.519] [ausf_app] [error] Resource corresponding to User 208950000001026 not found
+oai-ausf    | [2023-08-05 20:31:51.523] [ausf_app] [error] Resource corresponding to User 208950000001027 not found
+oai-ausf    | [2023-08-05 20:31:51.526] [ausf_app] [error] Resource corresponding to User 208950000001028 not found
+oai-ausf    | [2023-08-05 20:31:51.532] [ausf_app] [error] Resource corresponding to User 208950000001029 not found
+oai-ausf    | [2023-08-05 20:31:51.535] [ausf_app] [error] Resource corresponding to User 208950000001030 not found
+oai-ausf    | [2023-08-07 13:34:49.653] [ausf_server] [start] Options parsed
+oai-ausf    | [2023-08-07 13:34:49.658] [ausf_server] [debug] Parsing the configuration file, file type YAML.
+oai-ausf    | [2023-08-07 13:34:49.658] [config ] [info] Reading NF configuration from /openair-ausf/etc/config.yaml
+oai-ausf    | [2023-08-07 13:34:49.680] [config ] [debug] Unknown NF amf in configuration. Ignored
+oai-ausf    | [2023-08-07 13:34:49.680] [config ] [debug] Unknown NF smf in configuration. Ignored
+oai-ausf    | [2023-08-07 13:34:49.680] [config ] [debug] Unknown NF udr in configuration. Ignored
+oai-ausf    | [2023-08-07 13:34:49.680] [config ] [debug] Validating configuration of Log Level
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info] ==== OPENAIRINTERFACE ausf vBranch: HEAD Abrev. Hash: f93da2f Date: Tue Jun 27 08:05:33 2023 +0000 ====
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info] Basic Configuration:
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]   - Log Level..................................: error
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]   - Register NF................................: Yes
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]   - HTTP Version...............................: 2
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]     AUSF:
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]     - Host.....................................: oai-ausf
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]     - SBI
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]       + URL....................................: http://oai-ausf:8080
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]       + API Version............................: v1
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]     - Instance ID..............................: 0
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]     - PID Directory............................: 
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]     - AUSF Name................................: 
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info] Peer NF Configuration:
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]   NRF:
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]     - Host.....................................: oai-nrf
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]     - SBI
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-ausf    | [2023-08-07 13:34:49.683] [config ] [info]       + API Version............................: v1
+oai-ausf    | [2023-08-08 20:59:08.384] [ausf_server] [start] Options parsed
+oai-ausf    | [2023-08-08 20:59:08.395] [ausf_server] [debug] Parsing the configuration file, file type YAML.
+oai-ausf    | [2023-08-08 20:59:08.395] [config ] [info] Reading NF configuration from /openair-ausf/etc/config.yaml
+oai-ausf    | [2023-08-08 20:59:08.420] [config ] [debug] Unknown NF amf in configuration. Ignored
+oai-ausf    | [2023-08-08 20:59:08.420] [config ] [debug] Unknown NF smf in configuration. Ignored
+oai-ausf    | [2023-08-08 20:59:08.420] [config ] [debug] Unknown NF udr in configuration. Ignored
+oai-ausf    | [2023-08-08 20:59:08.420] [config ] [debug] Validating configuration of Log Level
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info] ==== OPENAIRINTERFACE ausf vBranch: HEAD Abrev. Hash: f93da2f Date: Tue Jun 27 08:05:33 2023 +0000 ====
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info] Basic Configuration:
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]   - Log Level..................................: error
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]   - Register NF................................: Yes
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]   - HTTP Version...............................: 2
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]     AUSF:
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]     - Host.....................................: oai-ausf
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]     - SBI
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]       + URL....................................: http://oai-ausf:8080
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]       + API Version............................: v1
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]     - Instance ID..............................: 0
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]     - PID Directory............................: 
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]     - AUSF Name................................: 
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info] Peer NF Configuration:
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]   NRF:
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]     - Host.....................................: oai-nrf
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]     - SBI
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-ausf    | [2023-08-08 20:59:08.425] [config ] [info]       + API Version............................: v1
+mysql       | 2023-07-30T09:49:38.618030Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.33) starting as process 1
+mysql       | 2023-07-30T09:49:38.660208Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+mysql       | 2023-07-30T09:49:39.500238Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+mysql       | 2023-07-30T09:49:39.840725Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+mysql       | 2023-07-30T09:49:39.859457Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+mysql       | 2023-07-30T09:49:39.974409Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+mysql       | 2023-07-30T09:49:39.974595Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+mysql       | 2023-07-30T09:49:39.980513Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+mysql       | 2023-07-30T09:49:40.036200Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+mysql       | 2023-07-30T09:49:40.036429Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.33'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+mysql       | 2023-07-31 13:49:45+02:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+mysql       | 2023-07-31 13:49:45+02:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mysql       | 2023-07-31 13:49:45+02:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+mysql       | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+mysql       | 2023-07-31T11:49:46.790567Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+mysql       | 2023-07-31T11:49:46.806013Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.33) starting as process 1
+mysql       | 2023-07-31T11:49:46.845605Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+mysql       | 2023-07-31T11:49:47.728485Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+mysql       | 2023-07-31T11:49:48.060269Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+mysql       | 2023-07-31T11:49:48.105094Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+mysql       | 2023-07-31T11:49:48.175736Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+mysql       | 2023-07-31T11:49:48.176037Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+mysql       | 2023-07-31T11:49:48.180985Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+mysql       | 2023-07-31T11:49:48.254793Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+mysql       | 2023-07-31T11:49:48.254854Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.33'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+mysql       | 2023-08-02 18:24:22+02:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+mysql       | 2023-08-02 18:24:23+02:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mysql       | 2023-08-02 18:24:23+02:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+oai-udm     | Caught signal 15
+oai-udm     | Freeing Allocated memory...
+oai-udm     | UDM API Server memory done
+oai-udm     | UDM APP memory done
+oai-udm     | Freeing allocated memory done
+oai-udm     | [2023-08-05 14:14:13.652] [udm_server] [start] Options parsed
+oai-udm     | [2023-08-05 14:14:13.659] [system] [debug] Parsing the configuration file, file type YAML.
+oai-udm     | [2023-08-05 14:14:13.659] [config ] [info] Reading NF configuration from /openair-udm/etc/config.yaml
+oai-udm     | [2023-08-05 14:14:13.683] [config ] [debug] Unknown NF amf in configuration. Ignored
+oai-nrf     | [2023-08-02 18:24:22.524] [nrf_app] [start] Options parsed
+oai-nrf     | [2023-08-02 18:24:22.551] [config ] [info] Reading NF configuration from /openair-nrf/etc/config.yaml
+oai-nrf     | [2023-08-02 18:24:22.579] [config ] [debug] Unknown NF amf in configuration. Ignored
+oai-nrf     | [2023-08-02 18:24:22.579] [config ] [debug] Unknown NF smf in configuration. Ignored
+oai-nrf     | [2023-08-02 18:24:22.579] [config ] [debug] Unknown NF udm in configuration. Ignored
+oai-nrf     | [2023-08-02 18:24:22.579] [config ] [debug] Unknown NF udr in configuration. Ignored
+oai-nrf     | [2023-08-02 18:24:22.579] [config ] [debug] Unknown NF ausf in configuration. Ignored
+oai-nrf     | [2023-08-02 18:24:22.580] [config ] [debug] Validating configuration of Log Level
+oai-nrf     | [2023-08-02 18:24:22.598] [config ] [info] ==== OPENAIRINTERFACE nrf vBranch: HEAD Abrev. Hash: c50860b Date: Fri Jun 23 11:25:15 2023 +0000 ====
+oai-nrf     | [2023-08-02 18:24:22.598] [config ] [info] Basic Configuration:
+oai-nrf     | [2023-08-02 18:24:22.598] [config ] [info]   - Log Level..................................: error
+oai-nrf     | [2023-08-02 18:24:22.598] [config ] [info]   - http_version...............................: 2
+oai-nrf     | [2023-08-02 18:24:22.598] [config ] [info]   nrf:
+oai-nrf     | [2023-08-02 18:24:22.598] [config ] [info]     - Host.....................................: oai-nrf
+oai-nrf     | [2023-08-02 18:24:22.598] [config ] [info]     - SBI
+oai-nrf     | [2023-08-02 18:24:22.598] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-nrf     | [2023-08-02 18:24:22.598] [config ] [info]       + API Version............................: v1
+oai-nrf     | [2023-08-02 18:24:22.598] [config ] [info]       + IPv4 Address ..........................: 192.168.70.130
+oai-nrf     | [2023-08-02 18:24:22.598] [config ] [info] Peer NF Configuration:
+oai-nrf     | [2023-08-04 08:49:41.033] [nrf_app] [start] Options parsed
+oai-nrf     | [2023-08-04 08:49:41.039] [config ] [info] Reading NF configuration from /openair-nrf/etc/config.yaml
+oai-nrf     | [2023-08-04 08:49:41.056] [config ] [debug] Unknown NF amf in configuration. Ignored
+oai-nrf     | [2023-08-04 08:49:41.056] [config ] [debug] Unknown NF smf in configuration. Ignored
+oai-nrf     | [2023-08-04 08:49:41.056] [config ] [debug] Unknown NF udm in configuration. Ignored
+oai-nrf     | [2023-08-04 08:49:41.056] [config ] [debug] Unknown NF udr in configuration. Ignored
+oai-nrf     | [2023-08-04 08:49:41.056] [config ] [debug] Unknown NF ausf in configuration. Ignored
+oai-nrf     | [2023-08-04 08:49:41.056] [config ] [debug] Validating configuration of Log Level
+oai-nrf     | [2023-08-04 08:49:41.059] [config ] [info] ==== OPENAIRINTERFACE nrf vBranch: HEAD Abrev. Hash: c50860b Date: Fri Jun 23 11:25:15 2023 +0000 ====
+oai-nrf     | [2023-08-04 08:49:41.059] [config ] [info] Basic Configuration:
+oai-nrf     | [2023-08-04 08:49:41.059] [config ] [info]   - Log Level..................................: error
+oai-nrf     | [2023-08-04 08:49:41.059] [config ] [info]   - http_version...............................: 2
+oai-nrf     | [2023-08-04 08:49:41.059] [config ] [info]   nrf:
+oai-nrf     | [2023-08-04 08:49:41.059] [config ] [info]     - Host.....................................: oai-nrf
+oai-nrf     | [2023-08-04 08:49:41.059] [config ] [info]     - SBI
+oai-nrf     | [2023-08-04 08:49:41.059] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-nrf     | [2023-08-04 08:49:41.059] [config ] [info]       + API Version............................: v1
+oai-nrf     | [2023-08-04 08:49:41.059] [config ] [info]       + IPv4 Address ..........................: 192.168.70.130
+oai-nrf     | [2023-08-04 08:49:41.059] [config ] [info] Peer NF Configuration:
+oai-nrf     | Caught signal 15
+oai-nrf     | Freeing Allocated memory...
+oai-nrf     | NRF API Server memory done
+oai-nrf     | NRF APP memory done
+oai-nrf     | Freeing allocated memory done
+oai-nrf     | [2023-08-05 14:14:12.880] [nrf_app] [start] Options parsed
+oai-nrf     | [2023-08-05 14:14:12.891] [config ] [info] Reading NF configuration from /openair-nrf/etc/config.yaml
+oai-nrf     | [2023-08-05 14:14:12.909] [config ] [debug] Unknown NF amf in configuration. Ignored
+oai-nrf     | [2023-08-05 14:14:12.909] [config ] [debug] Unknown NF smf in configuration. Ignored
+oai-nrf     | [2023-08-05 14:14:12.909] [config ] [debug] Unknown NF udm in configuration. Ignored
+oai-nrf     | [2023-08-05 14:14:12.909] [config ] [debug] Unknown NF udr in configuration. Ignored
+oai-nrf     | [2023-08-05 14:14:12.909] [config ] [debug] Unknown NF ausf in configuration. Ignored
+oai-nrf     | [2023-08-05 14:14:12.909] [config ] [debug] Validating configuration of Log Level
+oai-nrf     | [2023-08-05 14:14:12.911] [config ] [info] ==== OPENAIRINTERFACE nrf vBranch: HEAD Abrev. Hash: c50860b Date: Fri Jun 23 11:25:15 2023 +0000 ====
+oai-nrf     | [2023-08-05 14:14:12.911] [config ] [info] Basic Configuration:
+oai-nrf     | [2023-08-05 14:14:12.911] [config ] [info]   - Log Level..................................: error
+oai-nrf     | [2023-08-05 14:14:12.911] [config ] [info]   - http_version...............................: 2
+oai-nrf     | [2023-08-05 14:14:12.911] [config ] [info]   nrf:
+oai-nrf     | [2023-08-05 14:14:12.911] [config ] [info]     - Host.....................................: oai-nrf
+oai-nrf     | [2023-08-05 14:14:12.911] [config ] [info]     - SBI
+oai-nrf     | [2023-08-05 14:14:12.911] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-nrf     | [2023-08-05 14:14:12.911] [config ] [info]       + API Version............................: v1
+oai-nrf     | [2023-08-05 14:14:12.911] [config ] [info]       + IPv4 Address ..........................: 192.168.70.130
+oai-nrf     | [2023-08-05 14:14:12.911] [config ] [info] Peer NF Configuration:
+oai-nrf     | [2023-08-07 13:34:48.421] [nrf_app] [start] Options parsed
+oai-nrf     | [2023-08-07 13:34:48.428] [config ] [info] Reading NF configuration from /openair-nrf/etc/config.yaml
+oai-nrf     | [2023-08-07 13:34:48.449] [config ] [debug] Unknown NF amf in configuration. Ignored
+oai-nrf     | [2023-08-07 13:34:48.449] [config ] [debug] Unknown NF smf in configuration. Ignored
+oai-nrf     | [2023-08-07 13:34:48.449] [config ] [debug] Unknown NF udm in configuration. Ignored
+oai-nrf     | [2023-08-07 13:34:48.449] [config ] [debug] Unknown NF udr in configuration. Ignored
+oai-nrf     | [2023-08-07 13:34:48.449] [config ] [debug] Unknown NF ausf in configuration. Ignored
+oai-nrf     | [2023-08-07 13:34:48.449] [config ] [debug] Validating configuration of Log Level
+oai-nrf     | [2023-08-07 13:34:48.451] [config ] [info] ==== OPENAIRINTERFACE nrf vBranch: HEAD Abrev. Hash: c50860b Date: Fri Jun 23 11:25:15 2023 +0000 ====
+oai-nrf     | [2023-08-07 13:34:48.451] [config ] [info] Basic Configuration:
+oai-nrf     | [2023-08-07 13:34:48.451] [config ] [info]   - Log Level..................................: error
+oai-nrf     | [2023-08-07 13:34:48.451] [config ] [info]   - http_version...............................: 2
+oai-nrf     | [2023-08-07 13:34:48.451] [config ] [info]   nrf:
+oai-nrf     | [2023-08-07 13:34:48.451] [config ] [info]     - Host.....................................: oai-nrf
+oai-nrf     | [2023-08-07 13:34:48.451] [config ] [info]     - SBI
+oai-nrf     | [2023-08-07 13:34:48.451] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-nrf     | [2023-08-07 13:34:48.451] [config ] [info]       + API Version............................: v1
+oai-nrf     | [2023-08-07 13:34:48.451] [config ] [info]       + IPv4 Address ..........................: 192.168.70.130
+oai-nrf     | [2023-08-07 13:34:48.451] [config ] [info] Peer NF Configuration:
+oai-nrf     | [2023-08-08 20:59:07.348] [nrf_app] [start] Options parsed
+oai-nrf     | [2023-08-08 20:59:07.355] [config ] [info] Reading NF configuration from /openair-nrf/etc/config.yaml
+oai-nrf     | [2023-08-08 20:59:07.371] [config ] [debug] Unknown NF amf in configuration. Ignored
+oai-nrf     | [2023-08-08 20:59:07.371] [config ] [debug] Unknown NF smf in configuration. Ignored
+oai-nrf     | [2023-08-08 20:59:07.371] [config ] [debug] Unknown NF udm in configuration. Ignored
+oai-nrf     | [2023-08-08 20:59:07.371] [config ] [debug] Unknown NF udr in configuration. Ignored
+oai-nrf     | [2023-08-08 20:59:07.371] [config ] [debug] Unknown NF ausf in configuration. Ignored
+oai-nrf     | [2023-08-08 20:59:07.371] [config ] [debug] Validating configuration of Log Level
+oai-nrf     | [2023-08-08 20:59:07.373] [config ] [info] ==== OPENAIRINTERFACE nrf vBranch: HEAD Abrev. Hash: c50860b Date: Fri Jun 23 11:25:15 2023 +0000 ====
+oai-nrf     | [2023-08-08 20:59:07.373] [config ] [info] Basic Configuration:
+oai-nrf     | [2023-08-08 20:59:07.373] [config ] [info]   - Log Level..................................: error
+oai-nrf     | [2023-08-08 20:59:07.373] [config ] [info]   - http_version...............................: 2
+oai-nrf     | [2023-08-08 20:59:07.373] [config ] [info]   nrf:
+oai-nrf     | [2023-08-08 20:59:07.373] [config ] [info]     - Host.....................................: oai-nrf
+oai-nrf     | [2023-08-08 20:59:07.373] [config ] [info]     - SBI
+oai-nrf     | [2023-08-08 20:59:07.373] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-nrf     | [2023-08-08 20:59:07.373] [config ] [info]       + API Version............................: v1
+oai-nrf     | [2023-08-08 20:59:07.373] [config ] [info]       + IPv4 Address ..........................: 192.168.70.130
+oai-nrf     | [2023-08-08 20:59:07.373] [config ] [info] Peer NF Configuration:
+mysql       | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+mysql       | 2023-08-02T16:24:24.958209Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+mysql       | 2023-08-02T16:24:24.971894Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.33) starting as process 1
+mysql       | 2023-08-02T16:24:25.062649Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+mysql       | 2023-08-02T16:24:27.270190Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+mysql       | 2023-08-02T16:24:27.839901Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+mysql       | 2023-08-02T16:24:27.917904Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+mysql       | 2023-08-02T16:24:28.012082Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+mysql       | 2023-08-02T16:24:28.012259Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+mysql       | 2023-08-02T16:24:28.015587Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+mysql       | 2023-08-02T16:24:28.063598Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+mysql       | 2023-08-02T16:24:28.063655Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.33'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+mysql       | 2023-08-04 08:49:40+02:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+mysql       | 2023-08-04 08:49:41+02:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mysql       | 2023-08-04 08:49:41+02:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+mysql       | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+mysql       | 2023-08-04T06:49:42.609833Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+mysql       | 2023-08-04T06:49:42.627149Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.33) starting as process 1
+mysql       | 2023-08-04T06:49:42.662090Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+mysql       | 2023-08-04T06:49:43.651015Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+mysql       | 2023-08-04T06:49:43.947985Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+mysql       | 2023-08-04T06:49:43.989126Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+mysql       | 2023-08-04T06:49:44.062585Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+mysql       | 2023-08-04T06:49:44.062784Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+mysql       | 2023-08-04T06:49:44.067928Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+mysql       | 2023-08-04T06:49:44.131763Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+mysql       | 2023-08-04T06:49:44.132296Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.33'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+mysql       | 2023-08-05T10:40:57.898221Z 0 [System] [MY-013172] [Server] Received SHUTDOWN from user <via user signal>. Shutting down mysqld (Version: 8.0.33).
+mysql       | 2023-08-05T10:41:02.624627Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+mysql       | 2023-08-05 14:14:12+02:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+mysql       | 2023-08-05 14:14:13+02:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mysql       | 2023-08-05 14:14:13+02:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+mysql       | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+mysql       | 2023-08-05T12:14:14.237794Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+mysql       | 2023-08-05T12:14:14.241252Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.33) starting as process 1
+mysql       | 2023-08-05T12:14:14.267419Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+mysql       | 2023-08-05T12:14:14.936288Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+mysql       | 2023-08-05T12:14:15.307998Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+mysql       | 2023-08-05T12:14:15.308064Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+mysql       | 2023-08-05T12:14:15.311408Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+mysql       | 2023-08-05T12:14:15.373664Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+mysql       | 2023-08-05T12:14:15.373924Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.33'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+mysql       | 2023-08-07 13:34:48+02:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+mysql       | 2023-08-07 13:34:49+02:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mysql       | 2023-08-07 13:34:49+02:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+mysql       | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+mysql       | 2023-08-07T11:34:49.816740Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+mysql       | 2023-08-07T11:34:49.824227Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.33) starting as process 1
+mysql       | 2023-08-07T11:34:49.844413Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+mysql       | 2023-08-07T11:34:50.648198Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+mysql       | 2023-08-07T11:34:51.393994Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+mysql       | 2023-08-07T11:34:51.406955Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+mysql       | 2023-08-07T11:34:51.765216Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+mysql       | 2023-08-07T11:34:51.765345Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+mysql       | 2023-08-07T11:34:51.769158Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+mysql       | 2023-08-07T11:34:51.811644Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+mysql       | 2023-08-07T11:34:51.811943Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.33'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+mysql       | 2023-08-08 20:59:07+02:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+oai-udm     | [2023-08-05 14:14:13.683] [config ] [debug] Unknown NF smf in configuration. Ignored
+oai-udm     | [2023-08-05 14:14:13.683] [config ] [debug] Unknown NF ausf in configuration. Ignored
+oai-udm     | [2023-08-05 14:14:13.684] [config ] [debug] Validating configuration of Log Level
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info] ==== OPENAIRINTERFACE udm vBranch: HEAD Abrev. Hash: a876609 Date: Tue Jun 27 08:36:11 2023 +0000 ====
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info] Basic Configuration:
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]   - Log Level..................................: error
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]   - Register NF................................: Yes
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]   - HTTP Version...............................: 2
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]     UDM:
+mysql       | 2023-08-08 20:59:07+02:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]     - Host.....................................: oai-udm
+mysql       | 2023-08-08 20:59:07+02:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]     - SBI
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]       + URL....................................: http://oai-udm:8080
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]       + API Version............................: v1
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]     - Instance ID..............................: 0
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]     - PID Directory............................: 
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]     - UDM Name.................................: 
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info] Peer NF Configuration:
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]   NRF:
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]     - Host.....................................: oai-nrf
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]     - SBI
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]       + API Version............................: v1
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]   UDR:
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n2] [error] No UE NGAP context with ran_ue_ngap_id (1696)
+mysql       | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+mysql       | 2023-08-08T18:59:08.685279Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+mysql       | 2023-08-08T18:59:08.692542Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.33) starting as process 1
+mysql       | 2023-08-08T18:59:08.732478Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+mysql       | 2023-08-08T18:59:09.517785Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+mysql       | 2023-08-08T18:59:10.060452Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+mysql       | 2023-08-08T18:59:10.077775Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+mysql       | 2023-08-08T18:59:10.265248Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+mysql       | 2023-08-08T18:59:10.265285Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+mysql       | 2023-08-08T18:59:10.268845Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+mysql       | 2023-08-08T18:59:10.305109Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+mysql       | 2023-08-08T18:59:10.305270Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.33'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]     - Host.....................................: oai-udr
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]     - SBI
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n1] [error] No existed NAS context for UE with amf_ue_ngap_id 30557
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n2] [error] No UE NGAP context with ran_ue_ngap_id (1697)
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n1] [error] No existed NAS context for UE with amf_ue_ngap_id 30558
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n2] [error] No UE NGAP context with ran_ue_ngap_id (1698)
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n1] [error] No existed NAS context for UE with amf_ue_ngap_id 30559
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n2] [error] No UE NGAP context with ran_ue_ngap_id (1699)
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n1] [error] No existed NAS context for UE with amf_ue_ngap_id 30560
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n2] [error] No UE NGAP context with ran_ue_ngap_id (1700)
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n1] [error] No existed NAS context for UE with amf_ue_ngap_id 30561
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n2] [error] No UE NGAP context with ran_ue_ngap_id (1701)
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n1] [error] No existed NAS context for UE with amf_ue_ngap_id 30562
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n2] [error] No UE NGAP context with ran_ue_ngap_id (1702)
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n1] [error] No existed NAS context for UE with amf_ue_ngap_id 30563
+oai-amf     | [2023-08-08 14:09:58.598] [amf_n2] [error] No UE NGAP context with ran_ue_ngap_id (1703)
+oai-amf     | [2023-08-08 14:09:58.599] [amf_n1] [error] No existed NAS context for UE with amf_ue_ngap_id 30564
+oai-amf     | [2023-08-08 14:09:58.599] [amf_n2] [error] No UE NGAP context with ran_ue_ngap_id (1704)
+oai-amf     | [2023-08-08 14:09:58.599] [amf_n1] [error] No existed NAS context for UE with amf_ue_ngap_id 30565
+oai-amf     | [2023-08-08 14:09:58.599] [amf_n2] [error] No UE NGAP context with ran_ue_ngap_id (1705)
+oai-amf     | [2023-08-08 14:09:58.599] [amf_n1] [error] No existed NAS context for UE with amf_ue_ngap_id 30566
+oai-amf     | [2023-08-08 14:09:58.599] [amf_n2] [error] No UE NGAP context with ran_ue_ngap_id (1706)
+oai-amf     | [2023-08-08 14:09:58.599] [amf_n1] [error] No existed NAS context for UE with amf_ue_ngap_id 30567
+oai-amf     | [2023-08-08 14:09:58.599] [amf_n2] [error] No UE NGAP context with ran_ue_ngap_id (1707)
+oai-amf     | [2023-08-08 14:09:58.599] [amf_n1] [error] No existed NAS context for UE with amf_ue_ngap_id 30568
+oai-amf     | [2023-08-08 14:09:58.599] [amf_n2] [error] No UE NGAP context with ran_ue_ngap_id (1708)
+oai-amf     | [2023-08-08 14:26:51.253] [nas_mm] [error] Buffer length is less than the minimum length of this IE (15107 octet)
+oai-amf     | [2023-08-08 20:59:08.837] [amf_app] [start] Options parsed!
+oai-amf     | [2023-08-08 20:59:08.842] [system] [debug] Parsing the configuration file, file type YAML.
+oai-amf     | [2023-08-08 20:59:08.842] [config ] [info] Reading NF configuration from /openair-amf/etc/config.yaml
+oai-amf     | [2023-08-08 20:59:08.893] [config ] [debug] Unknown NF udr in configuration. Ignored
+oai-amf     | [2023-08-08 20:59:08.893] [config ] [debug] Validating configuration of Log Level
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info] ==== OPENAIRINTERFACE amf vBranch: HEAD Abrev. Hash: d698640f Date: Tue Jul 11 12:02:24 2023 +0000 ====
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info] Basic Configuration:
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]   - Log Level..................................: error
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]   - Register NF................................: Yes
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]   - http_version...............................: 2
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]   AMF:
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]     - Host.....................................: oai-amf
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]     - SBI
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]       + URL....................................: http://oai-amf:8080
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]       + API Version............................: v1
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]       + IPv4 Address ..........................: 192.168.70.132
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]     - N2
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]       + Port...................................: 38412
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]       + IPv4 Address ..........................: 192.168.70.132
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]       + MTU....................................: 1500
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]       + Interface name: .......................: eth0
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]     - Instance ID..............................: 0
+oai-amf     | [2023-08-08 20:59:08.906] [config ] [info]     - PID Directory............................: /var/run
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - AMF Name.................................: OAI-AMF
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - Support Features Options
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + Enable Simple Scenario.................: No
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + Enable NSSF............................: No
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + Enable SMF Selection...................: Yes
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - Relative Capacity........................: 30
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - Emergency Support........................: No
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - Served GUAMI List
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + MCC....................................: 208
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]         MNC....................................: 95
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]         AMF Region ID..........................: 128
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]         AMF Set ID.............................: 1
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]         AMF Pointer............................: 1
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + MCC....................................: 460
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]         MNC....................................: 11
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]         AMF Region ID..........................: 10
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]         AMF Set ID.............................: 1
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]         AMF Pointer............................: 1
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - PLMN Support List
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + MCC....................................: 208
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]         MNC....................................: 95
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]         TAC....................................: 40960
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]             - NSSAI
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]                   + SST........................: 1
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]                   + SST........................: 1
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]                     SD.........................: 1
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]       + URL....................................: http://oai-udr:8080
+oai-udm     | [2023-08-05 14:14:13.689] [config ] [info]       + API Version............................: v1
+oai-udm     | [2023-08-07 13:34:49.315] [udm_server] [start] Options parsed
+oai-udm     | [2023-08-07 13:34:49.320] [system] [debug] Parsing the configuration file, file type YAML.
+oai-udm     | [2023-08-07 13:34:49.320] [config ] [info] Reading NF configuration from /openair-udm/etc/config.yaml
+oai-udm     | [2023-08-07 13:34:49.337] [config ] [debug] Unknown NF amf in configuration. Ignored
+oai-udm     | [2023-08-07 13:34:49.337] [config ] [debug] Unknown NF smf in configuration. Ignored
+oai-udm     | [2023-08-07 13:34:49.338] [config ] [debug] Unknown NF ausf in configuration. Ignored
+oai-udm     | [2023-08-07 13:34:49.338] [config ] [debug] Validating configuration of Log Level
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info] ==== OPENAIRINTERFACE udm vBranch: HEAD Abrev. Hash: a876609 Date: Tue Jun 27 08:36:11 2023 +0000 ====
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info] Basic Configuration:
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]   - Log Level..................................: error
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]   - Register NF................................: Yes
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]   - HTTP Version...............................: 2
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]     UDM:
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]     - Host.....................................: oai-udm
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]     - SBI
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]       + URL....................................: http://oai-udm:8080
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]       + API Version............................: v1
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]     - Instance ID..............................: 0
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]     - PID Directory............................: 
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]     - UDM Name.................................: 
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info] Peer NF Configuration:
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]   NRF:
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]     - Host.....................................: oai-nrf
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]     - SBI
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]       + API Version............................: v1
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]   UDR:
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]     - Host.....................................: oai-udr
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]     - SBI
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]       + URL....................................: http://oai-udr:8080
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]                   + SST........................: 222
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]                     SD.........................: 123
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - Supported Integrity Algorithms
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + .......................................: NIA1
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - Supported Encryption Algorithms
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + .......................................: NEA1
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info] Peer NF Configuration:
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]   NRF:
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - Host.....................................: oai-nrf
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - SBI
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + API Version............................: v1
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]   UDM:
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - Host.....................................: oai-udm
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - SBI
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + URL....................................: http://oai-udm:8080
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + API Version............................: v1
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]   AUSF:
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - Host.....................................: oai-ausf
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]     - SBI
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + URL....................................: http://oai-ausf:8080
+oai-amf     | [2023-08-08 20:59:08.907] [config ] [info]       + API Version............................: v1
+oai-amf     | [2023-08-08 21:19:33.585] [nas_mm] [error] Buffer length is less than the length of the header (IEI/Length) of this IE (3 octet(s))
+oai-amf     | [2023-08-08 22:13:20.518] [nas_mm] [error] Buffer length is less than the length of the header (IEI/Length) of this IE (3 octet(s))
+oai-amf     | [2023-08-08 22:13:20.543] [nas_mm] [error] Buffer length is less than the minimum length of this IE (62467 octet)
+oai-udm     | [2023-08-07 13:34:49.341] [config ] [info]       + API Version............................: v1
+oai-udm     | [2023-08-08 20:59:08.074] [udm_server] [start] Options parsed
+oai-udm     | [2023-08-08 20:59:08.079] [system] [debug] Parsing the configuration file, file type YAML.
+oai-udm     | [2023-08-08 20:59:08.079] [config ] [info] Reading NF configuration from /openair-udm/etc/config.yaml
+oai-udm     | [2023-08-08 20:59:08.095] [config ] [debug] Unknown NF amf in configuration. Ignored
+oai-udm     | [2023-08-08 20:59:08.095] [config ] [debug] Unknown NF smf in configuration. Ignored
+oai-udm     | [2023-08-08 20:59:08.095] [config ] [debug] Unknown NF ausf in configuration. Ignored
+oai-udm     | [2023-08-08 20:59:08.095] [config ] [debug] Validating configuration of Log Level
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info] ==== OPENAIRINTERFACE udm vBranch: HEAD Abrev. Hash: a876609 Date: Tue Jun 27 08:36:11 2023 +0000 ====
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info] Basic Configuration:
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]   - Log Level..................................: error
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]   - Register NF................................: Yes
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]   - HTTP Version...............................: 2
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]     UDM:
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]     - Host.....................................: oai-udm
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]     - SBI
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]       + URL....................................: http://oai-udm:8080
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]       + API Version............................: v1
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]     - Instance ID..............................: 0
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]     - PID Directory............................: 
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]     - UDM Name.................................: 
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info] Peer NF Configuration:
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]   NRF:
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]     - Host.....................................: oai-nrf
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]     - SBI
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]       + URL....................................: http://oai-nrf:8080
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]       + API Version............................: v1
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]   UDR:
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]     - Host.....................................: oai-udr
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]     - SBI
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]       + URL....................................: http://oai-udr:8080
+oai-udm     | [2023-08-08 20:59:08.124] [config ] [info]       + API Version............................: v1

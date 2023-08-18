@@ -9,6 +9,13 @@
 # - ansible.builtin.debug:
 #     var: output
 
+- name: Create logs directory
+  file:
+    state: directory
+    path: /tmp/core-tg
+  when:
+    - inventory_hostname in groups["az_trex"]
+
 - name: Wait 1 minutes for all services to be down
   ansible.builtin.pause:
     minutes: 1

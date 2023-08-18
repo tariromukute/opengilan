@@ -15,8 +15,8 @@ for N_UES in $NX; do
 # SYSCALLS="futex epoll_wait recvmsg clock_nanosleep poll select ppoll read openat sendto sched_yield recvfrom fdatasync write nanosleep io_getevents epoll_pwait rt_sigtimedwait"
 SYSCALLS="io_getevents epoll_pwait rt_sigtimedwait"
 # Loop through the syscalls and run the ansible ad hoc commands with syscall as parameter
-# ansible all -i inventory.ini -u ubuntu -m include_tasks -a file=plays/oai-1.yml \
-#     -e '{ user: ubuntu,  duration: 20, aduration: 35, interval: 0, tool_cmd: "syscount.py -d 20 -L -m -j", tool: syscount, ues: '$N_UES' }'
+ansible all -i inventory.ini -u ubuntu -m include_tasks -a file=plays/oai-1.yml \
+    -e '{ user: ubuntu,  duration: 20, aduration: 35, interval: 0, tool_cmd: "syscount.py -d 20 -L -m -j", tool: syscount, ues: '$N_UES' }'
 
 # ansible all -i inventory.ini -u ubuntu -m include_tasks -a file=plays/oai-1.yml \
 #     -e '{ user: ubuntu,  duration: 20, aduration: 35, interval: 0, tool_cmd: "syscount.py -d 20 -L -P -m -j", tool: sysprocess, ues: '$N_UES' }'

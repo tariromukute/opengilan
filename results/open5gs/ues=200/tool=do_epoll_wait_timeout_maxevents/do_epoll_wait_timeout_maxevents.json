@@ -1,0 +1,40 @@
+[15:13:48]
+r::do_epoll_wait(int epfd, struct epoll_event __user *events,int maxevents, int timeout):char*,int,int:$COMM,$entry(maxevents),$retval
+	COUNT      EVENT
+	1          $COMM = b'open5gs-scpd', maxevents = 16384, $retval = 10
+	1          $COMM = b'open5gs-amfd', maxevents = 16384, $retval = 3
+	1          $COMM = b'systemd-network', maxevents = 25, $retval = 1
+	1          $COMM = b'open5gs-ausfd', maxevents = 16384, $retval = 4
+	1          $COMM = b'open5gs-ausfd', maxevents = 16384, $retval = 5
+	1          $COMM = b'open5gs-pcfd', maxevents = 16384, $retval = 5
+	2          $COMM = b'open5gs-scpd', maxevents = 16384, $retval = 8
+	2          $COMM = b'systemd-network', maxevents = 25, $retval = 0
+	2          $COMM = b'open5gs-pcfd', maxevents = 16384, $retval = 4
+	3          $COMM = b'open5gs-udmd', maxevents = 16384, $retval = 5
+	3          $COMM = b'open5gs-pcfd', maxevents = 16384, $retval = 3
+	4          $COMM = b'open5gs-scpd', maxevents = 16384, $retval = 7
+	7          $COMM = b'open5gs-scpd', maxevents = 16384, $retval = 0
+	8          $COMM = b'python3', maxevents = 2, $retval = 0
+	9          $COMM = b'open5gs-pcfd', maxevents = 16384, $retval = 0
+	9          $COMM = b'open5gs-scpd', maxevents = 16384, $retval = 6
+	10         $COMM = b'open5gs-scpd', maxevents = 16384, $retval = 5
+	12         $COMM = b'open5gs-ausfd', maxevents = 16384, $retval = 3
+	16         $COMM = b'open5gs-udmd', maxevents = 16384, $retval = 4
+	20         $COMM = b'open5gs-udmd', maxevents = 16384, $retval = 3
+	26         $COMM = b'open5gs-amfd', maxevents = 16384, $retval = 2
+	28         $COMM = b'open5gs-udrd', maxevents = 16384, $retval = 2
+	36         $COMM = b'open5gs-udmd', maxevents = 16384, $retval = 2
+	42         $COMM = b'open5gs-scpd', maxevents = 16384, $retval = 4
+	53         $COMM = b'open5gs-ausfd', maxevents = 16384, $retval = 2
+	60         $COMM = b'open5gs-pcfd', maxevents = 16384, $retval = 1
+	91         $COMM = b'open5gs-scpd', maxevents = 16384, $retval = 3
+	143        $COMM = b'open5gs-scpd', maxevents = 16384, $retval = 2
+	146        $COMM = b'open5gs-amfd', maxevents = 16384, $retval = 0
+	173        $COMM = b'open5gs-ausfd', maxevents = 16384, $retval = 0
+	184        $COMM = b'open5gs-nrfd', maxevents = 16384, $retval = 1
+	272        $COMM = b'open5gs-udmd', maxevents = 16384, $retval = 0
+	292        $COMM = b'open5gs-udrd', maxevents = 16384, $retval = 1
+	488        $COMM = b'open5gs-amfd', maxevents = 16384, $retval = 1
+	745        $COMM = b'open5gs-scpd', maxevents = 16384, $retval = 1
+	1007       $COMM = b'open5gs-ausfd', maxevents = 16384, $retval = 1
+	2196       $COMM = b'open5gs-udmd', maxevents = 16384, $retval = 1

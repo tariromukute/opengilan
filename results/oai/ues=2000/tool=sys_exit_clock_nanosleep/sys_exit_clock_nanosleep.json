@@ -1,0 +1,7 @@
+[09:17:48]
+t:syscalls:sys_exit_clock_nanosleep():char*,u16:$COMM,args->ret
+	COUNT      EVENT
+	2          $COMM = b'cron', args->ret = 65020
+	6          $COMM = b'cron', args->ret = 0
+	350        $COMM = b'multipathd', args->ret = 0
+	1469       $COMM = b'oai_amf', args->ret = 0
