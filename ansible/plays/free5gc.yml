@@ -8,9 +8,12 @@
 # - ansible.builtin.debug:
 #     var: output
 
-- name: Wait 1 minutes for all services to be down
-  ansible.builtin.pause:
-    minutes: 1
+- name: Create logs directory
+  file:
+    state: directory
+    path: /tmp/core-tg
+  when:
+    - inventory_hostname in groups["az_trex"]
 
 - name: Create folder for results on remote servers
   file:
@@ -36,7 +39,7 @@
 
 - name: Start 5G core traffic generator
   ansible.builtin.command:
-    cmd: ./.venv/bin/python3 src/app.py -t {{ duration }} -i {{ interval }} -n {{ ues }} -f /tmp/core-tg -u src/config/free5gc-ue.yaml -g src/config/free5gc-gnb.yaml
+    cmd: ./.venv/bin/python3 run.py -u config/free5gc-ue.yaml -g config/free5gc-gnb.yaml -vv
     chdir: /home/{{ user }}/core-tg
   when:
     - inventory_hostname in groups["az_trex"]

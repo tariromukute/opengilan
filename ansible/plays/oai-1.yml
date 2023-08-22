@@ -9,31 +9,27 @@
 # - ansible.builtin.debug:
 #     var: output
 
+# - name: Wait 1 minutes for all services to be down
+#   ansible.builtin.pause:
+#     minutes: 1
+
+# - name: Start 5G Core
+#   ansible.builtin.shell: docker compose -f docker-compose-basic-nrf.yaml up -d
+#   args:
+#     chdir: /home/{{ user }}/oai-cn5g-fed/docker-compose
+#   register: output
+#   when:
+#     - inventory_hostname in groups["az_sut"]
+
+# - ansible.builtin.debug:
+#     var: output
+
 - name: Create logs directory
   file:
     state: directory
     path: /tmp/core-tg
   when:
     - inventory_hostname in groups["az_trex"]
-
-- name: Wait 1 minutes for all services to be down
-  ansible.builtin.pause:
-    minutes: 1
-
-- name: Start 5G Core
-  ansible.builtin.shell: docker compose -f docker-compose-basic-nrf.yaml up -d
-  args:
-    chdir: /home/{{ user }}/oai-cn5g-fed/docker-compose
-  register: output
-  when:
-    - inventory_hostname in groups["az_sut"]
-
-- ansible.builtin.debug:
-    var: output
-
-- name: Wait 2 minutes for all services to be up
-  ansible.builtin.pause:
-    minutes: 2
 
 - name: Create folder for results on remote servers
   file:
@@ -60,9 +56,21 @@
     timeout: 2
   delegate_to: localhost
 
+- name: Stop 5g core (Ensure previous tested is not running)
+  ansible.builtin.shell: systemctl restart oai-nrfd oai-udrd oai-udmd oai-ausfd oai-amfd oai-smfd
+  register: output
+  become: yes
+  when:
+    - inventory_hostname in groups["az_sut"]
+
+- name: Sleep for 2 seconds (to restart OAI core network) and continue with play
+  wait_for:
+    timeout: 2
+  delegate_to: localhost
+
 - name: Start 5G core traffic generator
   ansible.builtin.command:
-    cmd: ./.venv/bin/python3 src/app.py -t {{ duration }} -i {{ interval }} -n {{ ues }} -f /tmp/core-tg -u src/config/oai-cn5g-ue.yaml -g src/config/oai-cn5g-gnb.yaml
+    cmd: ./.venv/bin/python3 run.py -u config/oai-cn5g-ue.yaml -g config/oai-cn5g-gnb.yaml -vv
     chdir: /home/{{ user }}/core-tg
   when:
     - inventory_hostname in groups["az_trex"]
@@ -128,10 +136,8 @@
 #   register: output
 
 - name: Get results from tracing (bpftrace)
-  ansible.builtin.shell: docker compose -f docker-compose-basic-nrf.yaml logs --tail 100
+  ansible.builtin.shell: journalctl -n 200
   register: tool_command_results
-  args:
-    chdir: /home/{{ user }}/oai-cn5g-fed/docker-compose
   when:
     - inventory_hostname in groups["az_sut"]
 

@@ -1,4 +1,0 @@
-[12:57:45]
-t:syscalls:sys_exit_sendto():char*,long:$COMM,args->ret
-	COUNT      EVENT
-	2          $COMM = b'python3', args->ret = 70

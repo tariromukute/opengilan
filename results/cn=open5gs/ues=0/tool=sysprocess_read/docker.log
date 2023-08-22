@@ -1,0 +1,201 @@
+-- Logs begin at Mon 2023-08-21 11:34:55 UTC, end at Mon 2023-08-21 12:58:17 UTC. --
+Aug 21 12:54:56 open5gs open5gs-mmed[26339]: 08/21 12:54:56.240: [metrics] INFO: metrics_server() [http://127.0.0.2]:9090 (../lib/metrics/prometheus/context.c:299)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.254: [app] INFO: SCP initialize...done (../src/scp/app.c:31)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.255: [sbi] INFO: [edc6e046-4021-41ee-a926-1fa8c32fedd0] NF registered [Heartbeat:10s] (../lib/sbi/nf-sm.c:214)
+Aug 21 12:54:56 open5gs open5gs-hssd[26345]: Open5GS daemon v2.6.4
+Aug 21 12:54:56 open5gs open5gs-hssd[26345]: 08/21 12:54:56.270: [app] INFO: Configuration: '/etc/open5gs/hss.yaml' (../lib/app/ogs-init.c:126)
+Aug 21 12:54:56 open5gs open5gs-hssd[26345]: 08/21 12:54:56.270: [app] INFO: File Logging: '/var/log/open5gs/hss.log' (../lib/app/ogs-init.c:129)
+Aug 21 12:54:56 open5gs open5gs-hssd[26345]: 08/21 12:54:56.294: [dbi] INFO: MongoDB URI: 'mongodb://localhost/open5gs' (../lib/dbi/ogs-mongoc.c:130)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.306: [sbi] INFO: [edcbc1b0-4021-41ee-88ed-c960252fee9f] Subscription created until 2023-08-22T12:54:56.271626+00:00 [duration:86400,validity:86399.964911,patch:43199.982455] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.330: [sbi] INFO: [edcbcf0c-4021-41ee-88ed-c960252fee9f] Subscription created until 2023-08-22T12:54:56.271956+00:00 [duration:86400,validity:86399.941275,patch:43199.970637] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.330: [sbi] INFO: [edcbd9f2-4021-41ee-88ed-c960252fee9f] Subscription created until 2023-08-22T12:54:56.272235+00:00 [duration:86400,validity:86399.941448,patch:43199.970724] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.330: [sbi] INFO: [edcbfa40-4021-41ee-88ed-c960252fee9f] Subscription created until 2023-08-22T12:54:56.273062+00:00 [duration:86400,validity:86399.942217,patch:43199.971108] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.330: [sbi] INFO: [edcc0490-4021-41ee-88ed-c960252fee9f] Subscription created until 2023-08-22T12:54:56.273326+00:00 [duration:86400,validity:86399.942431,patch:43199.971215] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.330: [sbi] INFO: [edcc0f58-4021-41ee-88ed-c960252fee9f] Subscription created until 2023-08-22T12:54:56.273601+00:00 [duration:86400,validity:86399.942642,patch:43199.971321] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.331: [sbi] INFO: [edcc1912-4021-41ee-88ed-c960252fee9f] Subscription created until 2023-08-22T12:54:56.273858+00:00 [duration:86400,validity:86399.942850,patch:43199.971425] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.331: [sbi] INFO: [edcf47b8-4021-41ee-88ed-c960252fee9f] Subscription created until 2023-08-22T12:54:56.294713+00:00 [duration:86400,validity:86399.963640,patch:43199.981820] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.339: [sbi] INFO: [edd13ec4-4021-41ee-90d4-ff4940673d03] (NRF-notify) NF registered (../lib/sbi/nnrf-handler.c:725)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.339: [sbi] INFO: [edd13ec4-4021-41ee-90d4-ff4940673d03] (NRF-notify) NF Profile updated (../lib/sbi/nnrf-handler.c:735)
+Aug 21 12:54:56 open5gs open5gs-sgwcd[26316]: 08/21 12:54:56.630: [gtp] INFO: gtp_server() [127.0.0.3]:2123 (../lib/gtp/path.c:30)
+Aug 21 12:54:56 open5gs open5gs-sgwcd[26316]: 08/21 12:54:56.631: [pfcp] INFO: pfcp_server() [127.0.0.3]:8805 (../lib/pfcp/path.c:30)
+Aug 21 12:54:56 open5gs open5gs-sgwcd[26316]: 08/21 12:54:56.631: [pfcp] INFO: ogs_pfcp_connect() [127.0.0.6]:8805 (../lib/pfcp/path.c:61)
+Aug 21 12:54:56 open5gs open5gs-sgwcd[26316]: 08/21 12:54:56.634: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+Aug 21 12:54:56 open5gs open5gs-sgwcd[26316]: 08/21 12:54:56.634: [sgwc] INFO: PFCP associated [127.0.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+Aug 21 12:54:56 open5gs open5gs-mmed[26339]: 08/21 12:54:56.707: [gtp] INFO: gtp_server() [127.0.0.2]:2123 (../lib/gtp/path.c:30)
+Aug 21 12:54:56 open5gs open5gs-mmed[26339]: 08/21 12:54:56.708: [gtp] INFO: gtp_connect() [127.0.0.3]:2123 (../lib/gtp/path.c:60)
+Aug 21 12:54:56 open5gs open5gs-mmed[26339]: 08/21 12:54:56.710: [mme] INFO: s1ap_server() [127.0.0.2]:36412 (../src/mme/s1ap-sctp.c:62)
+Aug 21 12:54:56 open5gs open5gs-mmed[26339]: 08/21 12:54:56.722: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
+Aug 21 12:54:56 open5gs open5gs-hssd[26345]: 08/21 12:54:56.724: [app] INFO: HSS initialize...done (../src/hss/app-init.c:31)
+Aug 21 12:54:56 open5gs open5gs-mmed[26339]: 08/21 12:54:56.735: [diam] INFO: CONNECTED TO 'hss.localdomain' (SCTP,soc#11): (../lib/diameter/common/logger.c:108)
+Aug 21 12:54:56 open5gs open5gs-hssd[26345]: 08/21 12:54:56.742: [diam] INFO: CONNECTED TO 'mme.localdomain' (SCTP,soc#14): (../lib/diameter/common/logger.c:108)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.900: [sbi] INFO: [ee10b6ee-4021-41ee-8b0d-155f56fc2471] (NRF-notify) NF registered (../lib/sbi/nnrf-handler.c:725)
+Aug 21 12:54:56 open5gs open5gs-scpd[26332]: 08/21 12:54:56.900: [sbi] INFO: [ee10b6ee-4021-41ee-8b0d-155f56fc2471] (NRF-notify) NF Profile updated (../lib/sbi/nnrf-handler.c:735)
+Aug 21 12:55:07 open5gs open5gs-scpd[26332]: 08/21 12:55:07.060: [sbi] INFO: [edaa3c8e-4021-41ee-8cd5-e72872a982e4] (NRF-notify) NF registered (../lib/sbi/nnrf-handler.c:725)
+Aug 21 12:55:07 open5gs open5gs-scpd[26332]: 08/21 12:55:07.060: [sbi] INFO: [edaa3c8e-4021-41ee-8cd5-e72872a982e4] (NRF-notify) NF Profile updated (../lib/sbi/nnrf-handler.c:735)
+Aug 21 12:55:07 open5gs open5gs-scpd[26332]: 08/21 12:55:07.124: [sbi] INFO: [edb3ff08-4021-41ee-9f40-cbc40cd7dcb8] (NRF-notify) NF registered (../lib/sbi/nnrf-handler.c:725)
+Aug 21 12:55:07 open5gs open5gs-scpd[26332]: 08/21 12:55:07.125: [sbi] INFO: [edb3ff08-4021-41ee-9f40-cbc40cd7dcb8] (NRF-notify) NF Profile updated (../lib/sbi/nnrf-handler.c:735)
+Aug 21 12:55:07 open5gs open5gs-bsfd[26327]: 08/21 12:55:07.138: [sbi] WARNING: [edb5c8ec-4021-41ee-b1ee-9f19eb995779] Retry to registration with NRF (../lib/sbi/nf-sm.c:175)
+Aug 21 12:55:07 open5gs open5gs-scpd[26332]: 08/21 12:55:07.142: [sbi] INFO: [edae83ca-4021-41ee-9b13-bb8c2fe73967] (NRF-notify) NF registered (../lib/sbi/nnrf-handler.c:725)
+Aug 21 12:55:07 open5gs open5gs-scpd[26332]: 08/21 12:55:07.143: [sbi] INFO: [edae83ca-4021-41ee-9b13-bb8c2fe73967] (NRF-notify) NF Profile updated (../lib/sbi/nnrf-handler.c:735)
+Aug 21 12:55:07 open5gs open5gs-scpd[26332]: 08/21 12:55:07.145: [sbi] INFO: [edb5c8ec-4021-41ee-b1ee-9f19eb995779] (NRF-notify) NF registered (../lib/sbi/nnrf-handler.c:725)
+Aug 21 12:55:07 open5gs open5gs-scpd[26332]: 08/21 12:55:07.145: [sbi] INFO: [edb5c8ec-4021-41ee-b1ee-9f19eb995779] (NRF-notify) NF Profile updated (../lib/sbi/nnrf-handler.c:735)
+Aug 21 12:55:07 open5gs open5gs-bsfd[26327]: 08/21 12:55:07.149: [sbi] INFO: [edb5c8ec-4021-41ee-b1ee-9f19eb995779] NF registered [Heartbeat:10s] (../lib/sbi/nf-sm.c:214)
+Aug 21 12:55:07 open5gs open5gs-scpd[26332]: 08/21 12:55:07.193: [sbi] INFO: [edbced3e-4021-41ee-b3d5-0fa036ba30f0] (NRF-notify) NF registered (../lib/sbi/nnrf-handler.c:725)
+Aug 21 12:55:07 open5gs open5gs-scpd[26332]: 08/21 12:55:07.193: [sbi] INFO: [edbced3e-4021-41ee-b3d5-0fa036ba30f0] (NRF-notify) NF Profile updated (../lib/sbi/nnrf-handler.c:735)
+Aug 21 12:55:07 open5gs open5gs-scpd[26332]: 08/21 12:55:07.201: [sbi] INFO: [edbe57aa-4021-41ee-b223-1d02a38f7ac4] (NRF-notify) NF registered (../lib/sbi/nnrf-handler.c:725)
+Aug 21 12:55:07 open5gs open5gs-scpd[26332]: 08/21 12:55:07.201: [sbi] INFO: [edbe57aa-4021-41ee-b223-1d02a38f7ac4] (NRF-notify) NF Profile updated (../lib/sbi/nnrf-handler.c:735)
+Aug 21 12:56:38 open5gs open5gs-scpd[26332]: 08/21 12:56:38.344: [sbi] INFO: [edae83ca-4021-41ee-9b13-bb8c2fe73967:1] NF removed (../lib/sbi/nnrf-handler.c:750)
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS AMF Daemon...
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-amfd.service: Succeeded.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS AMF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS AMF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS UPF Daemon...
+Aug 21 12:56:38 open5gs open5gs-mmed[26339]: 08/21 12:56:38.362: [app] INFO: SIGTERM received (../src/main.c:53)
+Aug 21 12:56:38 open5gs open5gs-mmed[26339]: 08/21 12:56:38.362: [app] INFO: Open5GS daemon terminating... (../src/main.c:226)
+Aug 21 12:56:38 open5gs open5gs-scpd[26332]: 08/21 12:56:38.361: [app] INFO: SIGTERM received (../src/main.c:53)
+Aug 21 12:56:38 open5gs open5gs-scpd[26332]: 08/21 12:56:38.361: [app] INFO: Open5GS daemon terminating... (../src/main.c:226)
+Aug 21 12:56:38 open5gs open5gs-scpd[26332]: 08/21 12:56:38.361: [sbi] INFO: [edc6e046-4021-41ee-a926-1fa8c32fedd0] NF de-registered (../lib/sbi/nf-sm.c:240)
+Aug 21 12:56:38 open5gs open5gs-scpd[26332]: 08/21 12:56:38.376: [app] INFO: SCP terminate...done (../src/scp/app.c:39)
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS NRF Daemon...
+Aug 21 12:56:38 open5gs open5gs-bsfd[26327]: 08/21 12:56:38.394: [app] INFO: SIGTERM received (../src/main.c:53)
+Aug 21 12:56:38 open5gs open5gs-bsfd[26327]: 08/21 12:56:38.394: [app] INFO: Open5GS daemon terminating... (../src/main.c:226)
+Aug 21 12:56:38 open5gs open5gs-bsfd[26327]: 08/21 12:56:38.394: [sbi] INFO: [edb5c8ec-4021-41ee-b1ee-9f19eb995779] NF de-registered (../lib/sbi/nf-sm.c:240)
+Aug 21 12:56:38 open5gs open5gs-bsfd[26327]: 08/21 12:56:38.395: [sbi] WARNING: [7] Failed to connect to 127.0.1.10 port 7777: Connection refused (../lib/sbi/client.c:626)
+Aug 21 12:56:38 open5gs open5gs-bsfd[26327]: 08/21 12:56:38.395: [sbi] WARNING: ogs_sbi_client_handler() failed [-1] (../lib/sbi/path.c:59)
+Aug 21 12:56:38 open5gs open5gs-bsfd[26327]: 08/21 12:56:38.396: [app] INFO: BSF terminate...done (../src/bsf/app.c:39)
+Aug 21 12:56:38 open5gs open5gs-sgwcd[26316]: 08/21 12:56:38.365: [app] INFO: SIGTERM received (../src/main.c:53)
+Aug 21 12:56:38 open5gs open5gs-sgwcd[26316]: 08/21 12:56:38.365: [app] INFO: Open5GS daemon terminating... (../src/main.c:226)
+Aug 21 12:56:38 open5gs open5gs-sgwcd[26316]: 08/21 12:56:38.370: [sgwc] INFO: PFCP de-associated [127.0.0.6]:8805 (../src/sgwc/pfcp-sm.c:198)
+Aug 21 12:56:38 open5gs open5gs-sgwcd[26316]: 08/21 12:56:38.372: [app] INFO: SGW-C terminate...done (../src/sgwc/app.c:39)
+Aug 21 12:56:38 open5gs open5gs-nrfd[26329]: 08/21 12:56:38.364: [sbi] ERROR: ogs_queue_push() failed:-4 (../lib/sbi/path.c:43)
+Aug 21 12:56:38 open5gs open5gs-hssd[26345]: 08/21 12:56:38.385: [app] INFO: SIGTERM received (../src/main.c:53)
+Aug 21 12:56:38 open5gs open5gs-hssd[26345]: 08/21 12:56:38.386: [app] INFO: Open5GS daemon terminating... (../src/main.c:226)
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS NRF Daemon...
+Aug 21 12:56:38 open5gs open5gs-udrd[26335]: DIGEST-MD5 common mech free
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS MME Daemon...
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS UDR Daemon...
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS SGW-U Daemon...
+Aug 21 12:56:38 open5gs open5gs-sgwcd[26844]: Open5GS daemon v2.6.4
+Aug 21 12:56:38 open5gs open5gs-sgwcd[26844]: 08/21 12:56:38.441: [app] INFO: Configuration: '/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:126)
+Aug 21 12:56:38 open5gs open5gs-sgwcd[26844]: 08/21 12:56:38.441: [app] INFO: File Logging: '/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:129)
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS SGW-C Daemon...
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-upfd.service: Succeeded.
+Aug 21 12:56:38 open5gs open5gs-hssd[26345]: DIGEST-MD5 common mech free
+Aug 21 12:56:38 open5gs open5gs-hssd[26345]: 08/21 12:56:38.615: [app] INFO: HSS terminate...done (../src/hss/app-init.c:39)
+Aug 21 12:56:38 open5gs open5gs-bsfd[26848]: Open5GS daemon v2.6.4
+Aug 21 12:56:38 open5gs open5gs-bsfd[26848]: 08/21 12:56:38.608: [app] INFO: Configuration: '/etc/open5gs/bsf.yaml' (../lib/app/ogs-init.c:126)
+Aug 21 12:56:38 open5gs open5gs-bsfd[26848]: 08/21 12:56:38.609: [app] INFO: File Logging: '/var/log/open5gs/bsf.log' (../lib/app/ogs-init.c:129)
+Aug 21 12:56:38 open5gs open5gs-bsfd[26848]: 08/21 12:56:38.717: [sbi] INFO: NF Service [nbsf-management] (../lib/sbi/context.c:1438)
+Aug 21 12:56:38 open5gs open5gs-bsfd[26848]: 08/21 12:56:38.722: [sbi] INFO: nghttp2_server() [http://127.0.0.15]:7777 (../lib/sbi/nghttp2-server.c:395)
+Aug 21 12:56:38 open5gs open5gs-bsfd[26848]: 08/21 12:56:38.723: [sbi] WARNING: [7] Failed to connect to 127.0.1.10 port 7777: Connection refused (../lib/sbi/client.c:626)
+Aug 21 12:56:38 open5gs open5gs-bsfd[26848]: 08/21 12:56:38.723: [sbi] WARNING: ogs_sbi_client_handler() failed [-1] (../lib/sbi/path.c:59)
+Aug 21 12:56:38 open5gs open5gs-bsfd[26848]: 08/21 12:56:38.723: [app] INFO: BSF initialize...done (../src/bsf/app.c:31)
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS UPF Daemon.
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: Open5GS daemon v2.6.4
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.664: [app] INFO: Configuration: '/etc/open5gs/scp.yaml' (../lib/app/ogs-init.c:126)
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.664: [app] INFO: File Logging: '/var/log/open5gs/scp.log' (../lib/app/ogs-init.c:129)
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.725: [sbi] INFO: nghttp2_server() [http://127.0.1.10]:7777 (../lib/sbi/nghttp2-server.c:395)
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.727: [app] INFO: SCP initialize...done (../src/scp/app.c:31)
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.727: [sbi] WARNING: [7] Failed to connect to ::1 port 7777: Connection refused (../lib/sbi/client.c:626)
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.727: [sbi] WARNING: ogs_sbi_client_handler() failed [-1] (../lib/sbi/path.c:59)
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.746: [sbi] WARNING: [7] Failed to connect to ::1 port 7777: Connection refused (../lib/sbi/client.c:626)
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.746: [scp] WARNING: response_handler() failed [-1] (../src/scp/sbi-path.c:539)
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.747: [sbi] WARNING: [7] Failed to connect to ::1 port 7777: Connection refused (../lib/sbi/client.c:626)
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.747: [scp] WARNING: response_handler() failed [-1] (../src/scp/sbi-path.c:539)
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.762: [sbi] WARNING: [7] Failed to connect to ::1 port 7777: Connection refused (../lib/sbi/client.c:626)
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.762: [scp] WARNING: response_handler() failed [-1] (../src/scp/sbi-path.c:539)
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.771: [sbi] WARNING: [7] Failed to connect to ::1 port 7777: Connection refused (../lib/sbi/client.c:626)
+Aug 21 12:56:38 open5gs open5gs-scpd[26843]: 08/21 12:56:38.771: [scp] WARNING: response_handler() failed [-1] (../src/scp/sbi-path.c:539)
+Aug 21 12:56:38 open5gs open5gs-ausfd[26847]: 08/21 12:56:38.752: [sbi] ERROR: [2adb0c6e-4022-41ee-8cc6-2184912455cf] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 21 12:56:38 open5gs open5gs-mmed[26339]: 08/21 12:56:38.738: [sctp] INFO: MME terminate...done (../src/mme/app-init.c:42)
+Aug 21 12:56:38 open5gs open5gs-amfd[26841]: 08/21 12:56:38.771: [sbi] ERROR: [2adf21fa-4022-41ee-bab2-ab67a9b597a1] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-sgwud.service: Succeeded.
+Aug 21 12:56:38 open5gs open5gs-nssfd[26850]: 08/21 12:56:38.779: [sbi] ERROR: [2ad56606-4022-41ee-bdfe-6779659fc5cd] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 21 12:56:38 open5gs open5gs-pcfd[26852]: 08/21 12:56:38.763: [sbi] ERROR: [2adfd4f6-4022-41ee-8317-af22ef9a0256] HTTP Response Status Code [500] (../lib/sbi/nf-sm.c:151)
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS SGW-U Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-sgwcd.service: Succeeded.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS SGW-C Daemon.
+Aug 21 12:56:38 open5gs open5gs-hssd[26854]: Open5GS daemon v2.6.4
+Aug 21 12:56:38 open5gs open5gs-hssd[26854]: 08/21 12:56:38.662: [app] INFO: Configuration: '/etc/open5gs/hss.yaml' (../lib/app/ogs-init.c:126)
+Aug 21 12:56:38 open5gs open5gs-hssd[26854]: 08/21 12:56:38.662: [app] INFO: File Logging: '/var/log/open5gs/hss.log' (../lib/app/ogs-init.c:129)
+Aug 21 12:56:38 open5gs open5gs-hssd[26854]: 08/21 12:56:38.717: [dbi] INFO: MongoDB URI: 'mongodb://localhost/open5gs' (../lib/dbi/ogs-mongoc.c:130)
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-scpd.service: Succeeded.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS NRF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS AUSF Daemon...
+Aug 21 12:56:38 open5gs open5gs-mmed[26870]: Open5GS daemon v2.6.4
+Aug 21 12:56:38 open5gs open5gs-mmed[26870]: 08/21 12:56:38.780: [app] INFO: Configuration: '/etc/open5gs/mme.yaml' (../lib/app/ogs-init.c:126)
+Aug 21 12:56:38 open5gs open5gs-mmed[26870]: 08/21 12:56:38.780: [app] INFO: File Logging: '/var/log/open5gs/mme.log' (../lib/app/ogs-init.c:129)
+Aug 21 12:56:38 open5gs open5gs-mmed[26870]: 08/21 12:56:38.899: [metrics] INFO: metrics_server() [http://127.0.0.2]:9090 (../lib/metrics/prometheus/context.c:299)
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS BSF Daemon...
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS HSS Daemon...
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS NSSF Daemon...
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS PCF Daemon...
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS PCRF Daemon...
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS NRF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS SGW-C Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS SGW-U Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS SMF Daemon...
+Aug 21 12:56:38 open5gs systemd[1]: Stopping Open5GS UDM Daemon...
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS UPF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-ausfd.service: Succeeded.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS AUSF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-bsfd.service: Succeeded.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS BSF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-nssfd.service: Succeeded.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS NSSF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-udmd.service: Succeeded.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS UDM Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS AUSF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS BSF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS NSSF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS UDM Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-pcfd.service: Succeeded.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS PCF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-udrd.service: Succeeded.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS UDR Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS PCF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS UDR Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-hssd.service: Succeeded.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS HSS Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS HSS Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-pcrfd.service: Succeeded.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS PCRF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS PCRF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-nrfd.service: Main process exited, code=killed, status=6/ABRT
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-nrfd.service: Failed with result 'signal'.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS NRF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS NRF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-mmed.service: Succeeded.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS MME Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS MME Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: open5gs-smfd.service: Succeeded.
+Aug 21 12:56:38 open5gs systemd[1]: Stopped Open5GS SMF Daemon.
+Aug 21 12:56:38 open5gs systemd[1]: Started Open5GS SMF Daemon.
+Aug 21 12:56:39 open5gs open5gs-sgwcd[26844]: 08/21 12:56:39.109: [gtp] INFO: gtp_server() [127.0.0.3]:2123 (../lib/gtp/path.c:30)
+Aug 21 12:56:39 open5gs open5gs-sgwcd[26844]: 08/21 12:56:39.109: [pfcp] INFO: pfcp_server() [127.0.0.3]:8805 (../lib/pfcp/path.c:30)
+Aug 21 12:56:39 open5gs open5gs-sgwcd[26844]: 08/21 12:56:39.109: [pfcp] INFO: ogs_pfcp_connect() [127.0.0.6]:8805 (../lib/pfcp/path.c:61)
+Aug 21 12:56:39 open5gs open5gs-sgwcd[26844]: 08/21 12:56:39.114: [sgwc] INFO: PFCP associated [127.0.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+Aug 21 12:56:39 open5gs open5gs-sgwcd[26844]: 08/21 12:56:39.114: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+Aug 21 12:56:39 open5gs open5gs-hssd[26854]: 08/21 12:56:39.273: [app] INFO: HSS initialize...done (../src/hss/app-init.c:31)
+Aug 21 12:56:39 open5gs open5gs-mmed[26870]: 08/21 12:56:39.462: [gtp] INFO: gtp_server() [127.0.0.2]:2123 (../lib/gtp/path.c:30)
+Aug 21 12:56:39 open5gs open5gs-mmed[26870]: 08/21 12:56:39.462: [gtp] INFO: gtp_connect() [127.0.0.3]:2123 (../lib/gtp/path.c:60)
+Aug 21 12:56:39 open5gs open5gs-mmed[26870]: 08/21 12:56:39.462: [mme] INFO: s1ap_server() [127.0.0.2]:36412 (../src/mme/s1ap-sctp.c:62)
+Aug 21 12:56:39 open5gs open5gs-mmed[26870]: 08/21 12:56:39.463: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
+Aug 21 12:56:39 open5gs open5gs-hssd[26854]: 08/21 12:56:39.465: [diam] INFO: CONNECTED TO 'mme.localdomain' (SCTP,soc#14): (../lib/diameter/common/logger.c:108)
+Aug 21 12:56:39 open5gs open5gs-mmed[26870]: 08/21 12:56:39.478: [diam] INFO: CONNECTED TO 'hss.localdomain' (SCTP,soc#12): (../lib/diameter/common/logger.c:108)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.690: [sbi] WARNING: [2ad79106-4022-41ee-86ee-3b9118169bcb] Retry to registration with NRF (../lib/sbi/nf-sm.c:175)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.693: [sbi] INFO: [2ad79106-4022-41ee-86ee-3b9118169bcb] NF registered [Heartbeat:10s] (../lib/sbi/nf-sm.c:214)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.699: [sbi] INFO: [3166f4da-4022-41ee-9c9b-f347cfc44a31] Subscription created until 2023-08-22T12:56:49.696095+00:00 [duration:86400,validity:86399.996857,patch:43199.998428] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.699: [sbi] INFO: [3166fb24-4022-41ee-9c9b-f347cfc44a31] Subscription created until 2023-08-22T12:56:49.696247+00:00 [duration:86400,validity:86399.996741,patch:43199.998370] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.699: [sbi] INFO: [3166fe6c-4022-41ee-9c9b-f347cfc44a31] Subscription created until 2023-08-22T12:56:49.696326+00:00 [duration:86400,validity:86399.996589,patch:43199.998294] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.699: [sbi] INFO: [31670204-4022-41ee-9c9b-f347cfc44a31] Subscription created until 2023-08-22T12:56:49.696419+00:00 [duration:86400,validity:86399.996534,patch:43199.998267] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.700: [sbi] INFO: [31670542-4022-41ee-9c9b-f347cfc44a31] Subscription created until 2023-08-22T12:56:49.696501+00:00 [duration:86400,validity:86399.995913,patch:43199.997956] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.700: [sbi] INFO: [31671406-4022-41ee-9c9b-f347cfc44a31] Subscription created until 2023-08-22T12:56:49.696883+00:00 [duration:86400,validity:86399.996237,patch:43199.998118] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.700: [sbi] INFO: [31671744-4022-41ee-9c9b-f347cfc44a31] Subscription created until 2023-08-22T12:56:49.696961+00:00 [duration:86400,validity:86399.996259,patch:43199.998129] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.700: [sbi] INFO: [31671c3a-4022-41ee-9c9b-f347cfc44a31] Subscription created until 2023-08-22T12:56:49.697091+00:00 [duration:86400,validity:86399.996311,patch:43199.998155] (../lib/sbi/nnrf-handler.c:509)
+Aug 21 12:56:49 open5gs open5gs-bsfd[26848]: 08/21 12:56:49.725: [sbi] WARNING: [2adbb57e-4022-41ee-8f8f-476121500d3b] Retry to registration with NRF (../lib/sbi/nf-sm.c:175)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.730: [sbi] INFO: [2adacce0-4022-41ee-bdfb-af862b52acdc] (NRF-notify) NF registered (../lib/sbi/nnrf-handler.c:725)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.730: [sbi] INFO: [2adacce0-4022-41ee-bdfb-af862b52acdc] (NRF-notify) NF Profile updated (../lib/sbi/nnrf-handler.c:735)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.734: [sbi] INFO: [2adbb57e-4022-41ee-8f8f-476121500d3b] (NRF-notify) NF registered (../lib/sbi/nnrf-handler.c:725)
+Aug 21 12:56:49 open5gs open5gs-scpd[26843]: 08/21 12:56:49.734: [sbi] INFO: [2adbb57e-4022-41ee-8f8f-476121500d3b] (NRF-notify) NF Profile updated (../lib/sbi/nnrf-handler.c:735)
+Aug 21 12:56:49 open5gs open5gs-bsfd[26848]: 08/21 12:56:49.735: [sbi] INFO: [2adbb57e-4022-41ee-8f8f-476121500d3b] NF registered [Heartbeat:10s] (../lib/sbi/nf-sm.c:214)
