@@ -1,7 +1,0 @@
-[15:17:31]
-t:syscalls:sys_exit_clock_nanosleep():char*,u16:$COMM,args->ret
-	COUNT      EVENT
-	1          $COMM = b'TTLMonitor', args->ret = 0
-	6          $COMM = b'clientcursormon', args->ret = 0
-	25         $COMM = b'multipathd', args->ret = 0
-	250        $COMM = b'WTJourn.Flusher', args->ret = 0

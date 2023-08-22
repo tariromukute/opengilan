@@ -1,8 +1,0 @@
-[15:11:57]
-r::do_epoll_wait(int epfd, struct epoll_event __user *events,int maxevents, int timeout):char*,int,int:$COMM,$entry(timeout),$retval
-	COUNT      EVENT
-	1          $COMM = b'open5gs-udmd', timeout = 0, $retval = 0
-	1          $COMM = b'open5gs-ausfd', timeout = 7741, $retval = 1
-	2          $COMM = b'systemd-network', timeout = -1, $retval = 1
-	3          $COMM = b'systemd-network', timeout = 0, $retval = 0
-	24         $COMM = b'python3', timeout = 1000, $retval = 0

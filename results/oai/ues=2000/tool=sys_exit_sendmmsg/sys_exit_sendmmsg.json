@@ -1,8 +1,0 @@
-[10:32:52]
-t:syscalls:sys_exit_sendmmsg():char*,long:$COMM,args->ret
-	COUNT      EVENT
-	1          $COMM = b'sd-resolve', args->ret = 2
-	35         $COMM = b'oai_udr', args->ret = 2
-	3984       $COMM = b'oai_amf', args->ret = 2
-	4032       $COMM = b'oai_ausf', args->ret = 2
-	8029       $COMM = b'oai_udm', args->ret = 2
