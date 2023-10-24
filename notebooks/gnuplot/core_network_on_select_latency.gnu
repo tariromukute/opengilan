@@ -1,13 +1,14 @@
 set style data linespoints
 set term png
 set output 'core_network_on_select_latency.png'
+set key noenhanced
 set key top left
 set key autotitle columnhead
 set datafile separator ','
 set title "Core network syscall select (by latency)"
 set grid xtics ytics mytics
 set xlabel "Number of UEs"
-set ylabel "Number of calls"
+set ylabel "Time (ms)"
  # Create theme 
          dpi = 600 ## dpi (variable) 
          width = 164.5 ## mm (variable) 
@@ -22,7 +23,7 @@ set ylabel "Number of calls"
          wpx = round(width * mm2px) 
          hpx = round(height * mm2px) 
          
-         set terminal pngcairo size wpx,hpx fontscale ptscale linewidth ptscale pointscale ptscale 
+         set terminal pngcairo size wpx,hpx fontscale ptscale/1.4 linewidth ptscale pointscale ptscale 
          
          colors = "blue red green brown black magenta orange purple sienna1 slategray tan1 yellow turquoise orchid khaki" 
- plot for [i=2:1] "core_network_on_select_latency.csv" u 1:i t columnhead lc rgb word(colors, i-1)
+ plot for [i=2:4] "core_network_on_select_latency.csv" u 1:i t columnhead lc rgb word(colors, i-1)

@@ -1,10 +1,11 @@
 set style data linespoints
 set term png
 set output 'open5gs_sysprocess_count.png'
+set key noenhanced
 set key top left
 set key autotitle columnhead
 set datafile separator ','
-set title "Top 6 active processes making syscall open5gs (by number of calls)"
+set title "open5gs: Top 6 active processes making syscall (by number of calls)"
 set grid xtics ytics mytics
 set xlabel "Number of UEs"
 set ylabel "Number of calls"
@@ -22,7 +23,7 @@ set ylabel "Number of calls"
          wpx = round(width * mm2px) 
          hpx = round(height * mm2px) 
          
-         set terminal pngcairo size wpx,hpx fontscale ptscale linewidth ptscale pointscale ptscale 
+         set terminal pngcairo size wpx,hpx fontscale ptscale/1.4 linewidth ptscale pointscale ptscale 
          
          colors = "blue red green brown black magenta orange purple sienna1 slategray tan1 yellow turquoise orchid khaki" 
  plot for [i=2:7] "open5gs_sysprocess_count.csv" u 1:i t columnhead lc rgb word(colors, i-1)
