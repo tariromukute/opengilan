@@ -3,7 +3,7 @@
   connection: local
 
   vars:
-    resource_group: openn6lan
+    resource_group: opengilan
     address_prefix: "10.0.0.0/16"
     vnet_name: olanVnet
     olan_prefix: olan
@@ -21,7 +21,7 @@
   - name: Create resource group
     azure_rm_resourcegroup:
       name: "{{ resource_group }}"
-      location: westeurope
+      location: southafricanorth
   - name: Create virtual network
     azure_rm_virtualnetwork:
       resource_group: "{{ resource_group }}"
