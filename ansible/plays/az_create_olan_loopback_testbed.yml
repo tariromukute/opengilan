@@ -26,7 +26,6 @@
     azure_rm_virtualnetwork:
       resource_group: "{{ resource_group }}"
       name: "{{ olan_prefix }}Vnet"
-      # address_prefixes: "{{ address_prefix }}"
       address_prefixes: [ "10.0.0.0/16", "2404:f800:8000:122::/63"]
   
   - name: Create a route table for traffic for clients 48.0.0.0/16 from Trex to Sut
@@ -50,7 +49,6 @@
     azure_rm_subnet:
       resource_group: "{{ resource_group }}"
       name: "{{ olan_prefix }}Subnet48"
-      # address_prefix: "10.0.2.0/24"
       address_prefixes: [ "10.0.2.0/24", "2404:f800:8000:122::/64" ]
       virtual_network: "{{ olan_prefix }}Vnet"
       route_table: "{{ olan_prefix }}RouteTable48"
@@ -59,7 +57,6 @@
     azure_rm_subnet:
       resource_group: "{{ resource_group }}"
       name: "{{ olan_prefix }}Subnet16"
-      # address_prefix: "10.0.3.0/24"
       address_prefixes: [ "10.0.3.0/24", "2404:f800:8000:123::/64" ]
       virtual_network: "{{ olan_prefix }}Vnet"
       route_table: "{{ olan_prefix }}RouteTable16"

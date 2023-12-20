@@ -1,0 +1,92 @@
+- name: Update packages
+  ansible.builtin.command: apt update -y
+  become: yes
+
+- name: Variables that are common across all OS types
+  include_vars: "{{ lookup('first_found', dependencies) }}"
+  vars:
+    dependencies:
+      files:
+        - common.yml
+      paths:
+        - 'vars'
+
+- name: Load a variable file based on the OS type, or a default if not found. Using free-form to specify the file.
+  include_vars: "{{ lookup('first_found', dependencies) }}"
+  vars:
+    dependencies:
+      files:
+        - "{{ ansible_facts['distribution'] }}.yml"
+        - default.yml
+      paths:
+        - 'vars'
+
+- name: Install build packages for OAI source code
+  ansible.builtin.package:
+    name: "{{ build_packages }}"
+    state: present
+  become: yes
+
+- name: Install mysql packages for OAI
+  ansible.builtin.package:
+    name: "{{ mysql }}"
+    state: present
+  become: yes
+
+- name: Clone the OAI AMF cn5g repository and checkout to {{ oai_version }}
+  ansible.builtin.git:
+    repo: 'https://gitlab.eurecom.fr/oai/cn5g/{{ item }}.git'
+    dest: /home/{{ user }}/{{ item }}
+    recursive: no
+    force: yes
+    version: " {{ oai_version }}"
+  loop:
+    - oai-cn5g-amf
+    - oai-cn5g-smf
+    - oai-cn5g-udr
+    - oai-cn5g-udm
+    - oai-cn5g-ausf
+    - oai-cn5g-nrf
+
+- name: Clone the OAI AMF cn5g SPGWU
+  ansible.builtin.git:
+    repo: 'https://github.com/OPENAIRINTERFACE/openair-spgwu-tiny.git'
+    dest: /home/{{ user }}/openair-spgwu-tiny
+    recursive: no
+    force: yes
+
+- name: Install dependencies for each NF
+  shell: ./build_{{ item }} --install-deps --force
+  args:
+    chdir: /home/{{ user }}/oai-cn5g-{{ item }}/build/scripts
+  become: yes
+  loop:
+    - amf
+    - smf
+    - udr
+    - udm
+    - ausf
+    - nrf
+
+- name: Install dependencies for NF SPGWU
+  shell: ./build_spgwu --install-deps --force
+  args:
+    chdir: /home/{{ user }}/openair-spgwu-tiny/build/scripts
+
+- name: Install OAI NF
+  shell: ./build_{{ item }} --clean --Verbose --build-type Release --jobs
+  args:
+    chdir: /home/{{ user }}/oai-cn5g-{{ item }}/build/scripts
+  become: yes
+  loop:
+    - amf
+    - smf
+    - udr
+    - udm
+    - ausf
+    - nrf
+
+- name: Install NF SPGWU
+  shell: ./build_spgwu --clean --Verbose --build-type Release --jobs
+  args:
+    chdir: /home/{{ user }}/openair-spgwu-tiny/build/scripts

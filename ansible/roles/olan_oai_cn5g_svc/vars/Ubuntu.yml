@@ -1,0 +1,8 @@
+build_packages:
+  - git
+  - build-essential
+  - wget
+  - python3-pip
+mysql:
+  - mysql-client
+  - mysql-server
