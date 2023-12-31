@@ -6,7 +6,7 @@ ip_addrs=(
 	"127.0.0.130 oai-nrf"
 	"127.0.0.132 oai-amf"
 	"127.0.0.133 oai-smf"
-	"127.0.0.134 oai-spgwu"
+	"127.0.0.134 oai-upf"
 	"127.0.0.135 oai-ext-dn"
 	"127.0.0.136 oai-udr"
 	"127.0.0.137 oai-udm"

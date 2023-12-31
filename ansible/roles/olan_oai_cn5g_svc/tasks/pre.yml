@@ -35,25 +35,25 @@
 
 - name: Clone the OAI AMF cn5g repository and checkout to {{ oai_version }}
   ansible.builtin.git:
-    repo: 'https://gitlab.eurecom.fr/oai/cn5g/{{ item }}.git'
-    dest: /home/{{ user }}/{{ item }}
+    repo: 'https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-{{ item }}.git'
+    dest: /home/{{ user }}/oai-cn5g-{{ item }}
     recursive: no
     force: yes
-    version: " {{ oai_version }}"
+    version: "{{ oai_version }}"
   loop:
-    - oai-cn5g-amf
-    - oai-cn5g-smf
-    - oai-cn5g-udr
-    - oai-cn5g-udm
-    - oai-cn5g-ausf
-    - oai-cn5g-nrf
+    - amf
+    - smf
+    - udr
+    - udm
+    - ausf
+    - nrf
+    - upf
 
-- name: Clone the OAI AMF cn5g SPGWU
-  ansible.builtin.git:
-    repo: 'https://github.com/OPENAIRINTERFACE/openair-spgwu-tiny.git'
-    dest: /home/{{ user }}/openair-spgwu-tiny
-    recursive: no
-    force: yes
+# TODO: remove this after build bug is fixed by OAI.
+- name: Copy mongo_db.cpp file to avoid build error for UDR v2.0.0
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/mongo_db.cpp"
+    dest: "/home/{{ user }}/oai-cn5g-udr/src/udr_app/mongo_db.cpp"
 
 - name: Install dependencies for each NF
   shell: ./build_{{ item }} --install-deps --force
@@ -67,11 +67,7 @@
     - udm
     - ausf
     - nrf
-
-- name: Install dependencies for NF SPGWU
-  shell: ./build_spgwu --install-deps --force
-  args:
-    chdir: /home/{{ user }}/openair-spgwu-tiny/build/scripts
+    - upf
 
 - name: Install OAI NF
   shell: ./build_{{ item }} --clean --Verbose --build-type Release --jobs
@@ -85,8 +81,4 @@
     - udm
     - ausf
     - nrf
-
-- name: Install NF SPGWU
-  shell: ./build_spgwu --clean --Verbose --build-type Release --jobs
-  args:
-    chdir: /home/{{ user }}/openair-spgwu-tiny/build/scripts
+    - upf
