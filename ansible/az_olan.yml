@@ -2,7 +2,7 @@
 # ansible-playbook ansible/az_olan.yml -i ansible/inventory.ini --extra-vars "ssh_key_data='$publickey' olan_prefix=olanxxx docker_username=xxxx docker_password=xxxx"
 # ansible-playbook ansible/plays/az_delete_olan.yml 
 
-
+# TODO: Make this conditional, with a flag or something on the command
 # - name: Include task list in play
 #   import_playbook: plays/az_create_olan_loopback_testbed.yml
 
@@ -34,15 +34,15 @@
 - hosts:
   - az_sut
   
-  tasks: 
-    - name: Copy the tools for bcc and bpftrace scripts
-      ansible.builtin.copy:
-        src: files/tools
-        dest: /home/ubuntu
-    - name: Make main.sh executable
-      ansible.builtin.file:
-        dest: /home/ubuntu/tools/main.sh
-        mode: a+x
+  # tasks: 
+  #   - name: Copy the tools for bcc and bpftrace scripts
+  #     ansible.builtin.copy:
+  #       src: files/tools
+  #       dest: /home/ubuntu
+  #   - name: Make main.sh executable
+  #     ansible.builtin.file:
+  #       dest: /home/ubuntu/tools/main.sh
+  #       mode: a+x
 
 
 # # Call the NF and install it using the lifecycle events
@@ -65,18 +65,33 @@
 - hosts:
   - az_sut
   roles:
-    - role: olan_oai_cn5g
-      user: ubuntu
-      eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
-      eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
-      eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
-      eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
+    - role: olan_oai_cn5g_svc
+      user: azureuser
+      oai_version: v2.0.0
+    #   eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
+    #   eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
+    #   eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
+    #   eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
+    # - role: olan_bcc
+    #   user: azureuser
 
-    - role: olan_bpftrace
-      user: ubuntu
+# TODO: Make user a paramater
+- hosts:
+  - az_trex
+  roles:
+    # - role: olan_oai_cn5g
+    #   user: azureuser
+    #   eth1_ip: "{{ hostvars['DUMMY_HOST']['trex_client48_nic_ip'] | default('10.0.2.4') }}"
+    #   eth1_gw: "{{ hostvars['DUMMY_HOST']['sut_client48_nic_ip'] | default('10.0.2.5') }}"
+    #   eth2_ip: "{{ hostvars['DUMMY_HOST']['trex_client16_nic_ip'] | default('10.0.3.4') }}"
+    #   eth2_gw: "{{ hostvars['DUMMY_HOST']['sut_client16_nic_ip'] | default('10.0.3.5') }}"
 
-    - role: olan_bcc
-      user: ubuntu
+    # - role: olan_bpftrace
+    #   user: ubuntu
+
+    # - role: olan_bcc
+    #   user: azureuser
+
 
 #Install ansible
 # - hosts:
@@ -126,21 +141,21 @@
 #         - [20]
 #         - [ "runqlat", "profile", "offcputime", "llcstat", "sys_enter_brk", "page_fault_user", "page_fault_kernel", "vfsstat", "vfssize", "filetop", "cachestat", "biolatency", "netsize", "nettxlat-dev", "soconnect", "skblife", "sormem", "softirqs_count", "softirqs_dist", "hardirqs", "tcpdump" ]
 
-- hosts:
-  - az_trex
-  - az_sut
-  tasks:
-    - name: Collect results
-      include: plays/open5gs.yml
-      vars:
-        user: ubuntu
-        duration: 25
-        aduration: 35 # duration before the app is forcefully stopped. Should include the 5 seconds wait time for gNB to set up
-        ues: "{{ item[0] }}"
-        tool: "{{ item[1] }}"
-        interval: 0
-      with_nested:
-        - [50, 100, 150, 200, 300 ]
+# - hosts:
+#   - az_trex
+#   - az_sut
+#   tasks:
+#     - name: Collect results
+#       include: plays/open5gs.yml
+#       vars:
+#         user: ubuntu
+#         duration: 25
+#         aduration: 35 # duration before the app is forcefully stopped. Should include the 5 seconds wait time for gNB to set up
+#         ues: "{{ item[0] }}"
+#         tool: "{{ item[1] }}"
+#         interval: 0
+#       with_nested:
+#         - [50, 100, 150, 200, 300 ]
 #         - [ "syscount", "sysprocess", "oncpudist", "offcpudist", "profile", "offcputime", "sys_enter_brk", "page_fault_user", 
 #             "page_fault_kernel", "drsnoop", "ext4dist", "filetop", "cachestat", "cachetop", "biolatency", "biotop", "bitesize",
 #             "iosched", "softirqs_count", "softirqs_dist", "hardirqs_count", "hardirqs_dist", "tcplife", "tcpconnlat", "netsize", "skblife"]
