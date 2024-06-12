@@ -123,6 +123,19 @@ docker build --target oai-udr --tag tariromukute/oai-udr:v1.4.0 \
 docker image push tariromukute/oai-udr:v1.4.0
 docker image tag tariromukute/oai-udr:v1.4.0 oai-udr:v1.4.0
 
+# Build UPF
+docker build --target oai-upf --tag tariromukute/oai-cn5g-upf:develop \
+               --file docker/Dockerfile.upf.ubuntu \
+               --build-arg BASE_IMAGE=ubuntu:bionic \
+               .
+
+docker build --network=host --target oai-upf --tag tariromukute/oai-upf:develop \
+               --file component/oai-upf/docker/Dockerfile.upf.ubuntu \
+               component/oai-upf
+
+docker image push tariromukute/oai-spgwu-tiny:v1.4.0
+docker image tag tariromukute/oai-spgwu-tiny:v1.4.0 oai-spgwu-tiny:v1.4.0
+
 # Build VPP (skipped)
 docker build --target oai-upf-vpp --tag tariromukute/oai-upf-vpp:v1.4.0 \
                --file component/oai-upf-vpp/docker/Dockerfile.upf-vpp.ubuntu \
@@ -522,3 +535,19 @@ src/app.py -t 20 -i 0 -n 1 -f /tmp/core-tg -u src/config/oai-cn5g-ue.yaml -g src
 ```
 
 
+After much headache I found the answer. Could not resolve 'archive.ubuntu.com' can be fixed by making the following changes:
+
+Uncomment the following line in /etc/default/docker
+DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4"
+
+Restart the Docker service sudo service docker restart
+
+Delete any images which have cached the invalid DNS settings.
+
+Build again and the problem should be solved.
+
+## Simulate PCFP with UPF
+
+```bash
+docker run -d --name oai-upf -p 2152:2152 -p 8805:8805 -p 8080:8080 --net=demo-oai oai-upf:develop
+```

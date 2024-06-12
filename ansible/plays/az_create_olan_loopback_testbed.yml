@@ -190,6 +190,7 @@
       resource_group: "{{ resource_group }}"
       name: "{{ olan_prefix }}TrexVM"
       vm_size: Standard_D8d_v4
+      # vm_size: Standard_D4d_v4
       admin_username: "{{ olan_username }}"
       ssh_password_enabled: false
       ssh_public_keys:
@@ -210,6 +211,7 @@
       resource_group: "{{ resource_group }}"
       name: "{{ olan_prefix }}SutVM"
       vm_size: Standard_D8d_v4
+      # vm_size: Standard_D4d_v4
       admin_username: "{{ olan_username }}"
       ssh_password_enabled: false
       ssh_public_keys:
